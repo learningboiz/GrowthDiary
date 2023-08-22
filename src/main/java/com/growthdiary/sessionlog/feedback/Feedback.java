@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.Feedback;
+package com.growthdiary.sessionlog.feedback;
 
 public class Feedback {
 
