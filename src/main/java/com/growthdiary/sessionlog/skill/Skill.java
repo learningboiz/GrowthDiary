@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.skill;
 
 public class Skill {
-    private long id;
+    private Long id;
     private String topic;
     private String category;
 

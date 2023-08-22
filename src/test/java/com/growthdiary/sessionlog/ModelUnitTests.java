@@ -3,7 +3,6 @@ package com.growthdiary.sessionlog;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.session.Session;
 import com.growthdiary.sessionlog.skill.Skill;
-import com.growthdiary.sessionlog.studymaterials.StudyMaterials;
 
 import java.time.*;
 
@@ -48,16 +47,6 @@ public class ModelUnitTests {
     }
 
     @Test
-    public void sanityStudyTests() {
-
-        StudyMaterials test = new StudyMaterials();
-        String materials = "Odin Project";
-        test.setMaterials(materials);
-
-        assertEquals(materials, test.getMaterials());
-    }
-
-    @Test
     public void sanitySessionTests() {
 
         Session test = new Session();
@@ -76,15 +65,12 @@ public class ModelUnitTests {
 
         Skill testSkill = new Skill();
         Feedback testFeedback = new Feedback();
-        StudyMaterials testStudyMaterials = new StudyMaterials();
 
         test.setSkill(testSkill);
         test.setFeedback(testFeedback);
-        test.setStudyMaterials(testStudyMaterials);
 
         assertEquals(testSkill, test.getSkill());
         assertEquals(testFeedback, test.getFeedback());
-        assertEquals(testStudyMaterials, test.getStudyMaterials());
     }
 
 }
