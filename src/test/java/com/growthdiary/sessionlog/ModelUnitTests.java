@@ -1,7 +1,12 @@
 package com.growthdiary.sessionlog;
 
 import com.growthdiary.sessionlog.feedback.Feedback;
+import com.growthdiary.sessionlog.session.Session;
 import com.growthdiary.sessionlog.skill.Skill;
+import com.growthdiary.sessionlog.studymaterials.StudyMaterials;
+
+import java.time.*;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class ModelUnitTests {
@@ -40,6 +45,46 @@ public class ModelUnitTests {
 
         test.setEmotions("Happy");
         assertNotEquals(testEmotion, test.getEmotions());
+    }
+
+    @Test
+    public void sanityStudyTests() {
+
+        StudyMaterials test = new StudyMaterials();
+        String materials = "Odin Project";
+        test.setMaterials(materials);
+
+        assertEquals(materials, test.getMaterials());
+    }
+
+    @Test
+    public void sanitySessionTests() {
+
+        Session test = new Session();
+
+        LocalDate testDate = LocalDate.now();
+        LocalTime testStartTime = LocalTime.now();
+        LocalTime testEndTime = LocalTime.now();
+
+        test.setDate(testDate);
+        test.setStartTime(testStartTime);
+        test.setEndTime(testEndTime);
+
+        assertEquals(testDate, test.getDate());
+        assertEquals(testStartTime, test.getStartTime());
+        assertEquals(testEndTime, test.getEndTime());
+
+        Skill testSkill = new Skill();
+        Feedback testFeedback = new Feedback();
+        StudyMaterials testStudyMaterials = new StudyMaterials();
+
+        test.setSkill(testSkill);
+        test.setFeedback(testFeedback);
+        test.setStudyMaterials(testStudyMaterials);
+
+        assertEquals(testSkill, test.getSkill());
+        assertEquals(testFeedback, test.getFeedback());
+        assertEquals(testStudyMaterials, test.getStudyMaterials());
     }
 
 }
