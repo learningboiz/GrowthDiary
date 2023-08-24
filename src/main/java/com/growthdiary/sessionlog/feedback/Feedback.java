@@ -1,7 +1,15 @@
 package com.growthdiary.sessionlog.feedback;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Feedback {
 
+    @Id
+    @GeneratedValue(strategy =GenerationType.AUTO)
     private Long id;
     private Integer productivity;
     private String distractions;

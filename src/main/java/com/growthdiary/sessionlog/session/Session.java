@@ -2,18 +2,25 @@ package com.growthdiary.sessionlog.session;
 
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.skill.Skill;
+import jakarta.persistence.*;
 
 import java.time.*;
 
+@Entity
 public class Session {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
 
+    @ManyToOne
+    @JoinColumn(name="skill_id")
     private Skill skill;
+    @OneToOne(mappedBy ="session")
     private Feedback feedback;
 
     public Session() {
