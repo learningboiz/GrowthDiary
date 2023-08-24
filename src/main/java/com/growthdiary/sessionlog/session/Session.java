@@ -18,9 +18,11 @@ public class Session {
     private LocalTime endTime;
 
     @ManyToOne
-    @JoinColumn(name="skill_id")
+    @JoinColumn(name = "skill_id")
     private Skill skill;
-    @OneToOne(mappedBy ="session")
+
+    @OneToOne
+    @JoinColumn(name = "feedback_id")
     private Feedback feedback;
 
     public Session() {
