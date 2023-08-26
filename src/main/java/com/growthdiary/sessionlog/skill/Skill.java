@@ -2,6 +2,7 @@ package com.growthdiary.sessionlog.skill;
 
 import com.growthdiary.sessionlog.session.Session;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.*;
 
@@ -12,7 +13,9 @@ public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
     private String topic;
+    @NotBlank(message = "Category must be filled in")
     private String category;
 
     public Skill() {
