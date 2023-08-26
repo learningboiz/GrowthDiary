@@ -21,7 +21,8 @@ public class SessionController {
     }
 
     @PostMapping("/session")
-    public ResponseEntity<Session> session(@RequestParam LocalDate date,
+    public ResponseEntity<Session> session(@RequestParam LocalDate startDate,
+                                           @RequestParam LocalDate endDate,
                                            @RequestParam LocalTime startTime,
                                            @RequestParam LocalTime endTime,
                                            @RequestParam String topic,
@@ -30,7 +31,9 @@ public class SessionController {
                                            @RequestParam String distraction,
                                            @RequestParam String emotion)
     {
-        Session session = sessionService.createSession(date,
+        Session session = sessionService.createSession(
+                startDate,
+                endDate,
                 startTime,
                 endTime,
                 topic,

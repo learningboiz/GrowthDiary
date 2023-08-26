@@ -3,6 +3,7 @@ package com.growthdiary.sessionlog.session;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.skill.Skill;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.time.*;
 
@@ -13,7 +14,9 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDate date;
+    private LocalDate startDate;
+
+    private LocalDate endDate;
     private LocalTime startTime;
     private LocalTime endTime;
 
@@ -29,8 +32,12 @@ public class Session {
     }
 
     // Setters
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public void setStartTime(LocalTime startTime) {
@@ -50,8 +57,12 @@ public class Session {
     }
 
     // Getters
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     public LocalTime getStartTime() {

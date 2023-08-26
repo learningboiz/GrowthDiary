@@ -29,7 +29,8 @@ public class SessionService {
 
     }
 
-    public Session createSession(LocalDate date,
+    public Session createSession(LocalDate startDate,
+                                 LocalDate endDate,
                                  LocalTime startTime,
                                  LocalTime endTime,
                                  String topic,
@@ -42,7 +43,8 @@ public class SessionService {
         Feedback feedback = feedbackService.createFeedback(rating, distraction, emotion);
 
         Session session = new Session();
-        session.setDate(date);
+        session.setStartDate(startDate);
+        session.setEndDate(endDate);
         session.setStartTime(startTime);
         session.setEndTime(endTime);
         session.setSkill(skill);
