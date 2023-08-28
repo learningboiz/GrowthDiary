@@ -6,7 +6,12 @@ import com.growthdiary.sessionlog.feedback.FeedbackService;
 import com.growthdiary.sessionlog.skill.Skill;
 import com.growthdiary.sessionlog.skill.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,8 +26,7 @@ public class SessionService {
     @Autowired
     public SessionService(SessionRepository sessionRepository,
                           FeedbackService feedbackService,
-                          SkillService skillService)
-    {
+                          SkillService skillService) {
         this.sessionRepository = sessionRepository;
         this.feedbackService = feedbackService;
         this.skillService = skillService;
@@ -37,8 +41,7 @@ public class SessionService {
                                  String category,
                                  Integer rating,
                                  String distraction,
-                                 String emotion)
-    {
+                                 String emotion) {
         Skill skill = skillService.createSkill(topic, category);
         Feedback feedback = feedbackService.createFeedback(rating, distraction, emotion);
 
@@ -54,4 +57,5 @@ public class SessionService {
 
         return session;
     }
+
 }
