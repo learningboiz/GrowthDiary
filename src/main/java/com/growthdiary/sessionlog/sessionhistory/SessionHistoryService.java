@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.sessionlog;
+package com.growthdiary.sessionlog.sessionhistory;
 
 import com.growthdiary.sessionlog.session.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +9,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SessionLogService {
+public class SessionHistoryService {
 
     private final SessionRepository sessionRepository;
 
     @Autowired
-    public SessionLogService(SessionRepository sessionRepository) {
+    public SessionHistoryService(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 
