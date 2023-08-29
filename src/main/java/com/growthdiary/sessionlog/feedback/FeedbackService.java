@@ -13,6 +13,13 @@ public class FeedbackService {
         this.feedbackRepository = feedbackRepository;
     }
 
+    /** Creates a Feedback object instance to be injected into the Session object
+     *
+     * @param rating a productivity rating on a given scale (tentatively 1 - 5)
+     * @param distraction a key distraction that occurred during the session
+     * @param emotion an emotion that describes how user felt about the session
+     * @return a feedback object
+     */
     public Feedback createFeedback(Integer rating,
                                    String distraction,
                                    String emotion)
