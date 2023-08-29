@@ -40,8 +40,16 @@ public class WebMockTest {
     }
 
     @Test
-    public void testSessionHistory() throws Exception {
+    public void testDefaultHistory() throws Exception {
         mockMvc.perform(get("/history"))
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
+    public void testCustomHistory() throws Exception {
+        mockMvc.perform(get("/history/custom")
+                        .param("currentPage", "0")
+                        .param("numItems", "10"))
                 .andExpect(status().isAccepted());
     }
 
