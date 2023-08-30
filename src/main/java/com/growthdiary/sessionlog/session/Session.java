@@ -3,9 +3,10 @@ package com.growthdiary.sessionlog.session;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.skill.Skill;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 
 @Entity
 public class Session {
@@ -14,11 +15,9 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDate startDate;
+    private LocalDateTime startPeriod;
 
-    private LocalDate endDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalDateTime endPeriod;
 
     @ManyToOne
     @JoinColumn(name = "skill_id")
@@ -32,21 +31,9 @@ public class Session {
     }
 
     // Setters
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+    public void setStartPeriod(LocalDateTime startPeriod) {this.startPeriod = startPeriod;}
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
+    public void setEndPeriod(LocalDateTime endPeriod) {this.endPeriod = endPeriod;}
 
     public void setSkill(Skill skill) {
         this.skill = skill;
@@ -57,21 +44,9 @@ public class Session {
     }
 
     // Getters
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+    public LocalDateTime getStartPeriod() {return startPeriod;}
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
+    public LocalDateTime getEndPeriod() {return endPeriod;}
 
     public Skill getSkill() {
         return skill;
@@ -79,5 +54,9 @@ public class Session {
 
     public Feedback getFeedback() {
         return feedback;
+    }
+
+    public long getSessionDuration(LocalDateTime start, LocalDateTime end) {
+        return ChronoUnit.MINUTES.between(start, end);
     }
 }
