@@ -9,6 +9,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,11 +31,13 @@ public class WebMockTest {
 
     @Test
     public void testCreateSession() throws Exception {
+
+        LocalDateTime testStart = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        LocalDateTime testEnd = testStart.plus(2, ChronoUnit.HOURS);
+        
         mockMvc.perform(post("/session")
-                        .param("startDate", "2023-08-26")
-                        .param("endDate", "2023-08-26")
-                        .param("startTime", "10:00:00")
-                        .param("endTime", "12:00:00")
+                        .param("startPeriod", String.valueOf(testStart))
+                        .param("endPeriod", String.valueOf(testEnd))
                         .param("topic", "Test Topic")
                         .param("category", "Test Category")
                         .param("rating", "4")
@@ -39,15 +46,17 @@ public class WebMockTest {
                 .andExpect(status().isCreated());
     }
 
+    /** Tests SessionHistory default view */
     @Test
     public void testDefaultHistory() throws Exception {
         mockMvc.perform(get("/history"))
                 .andExpect(status().isAccepted());
     }
 
+    /** Tests SessionHistory view with custom values */
     @Test
     public void testCustomHistory() throws Exception {
-        mockMvc.perform(get("/history/custom")
+        mockMvc.perform(get("/history")
                         .param("currentPage", "0")
                         .param("numItems", "10"))
                 .andExpect(status().isAccepted());
