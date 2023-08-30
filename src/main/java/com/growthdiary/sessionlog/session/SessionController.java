@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @RestController
@@ -23,10 +24,8 @@ public class SessionController {
     }
 
     @PostMapping("/session")
-    public ResponseEntity<Session> session(@RequestParam LocalDate startDate,
-                                           @RequestParam LocalDate endDate,
-                                           @RequestParam LocalTime startTime,
-                                           @RequestParam LocalTime endTime,
+    public ResponseEntity<Session> session(@RequestParam LocalDateTime startPeriod,
+                                           @RequestParam LocalDateTime endPeriod,
                                            @RequestParam String topic,
                                            @RequestParam String category,
                                            @RequestParam Integer rating,
@@ -34,10 +33,8 @@ public class SessionController {
                                            @RequestParam String emotion)
     {
         Session session = sessionService.createSession(
-                startDate,
-                endDate,
-                startTime,
-                endTime,
+                startPeriod,
+                endPeriod,
                 topic,
                 category,
                 rating,
