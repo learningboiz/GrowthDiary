@@ -8,17 +8,22 @@ public class FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
 
+    /** Inject the feedbackRepository bean into the Spring context since only one instance is required
+     *
+     * The bean instance will be solely responsible for interactions with the database
+     * @param  feedbackRepository bean instance of the feedbackRepository injected by Spring
+     */
     @Autowired
     public FeedbackService(FeedbackRepository feedbackRepository) {
         this.feedbackRepository = feedbackRepository;
     }
 
-    /** Creates a Feedback object instance to be injected into the Session object
+    /** Creates a Feedback object and saves the data into the database
      *
-     * @param rating a productivity rating on a given scale (tentatively 1 - 5)
-     * @param distraction a key distraction that occurred during the session
-     * @param emotion an emotion that describes how user felt about the session
-     * @return a feedback object
+     * @param rating a rating of session productivity level on a scale of 1 to 5
+     * @param distraction the most common distraction encountered during the session
+     * @param emotion an emotion to best describe how the session went
+     * @return a Feedback object to be included when creating a Session Object
      */
     public Feedback createFeedback(Integer rating,
                                    String distraction,

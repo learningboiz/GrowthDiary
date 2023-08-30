@@ -13,23 +13,22 @@ public class SessionHistoryService {
 
     private final SessionRepository sessionRepository;
 
+    /** Inject the sessionRepository bean into the Spring context since only one instance is required
+     *
+     * The bean instance will be solely responsible for interactions with the database
+     */
     @Autowired
     public SessionHistoryService(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 
-
-    /** The default view will present the first 10 sessions of the user's log */
-    public Page<Session> defaultDisplay() {
-        int currentPage = 0;
-        int numItems = 10;
-        String initialSort = "startDate";
-        Pageable defaultPage = PageRequest.of(currentPage, numItems, Sort.by(initialSort));
-        return sessionRepository.findAll(defaultPage);
-    }
-
-    /** The custom view will present 10, 20 or 30 sessions of the user's log */
-    public Page<Session> customDisplay(int currentPage, int numItems) {
+    /** Creates an object to display user's session history by retrieving specified data from database
+     *
+     * @param currentPage the current page to be displayed
+     * @param numItems the number of sessions to be displayed within the specified page
+     * @return Page object with specified portion of session history
+     */
+    public Page<Session> getSessionHistory(int currentPage, int numItems) {
         Pageable customPage = PageRequest.of(currentPage, numItems);
         return sessionRepository.findAll(customPage);
     }
