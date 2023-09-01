@@ -19,6 +19,8 @@ public class Session {
 
     private LocalDateTime endPeriod;
 
+    private Long duration;
+
     @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
@@ -43,6 +45,15 @@ public class Session {
         this.feedback = feedback;
     }
 
+    /** Sets session duration in minutes */
+    public void setSessionDuration(LocalDateTime start, LocalDateTime end) {
+        this.duration = ChronoUnit.MINUTES.between(start, end);
+    }
+
+    public Long getSessionDuration() {
+        return this.duration;
+    }
+
     // Getters
     public LocalDateTime getStartPeriod() {return startPeriod;}
 
@@ -56,7 +67,4 @@ public class Session {
         return feedback;
     }
 
-    public long getSessionDuration(LocalDateTime start, LocalDateTime end) {
-        return ChronoUnit.MINUTES.between(start, end);
-    }
 }
