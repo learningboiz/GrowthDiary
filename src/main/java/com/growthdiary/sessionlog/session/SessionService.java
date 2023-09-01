@@ -60,6 +60,7 @@ public class SessionService {
         Session session = new Session();
         session.setStartPeriod(startPeriod);
         session.setEndPeriod(endPeriod);
+        session.setSessionDuration(startPeriod, endPeriod);
         session.setSkill(skill);
         session.setFeedback(feedback);
 
