@@ -27,8 +27,8 @@ public class SessionLogUnitTests {
         LocalTime endTime = LocalTime.now().plusMinutes(40);
 
         SessionTime test = new SessionTime();
-        test.setStartDate(firstDate);
-        test.setEndDate(lastDate);
+        test.setFirstDate(firstDate);
+        test.setLastDate(lastDate);
         test.setStartTime(startTime);
         test.setEndTime(endTime);
 
