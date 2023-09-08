@@ -3,36 +3,35 @@ package com.growthdiary.sessionlog.feedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Main service that takes in user input to create feedback object
+ */
 @Service
 public class FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
 
-    /** Inject the feedbackRepository bean into the Spring context since only one instance is required
-     *
-     * The bean instance will be solely responsible for interactions with the database
-     * @param  feedbackRepository bean instance of the feedbackRepository injected by Spring
+    /**
+     * Dependency injection of repo since only one instance is required to communicate with database
+     * @param feedbackRepository bean instance of the feedbackRepository injected by Spring
      */
     @Autowired
     public FeedbackService(FeedbackRepository feedbackRepository) {
         this.feedbackRepository = feedbackRepository;
     }
 
-    /** Creates a Feedback object and saves the data into the database
-     *
+    /**
+     * Take in user input to create a Feedback object and persist it into the database
      * @param rating a rating of session productivity level on a scale of 1 to 5
      * @param distraction the most common distraction encountered during the session
-     * @param emotion an emotion to best describe how the session went
-     * @return a Feedback object to be included when creating a Session Object
+     * @return a Feedback object
      */
     public Feedback createFeedback(Integer rating,
-                                   String distraction,
-                                   String emotion)
+                                   String distraction)
     {
         Feedback feedback = new Feedback();
         feedback.setProductivity(rating);
-        feedback.setDistractions(distraction);
-        feedback.setEmotions(emotion);
+        feedback.setDistraction(distraction);
         feedbackRepository.save(feedback);
 
         return feedback;
