@@ -31,11 +31,11 @@ public class SessionTime {
     public SessionTime() {
     }
 
-    public void setStartDate(LocalDate firstDate) {
+    public void setFirstDate(LocalDate firstDate) {
         this.firstDate = firstDate;
     }
 
-    public void setEndDate(LocalDate lastDate) {
+    public void setLastDate(LocalDate lastDate) {
         this.lastDate = lastDate;
     }
 
