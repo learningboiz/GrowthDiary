@@ -2,6 +2,9 @@ package com.growthdiary.sessionlog.feedback;
 
 import jakarta.persistence.*;
 
+/**
+ * Main entity to represent user feedback on how their session went
+ */
 @Entity
 public class Feedback {
 
@@ -12,34 +15,24 @@ public class Feedback {
 
     private Integer productivity;
 
-    private String distractions;
-
-    private String emotions;
+    private String distraction;
 
     public Feedback() {
     }
 
-    public void setProductivity(Integer rating) {
-        this.productivity = rating;
+    public void setProductivity(Integer productivityRating) {
+        this.productivity = productivityRating;
     }
 
     public Integer getProductivity() {
         return this.productivity;
     }
 
-    public void setDistractions(String factors) {
-        this.distractions = factors;
+    public void setDistraction(String keyDistraction) {
+        this.distraction = keyDistraction;
     }
 
-    public String getDistractions() {
-        return this.distractions;
-    }
-
-    public void setEmotions(String emotion) {
-        this.emotions = emotion;
-    }
-
-    public String getEmotions() {
-        return this.emotions;
+    public String getDistraction() {
+        return this.distraction;
     }
 }
