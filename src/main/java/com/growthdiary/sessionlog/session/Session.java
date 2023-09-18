@@ -1,13 +1,12 @@
 package com.growthdiary.sessionlog.session;
 
 import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.skill.Skill;
+import com.growthdiary.sessionlog.sessiontime.SessionTime;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
-
+/**
+ * Main entity to represent a user learning session
+ */
 @Entity
 public class Session {
 
@@ -15,56 +14,50 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDateTime startPeriod;
+    private String skill;
 
-    private LocalDateTime endPeriod;
-
-    private Long duration;
-
-    @ManyToOne
-    @JoinColumn(name = "skill_id")
-    private Skill skill;
+    private String description;
 
     @OneToOne
+    @JoinColumn(name = "time_id")
+    private SessionTime sessionTime;
+
+    @ManyToOne
     @JoinColumn(name = "feedback_id")
     private Feedback feedback;
 
     public Session() {
     }
 
-    // Setters
-    public void setStartPeriod(LocalDateTime startPeriod) {this.startPeriod = startPeriod;}
-
-    public void setEndPeriod(LocalDateTime endPeriod) {this.endPeriod = endPeriod;}
-
-    public void setSkill(Skill skill) {
+    public void setSkill(String skill) {
         this.skill = skill;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSessionTime(SessionTime sessionTime) {
+        this.sessionTime = sessionTime;
     }
 
     public void setFeedback(Feedback feedback) {
         this.feedback = feedback;
     }
 
-    /** Sets session duration in minutes */
-    public void setSessionDuration(LocalDateTime start, LocalDateTime end) {
-        this.duration = ChronoUnit.MINUTES.between(start, end);
+    public String getSkill() {
+        return this.skill;
     }
 
-    public Long getSessionDuration() {
-        return this.duration;
+    public String getDescription() {
+        return this.description;
     }
 
-    // Getters
-    public LocalDateTime getStartPeriod() {return startPeriod;}
-
-    public LocalDateTime getEndPeriod() {return endPeriod;}
-
-    public Skill getSkill() {
-        return skill;
+    public SessionTime getSessionTime() {
+        return this.sessionTime;
     }
 
     public Feedback getFeedback() {
-        return feedback;
+        return this.feedback;
     }
-
 }
