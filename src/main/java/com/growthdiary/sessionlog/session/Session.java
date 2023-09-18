@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.session;
 
 import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.sessiontime.SessionTime;
+import com.growthdiary.sessionlog.time.Time;
 import jakarta.persistence.*;
 
 /**
@@ -20,7 +20,7 @@ public class Session {
 
     @OneToOne
     @JoinColumn(name = "time_id")
-    private SessionTime sessionTime;
+    private Time time;
 
     @ManyToOne
     @JoinColumn(name = "feedback_id")
@@ -37,8 +37,8 @@ public class Session {
         this.description = description;
     }
 
-    public void setSessionTime(SessionTime sessionTime) {
-        this.sessionTime = sessionTime;
+    public void setSessionTime(Time time) {
+        this.time = time;
     }
 
     public void setFeedback(Feedback feedback) {
@@ -53,8 +53,8 @@ public class Session {
         return this.description;
     }
 
-    public SessionTime getSessionTime() {
-        return this.sessionTime;
+    public Time getTime() {
+        return this.time;
     }
 
     public Feedback getFeedback() {
