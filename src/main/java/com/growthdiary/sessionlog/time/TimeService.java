@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.sessiontime;
+package com.growthdiary.sessionlog.time;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import java.time.LocalTime;
  * Main service to handle the creation and management of session time details
  */
 @Service
-public class SessionTimeService {
+public class TimeService {
 
-    private final SessionTimeRepository sessionTimeRepository;
+    private final TimeRepository sessionTimeRepository;
 
     @Autowired
-    public SessionTimeService(SessionTimeRepository sessionTimeRepository) {
+    public TimeService(TimeRepository sessionTimeRepository) {
         this.sessionTimeRepository = sessionTimeRepository;
     }
 
@@ -27,12 +27,12 @@ public class SessionTimeService {
      * @param endTime time that user session ended
      * @return SessionTime object
      */
-    public SessionTime createTime(LocalDate firstDate,
-                                  LocalDate lastDate,
-                                  LocalTime startTime,
-                                  LocalTime endTime) {
+    public Time createTime(LocalDate firstDate,
+                           LocalDate lastDate,
+                           LocalTime startTime,
+                           LocalTime endTime) {
 
-        SessionTime sessionTime = new SessionTime();
+        Time sessionTime = new Time();
 
         sessionTime.setFirstDate(firstDate);
         sessionTime.setLastDate(lastDate);

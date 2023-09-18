@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.sessiontime;
+package com.growthdiary.sessionlog.time;
 
 import jakarta.persistence.*;
 
@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
  * Main entity to represent the dates, timing and duration of a session
  */
 @Entity
-public class SessionTime {
+public class Time {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,7 @@ public class SessionTime {
 
     private Long duration;
 
-    public SessionTime() {
+    public Time() {
     }
 
     public void setFirstDate(LocalDate firstDate) {

@@ -1,8 +1,8 @@
-package com.growthdiary.sessionlog.sessiontime;
+package com.growthdiary.sessionlog.time;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SessionTimeRepository extends CrudRepository<SessionTime, Long> {
+public interface TimeRepository extends CrudRepository<Time, Long> {
 }
