@@ -21,21 +21,21 @@ public class TimeService {
 
     /**
      * Takes in user input to create a SessionTime object
-     * @param firstDate the first day of the user session
-     * @param lastDate the last day of the user session
+     * @param startDate the first day of the user session
+     * @param endDate the last day of the user session
      * @param startTime time that user session started
      * @param endTime time that user session ended
      * @return SessionTime object
      */
-    public Time createTime(LocalDate firstDate,
-                           LocalDate lastDate,
+    public Time createTime(LocalDate startDate,
+                           LocalDate endDate,
                            LocalTime startTime,
                            LocalTime endTime) {
 
         Time sessionTime = new Time();
 
-        sessionTime.setFirstDate(firstDate);
-        sessionTime.setLastDate(lastDate);
+        sessionTime.setStartDate(startDate);
+        sessionTime.setEndDate(endDate);
         sessionTime.setStartTime(startTime);
         sessionTime.setEndTime(endTime);
 
