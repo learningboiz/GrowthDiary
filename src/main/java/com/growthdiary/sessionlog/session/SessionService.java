@@ -1,5 +1,6 @@
 package com.growthdiary.sessionlog.session;
 
+import com.growthdiary.sessionlog.details.Details;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.time.Time;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +22,20 @@ public class SessionService {
     }
 
     /**
-     * Takes user input to create a Session object to be saved into the database
-     * @param skill The name of the skill user is working on
-     * @param description Specifics of how user is learning that skill
-     * @param time Start, end and duration of the session
-     * @param feedback Feedback for the learning session
+     * Take in a sessionDTO input and creates a Session object
+     * @param sessionDTO SessionDTO that wraps the details, time and feedback objects
      * @return Session object
      */
-    public Session createSession(String skill,
-                                 String description,
-                                 Time time,
-                                 Feedback feedback) {
+    public Session createSession(SessionDTO sessionDTO) {
 
         Session session = new Session();
-        session.setSkill(skill);
-        session.setDescription(description);
-        session.setSessionTime(time);
-        session.setFeedback(feedback);
-
-        sessionRepository.save(session);
-
+        session.setDetails(sessionDTO.getDetails());
+        session.setTime(sessionDTO.getTime());
+        session.setFeedback(sessionDTO.getFeedback());
         return session;
+    }
+
+    public void saveSession(Session session) {
+        sessionRepository.save(session);
     }
 }
