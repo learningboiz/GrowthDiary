@@ -22,10 +22,7 @@ public class DetailsService {
      * @return Details object
      */
     public Details createDetails(String skill, String description) {
-        Details details = new Details();
-        details.setSkill(skill);
-        details.setDescription(description);
-        return details;
+        return new Details(skill, description);
     }
 
     /**

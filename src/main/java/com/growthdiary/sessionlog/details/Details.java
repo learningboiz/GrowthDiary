@@ -15,6 +15,11 @@ public class Details {
 
     private String description;
 
+    public Details(String skill, String description) {
+        this.skill = skill;
+        this.description = description;
+    }
+
     public void setSkill(String skill) {
         this.skill = skill;
     }
