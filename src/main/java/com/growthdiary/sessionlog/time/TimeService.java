@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -20,28 +21,14 @@ public class TimeService {
     }
 
     /**
-     * Takes in user input to create a SessionTime object
-     * @param startDate the first day of the user session
-     * @param endDate the last day of the user session
-     * @param startTime time that user session started
-     * @param endTime time that user session ended
-     * @return SessionTime object
+     * Creates a Time object based on user input
+     * @param startPeriod Date and time at which session was started
+     * @param endPeriod Date and time at which session was ended
+     * @return Time object
      */
-    public Time createTime(LocalDate startDate,
-                           LocalDate endDate,
-                           LocalTime startTime,
-                           LocalTime endTime) {
+    public Time createTime(LocalDateTime startPeriod, LocalDateTime endPeriod) {
 
-        Time sessionTime = new Time();
-
-        sessionTime.setStartDate(startDate);
-        sessionTime.setEndDate(endDate);
-        sessionTime.setStartTime(startTime);
-        sessionTime.setEndTime(endTime);
-
-        Long duration = sessionTime.calculateDuration();
-        sessionTime.setDuration(duration);
-
+        Time sessionTime = new Time(startPeriod, endPeriod);
         return sessionTime;
     }
 

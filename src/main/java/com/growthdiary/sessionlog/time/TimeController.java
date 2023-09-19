@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/session")
@@ -27,11 +26,9 @@ public class TimeController {
      * @return Time object
      */
     @PostMapping("/time")
-    public ResponseEntity<Time> totalTime(@RequestParam LocalDate startDate,
-                                          @RequestParam LocalDate endDate,
-                                          @RequestParam LocalTime startTime,
-                                          @RequestParam LocalTime endTime) {
-        Time time = timeService.createTime(startDate, endDate, startTime, endTime);
+    public ResponseEntity<Time> totalTime(@RequestParam LocalDateTime startPeriod,
+                                          @RequestParam LocalDateTime endPeriod) {
+        Time time = timeService.createTime(startPeriod, endPeriod);
         return new ResponseEntity<>(time, HttpStatus.CREATED);
     }
 }

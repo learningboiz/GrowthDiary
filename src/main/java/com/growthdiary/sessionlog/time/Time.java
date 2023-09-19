@@ -28,7 +28,14 @@ public class Time {
 
     private Long duration;
 
-    public Time() {
+    public Time(LocalDateTime startPeriod, LocalDateTime endPeriod) {
+        this.startDate = startPeriod.toLocalDate();
+        this.endDate = endPeriod.toLocalDate();
+
+        this.startTime = startPeriod.toLocalTime();
+        this.endTime = endPeriod.toLocalTime();
+
+        this.duration = calculateDuration(startPeriod, endPeriod);
     }
 
     public void setStartDate(LocalDate startDate) {
@@ -75,10 +82,7 @@ public class Time {
      * Calculates how long a user spent on a session
      * @return Long object representing the session duration in minutes
      */
-    public Long calculateDuration() {
-        LocalDateTime start = LocalDateTime.of(this.startDate, this.startTime);
-        LocalDateTime end = LocalDateTime.of(this.endDate, this.endTime);
-
-        return ChronoUnit.MINUTES.between(start, end);
+    public Long calculateDuration(LocalDateTime startPeriod, LocalDateTime endPeriod) {
+        return ChronoUnit.MINUTES.between(startPeriod, endPeriod);
     }
 }
