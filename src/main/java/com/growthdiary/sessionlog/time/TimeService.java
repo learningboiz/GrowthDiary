@@ -12,11 +12,11 @@ import java.time.LocalTime;
 @Service
 public class TimeService {
 
-    private final TimeRepository sessionTimeRepository;
+    private final TimeRepository timeRepository;
 
     @Autowired
-    public TimeService(TimeRepository sessionTimeRepository) {
-        this.sessionTimeRepository = sessionTimeRepository;
+    public TimeService(TimeRepository timeRepository) {
+        this.timeRepository = timeRepository;
     }
 
     /**
@@ -42,7 +42,14 @@ public class TimeService {
         Long duration = sessionTime.calculateDuration();
         sessionTime.setDuration(duration);
 
-        sessionTimeRepository.save(sessionTime);
         return sessionTime;
+    }
+
+    /**
+     * Takes in a Time object and persist it into the database
+     * @param time Time object
+     */
+    public void saveTime(Time time) {
+        timeRepository.save(time);
     }
 }
