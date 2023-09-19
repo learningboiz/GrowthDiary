@@ -22,21 +22,11 @@ public class TimeController {
         this.timeService = timeService;
     }
 
-    @PostMapping("/start")
-    public ResponseEntity<String> startSession() {
-        return ResponseEntity.ok("Session started");
-    }
-
-    @PostMapping("/end")
-    public ResponseEntity<String> endSession() {
-        return ResponseEntity.ok("Session ended");
-    }
-
     /**
      * Handles the creation of Time object for a user's session
      * @return Time object
      */
-    @PostMapping("/total-time")
+    @PostMapping("/time")
     public ResponseEntity<Time> totalTime(@RequestParam LocalDate firstDate,
                                           @RequestParam LocalDate lastDate,
                                           @RequestParam LocalTime startTime,
