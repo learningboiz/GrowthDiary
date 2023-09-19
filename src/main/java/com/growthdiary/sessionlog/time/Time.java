@@ -18,9 +18,9 @@ public class Time {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private LocalDate firstDate;
+    private LocalDate startDate;
 
-    private LocalDate lastDate;
+    private LocalDate endDate;
 
     private LocalTime startTime;
 
@@ -31,12 +31,12 @@ public class Time {
     public Time() {
     }
 
-    public void setFirstDate(LocalDate firstDate) {
-        this.firstDate = firstDate;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public void setLastDate(LocalDate lastDate) {
-        this.lastDate = lastDate;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public void setStartTime(LocalTime startTime) {
@@ -51,12 +51,12 @@ public class Time {
         this.duration = duration;
     }
 
-    public LocalDate getFirstDate() {
-        return this.firstDate;
+    public LocalDate getStartDate() {
+        return this.startDate;
     }
 
-    public LocalDate getLastDate() {
-        return this.lastDate;
+    public LocalDate getEndDate() {
+        return this.endDate;
     }
 
     public LocalTime getStartTime() {
@@ -76,8 +76,8 @@ public class Time {
      * @return Long object representing the session duration in minutes
      */
     public Long calculateDuration() {
-        LocalDateTime start = LocalDateTime.of(this.firstDate, this.startTime);
-        LocalDateTime end = LocalDateTime.of(this.lastDate, this.endTime);
+        LocalDateTime start = LocalDateTime.of(this.startDate, this.startTime);
+        LocalDateTime end = LocalDateTime.of(this.endDate, this.endTime);
 
         return ChronoUnit.MINUTES.between(start, end);
     }
