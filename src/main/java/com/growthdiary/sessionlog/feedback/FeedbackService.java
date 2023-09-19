@@ -22,17 +22,14 @@ public class FeedbackService {
 
     /**
      * Take in user input to create a Feedback object
-     * @param rating a rating of session productivity level on a scale of 1 to 5
+     * @param productivity a rating of session productivity level on a scale of 1 to 5
      * @param distraction the most common distraction encountered during the session
      * @return a Feedback object
      */
-    public Feedback createFeedback(Integer rating,
+    public Feedback createFeedback(Integer productivity,
                                    String distraction)
     {
-        Feedback feedback = new Feedback();
-        feedback.setProductivity(rating);
-        feedback.setDistraction(distraction);
-        return feedback;
+        return new Feedback(productivity, distraction);
     }
 
     /**

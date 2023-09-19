@@ -17,7 +17,9 @@ public class Feedback {
 
     private String distraction;
 
-    public Feedback() {
+    public Feedback(Integer productivity, String distraction) {
+        this.productivity = productivity;
+        this.distraction = distraction;
     }
 
     public void setProductivity(Integer productivityRating) {
