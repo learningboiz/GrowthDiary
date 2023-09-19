@@ -21,7 +21,7 @@ public class FeedbackService {
     }
 
     /**
-     * Take in user input to create a Feedback object and persist it into the database
+     * Take in user input to create a Feedback object
      * @param rating a rating of session productivity level on a scale of 1 to 5
      * @param distraction the most common distraction encountered during the session
      * @return a Feedback object
@@ -32,8 +32,14 @@ public class FeedbackService {
         Feedback feedback = new Feedback();
         feedback.setProductivity(rating);
         feedback.setDistraction(distraction);
-        feedbackRepository.save(feedback);
-
         return feedback;
+    }
+
+    /**
+     * Takes in a Feedback object and persist it into the database
+     * @param feedback Feedback object
+     */
+    public void saveFeedback(Feedback feedback) {
+        feedbackRepository.save(feedback);
     }
 }
