@@ -3,31 +3,16 @@ package com.growthdiary.sessionlog.session;
 import com.growthdiary.sessionlog.details.Details;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.time.Time;
-import jakarta.persistence.*;
 
-/**
- * Main entity to represent a user learning session
- */
-@Entity
-public class Session {
+public class SessionDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "details_id")
     private Details details;
 
-    @OneToOne
-    @JoinColumn(name = "time_id")
     private Time time;
 
-    @ManyToOne
-    @JoinColumn(name = "feedback_id")
     private Feedback feedback;
 
-    public Session() {
+    public SessionDTO() {
     }
 
     public void setDetails(Details details) {
