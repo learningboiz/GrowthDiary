@@ -1,14 +1,11 @@
 package com.growthdiary.sessionlog;
 
 import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.session.Session;
-import com.growthdiary.sessionlog.sessiontime.SessionTime;
+import com.growthdiary.sessionlog.time.Time;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,9 +23,9 @@ public class SessionLogUnitTests {
         LocalTime startTime = LocalTime.now();
         LocalTime endTime = LocalTime.now().plusMinutes(40);
 
-        SessionTime test = new SessionTime();
-        test.setFirstDate(firstDate);
-        test.setLastDate(lastDate);
+        Time test = new Time();
+        test.setStartDate(firstDate);
+        test.setEndDate(lastDate);
         test.setStartTime(startTime);
         test.setEndTime(endTime);
 
@@ -36,8 +33,8 @@ public class SessionLogUnitTests {
         Long duration = test.calculateDuration();
         test.setDuration(duration);
 
-        assertEquals(firstDate, test.getFirstDate());
-        assertEquals(lastDate, test.getLastDate());
+        assertEquals(firstDate, test.getStartDate());
+        assertEquals(lastDate, test.getEndDate());
         assertEquals(startTime, test.getStartTime());
         assertEquals(endTime, test.getEndTime());
         assertEquals(duration, test.getDuration());
