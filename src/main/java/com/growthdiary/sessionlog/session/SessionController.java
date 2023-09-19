@@ -1,5 +1,6 @@
 package com.growthdiary.sessionlog.session;
 
+import com.growthdiary.sessionlog.details.Details;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.time.Time;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,10 @@ public class SessionController {
         this.sessionService = sessionService;
     }
 
-    @PostMapping("/details")
-    public ResponseEntity<String> getDetails() {
-        return ResponseEntity.ok("Session started");
-    }
-
     @PostMapping("/complete")
-    public ResponseEntity<Session> session(@RequestParam String skill,
-                                           @RequestParam String description,
-                                           @RequestBody Time time,
-                                           @RequestBody Feedback feedback) {
-        Session session = sessionService.createSession(skill, description, time, feedback);
+    public ResponseEntity<Session> session(@RequestBody SessionDTO sessionDTO) {
+        Session session = sessionService.createSession(sessionDTO);
+        sessionService.saveSession(session);
         return new ResponseEntity<>(session, HttpStatus.CREATED);
     }
 }
