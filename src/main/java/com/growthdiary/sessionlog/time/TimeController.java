@@ -27,11 +27,11 @@ public class TimeController {
      * @return Time object
      */
     @PostMapping("/time")
-    public ResponseEntity<Time> totalTime(@RequestParam LocalDate firstDate,
-                                          @RequestParam LocalDate lastDate,
+    public ResponseEntity<Time> totalTime(@RequestParam LocalDate startDate,
+                                          @RequestParam LocalDate endDate,
                                           @RequestParam LocalTime startTime,
                                           @RequestParam LocalTime endTime) {
-        Time time = timeService.createTime(firstDate,lastDate, startTime, endTime);
+        Time time = timeService.createTime(startDate, endDate, startTime, endTime);
         return new ResponseEntity<>(time, HttpStatus.CREATED);
     }
 }
