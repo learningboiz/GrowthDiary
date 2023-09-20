@@ -1,10 +1,7 @@
 package com.growthdiary.sessionlog.time;
-
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -18,60 +15,37 @@ public class Time {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private LocalDate startDate;
+    private LocalDateTime startPeriod;
 
-    private LocalDate endDate;
-
-    private LocalTime startTime;
-
-    private LocalTime endTime;
+    private LocalDateTime endPeriod;
 
     private Long duration;
 
     public Time(LocalDateTime startPeriod, LocalDateTime endPeriod) {
-        this.startDate = startPeriod.toLocalDate();
-        this.endDate = endPeriod.toLocalDate();
-
-        this.startTime = startPeriod.toLocalTime();
-        this.endTime = endPeriod.toLocalTime();
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
 
         this.duration = calculateDuration(startPeriod, endPeriod);
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartPeriod(LocalDateTime startPeriod) {
+        this.startPeriod = startPeriod;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
+    public void setEndDate(LocalDateTime endPeriod) {
+        this.endPeriod = endPeriod;
     }
 
     public void setDuration(Long duration) {
         this.duration = duration;
     }
 
-    public LocalDate getStartDate() {
-        return this.startDate;
+    public LocalDateTime getStartPeriod() {
+        return this.startPeriod;
     }
 
-    public LocalDate getEndDate() {
-        return this.endDate;
-    }
-
-    public LocalTime getStartTime() {
-        return this.startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return this.endTime;
+    public LocalDateTime getEndPeriod() {
+        return this.endPeriod;
     }
 
     public Long getDuration() {
