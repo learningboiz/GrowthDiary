@@ -5,7 +5,6 @@ import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.session.Session;
 import com.growthdiary.sessionlog.session.SessionDTO;
 import com.growthdiary.sessionlog.time.Time;
-import com.growthdiary.sessionlog.time.TimeController;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ModelConstructorTests {
+public class ModelUnitTests {
 
     @Test
     public void testDetailsConstructor() {
@@ -32,10 +31,8 @@ public class ModelConstructorTests {
         Long duration = ChronoUnit.MINUTES.between(startPeriod, endPeriod);
 
         Time time = new Time(startPeriod, endPeriod);
-        assertEquals(startPeriod.toLocalDate(), time.getStartDate());
-        assertEquals(endPeriod.toLocalDate(), time.getEndDate());
-        assertEquals(startPeriod.toLocalTime(), time.getStartTime());
-        assertEquals(endPeriod.toLocalTime(), time.getEndTime());
+        assertEquals(startPeriod, time.getStartPeriod());
+        assertEquals(endPeriod, time.getEndPeriod());
         assertEquals(duration, time.getDuration());
     }
 
