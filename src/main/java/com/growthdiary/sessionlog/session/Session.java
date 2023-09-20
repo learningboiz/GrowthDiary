@@ -27,7 +27,10 @@ public class Session {
     @JoinColumn(name = "feedback_id")
     private Feedback feedback;
 
-    public Session() {
+    public Session(Details details, Time time, Feedback feedback) {
+        this.details = details;
+        this.time = time;
+        this.feedback = feedback;
     }
 
     public void setDetails(Details details) {
