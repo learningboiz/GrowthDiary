@@ -12,18 +12,9 @@ public class SessionDTO {
 
     private Feedback feedback;
 
-    public SessionDTO() {
-    }
-
-    public void setDetails(Details details) {
+    public SessionDTO(Details details, Time time, Feedback feedback) {
         this.details = details;
-    }
-
-    public void setTime(Time time) {
         this.time = time;
-    }
-
-    public void setFeedback(Feedback feedback) {
         this.feedback = feedback;
     }
 
