@@ -1,8 +1,5 @@
 package com.growthdiary.sessionlog.session;
 
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.time.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +19,7 @@ public class SessionController {
     @PostMapping("/complete")
     public ResponseEntity<Session> session(@RequestBody SessionDTO sessionDTO) {
         Session session = sessionService.createSession(sessionDTO);
-        sessionService.saveSession(session);
+        sessionService.saveSessionDetails(session);
         return new ResponseEntity<>(session, HttpStatus.CREATED);
     }
 }
