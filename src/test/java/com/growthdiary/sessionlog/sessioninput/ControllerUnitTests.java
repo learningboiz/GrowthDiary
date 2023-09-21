@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog;
+package com.growthdiary.sessionlog.sessioninput;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.growthdiary.sessionlog.details.Details;

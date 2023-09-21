@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog;
+package com.growthdiary.sessionlog.sessioninput;
 
 import com.growthdiary.sessionlog.details.Details;
 import com.growthdiary.sessionlog.feedback.Feedback;
