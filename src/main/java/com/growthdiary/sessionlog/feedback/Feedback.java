@@ -17,6 +17,11 @@ public class Feedback {
 
     private String distraction;
 
+    /* Default no-argument constructor required by Hibernate
+     * Used during database queries
+     */
+    public Feedback() {}
+
     public Feedback(Integer productivity, String distraction) {
         this.productivity = productivity;
         this.distraction = distraction;

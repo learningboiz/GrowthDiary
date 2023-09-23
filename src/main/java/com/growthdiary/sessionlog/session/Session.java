@@ -27,6 +27,12 @@ public class Session {
     @JoinColumn(name = "feedback_id")
     private Feedback feedback;
 
+    /* Default no-argument constructor required by Hibernate
+     * Used during database queries
+     */
+    public  Session() {
+    }
+
     public Session(Details details, Time time, Feedback feedback) {
         this.details = details;
         this.time = time;

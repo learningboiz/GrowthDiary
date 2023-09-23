@@ -21,6 +21,11 @@ public class Time {
 
     private Long duration;
 
+    /* Default no-argument constructor required by Hibernate
+     * Used during database queries
+     */
+    public Time() {}
+
     public Time(LocalDateTime startPeriod, LocalDateTime endPeriod) {
         this.startPeriod = startPeriod;
         this.endPeriod = endPeriod;

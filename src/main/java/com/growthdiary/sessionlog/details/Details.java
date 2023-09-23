@@ -15,6 +15,11 @@ public class Details {
 
     private String description;
 
+    /* Default no-argument constructor required by Hibernate
+     * Used during database queries
+     */
+    public Details(){}
+
     public Details(String skill, String description) {
         this.skill = skill;
         this.description = description;
