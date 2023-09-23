@@ -1,29 +1,26 @@
-package com.growthdiary.sessionlog.sessionhistory;
+package com.growthdiary.sessionlog.history;
 
 import com.growthdiary.sessionlog.session.Session;
-import com.growthdiary.sessionlog.session.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.List;
 
 @Service
-public class SessionHistoryService {
+public class HistoryService {
 
-    private final SessionRepository sessionRepository;
+    private final HistoryRepository historyRepository;
+
 
     /** Injects sessionRepository bean into the Spring context
      *
      * This repository has all necessary data regarding user's session history
      */
     @Autowired
-    public SessionHistoryService(SessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
+    public HistoryService(HistoryRepository historyRepository) {
+        this.historyRepository = historyRepository;
     }
 
 
@@ -41,17 +38,30 @@ public class SessionHistoryService {
         }
     }
 
-    /** Creates a Page that displays user's session history
-     *
-     * @param currentPage The current page to be displayed
-     * @param numItems The number of sessions to be viewed in a page
-     * @param sort The sorting order to view specified categories
-     * @return Page object with specified portion of session history
-     */
-
-    @Query (value = "SELECT s.start_period AS start, s.end_period AS end, s.duration AS duration, f.productivity AS rating, f.distractions AS distraction, f.emotions AS emotion, sk.topic AS topic, sk.category AS category FROM session AS s INNER JOIN feedback AS f ON s.feedback_id = f.id INNER JOIN skill AS sk ON s.skill_id = sk.id;")
-    public Page<Session> getSessionHistory(int currentPage, int numItems, Sort sort) {
-        Pageable customPage = PageRequest.of(currentPage, numItems, sort);
-        return sessionRepository.findAll(customPage);
+    public List<Session> getAllSessions() {
+        Specification<Session> spec = HistoryFilterSpecs.joinTables();
+        return historyRepository.findAll(spec);
     }
+
+    /**
+     * Creates a list of sessions with skills matching any of the provided skill names
+     * @param skills List of skills to be matched with existing sessions in the database
+     * @return a list of session objects
+     */
+    public List<Session> filterBySkill(List<String> skills) {
+        Specification<Session> spec = HistoryFilterSpecs.skillIs(skills);
+        return historyRepository.findAll(spec);
+    }
+
+    /**
+     * Creates a list of sessions with descriptions matching the given keywords
+     * @param keywords Keywords that will be matched against descriptions in the database
+     * @return
+     */
+    public List<Session> filterByDescription(String keywords) {
+        Specification<Session> spec = HistoryFilterSpecs.descriptionLike(keywords);
+        return historyRepository.findAll(spec);
+    }
+
+
 }
