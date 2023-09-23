@@ -20,5 +20,14 @@ public class HistorySpecifications {
         };
     }
 
+    public static Specification<Session> withThisSkill(String skillName) {
+        return (root, query, criteriaBuilder) -> {
+            Join<Session, Details> detailsJoin = root.join("details");
+            return criteriaBuilder.equal(detailsJoin.get("skill"), skillName);
+        };
+    }
 
+    public static Specification<Session> withDescriptionLike(String descriptionLike) {
+        return null;
+    }
 }
