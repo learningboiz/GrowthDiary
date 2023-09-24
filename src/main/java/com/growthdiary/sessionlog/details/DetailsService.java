@@ -16,20 +16,13 @@ public class DetailsService {
     }
 
     /**
-     * Takes in user input to create a Details object for the session
+     * Creates a Details object and saves it into the databse
      * @param skill Name of the skill user is working on
      * @param description Elaboration of how the skill is being learnt
      * @return Details object
      */
     public Details createDetails(String skill, String description) {
-        return new Details(skill, description);
-    }
-
-    /**
-     * Takes in a Details object to persist it into the database
-     * @param details Details object
-     */
-    public void saveDetails(Details details) {
-        detailsRepository.save(details);
+        Details details = new Details(skill, description);
+        return detailsRepository.save(details);
     }
 }
