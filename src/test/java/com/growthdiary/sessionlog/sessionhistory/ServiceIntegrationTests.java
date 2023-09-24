@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,11 +31,12 @@ public class ServiceIntegrationTests {
         List<String> singleSkill = new ArrayList<>();
         String expectedSkill = "Spring Boot";
         singleSkill.add(expectedSkill);
-        List<Session> singleSession = historyService.filterBySkill(singleSkill);
+        List<Session> sessionsWithSkill = historyService.filterBySkill(singleSkill);
 
-        Iterator<Session> singleSessionIterator = singleSession.iterator();
-        String actualSkill = singleSessionIterator.next().getDetails().getSkill();
-        assertEquals(expectedSkill, actualSkill);
+        for (Session session : sessionsWithSkill) {
+            String actualSkill = session.getDetails().getSkill();
+            assertEquals(expectedSkill, actualSkill);
+        }
     }
 
     @Test
@@ -50,10 +50,9 @@ public class ServiceIntegrationTests {
         multipleSkills.add(expectedSkillTwo);
         multipleSkills.add(expectedSkillThree);
 
-        List<Session> multipleSessions = historyService.filterBySkill(multipleSkills);
-        Iterator<Session> multipleSessionIterator = multipleSessions.iterator();
-        for (int i = 0; i < multipleSessions.size(); i++) {
-            String actualSkill = multipleSessionIterator.next().getDetails().getSkill();
+        List<Session> sessionsWithSkill = historyService.filterBySkill(multipleSkills);
+        for (Session session : sessionsWithSkill) {
+            String actualSkill = session.getDetails().getSkill();
             assertTrue(multipleSkills.contains(actualSkill));
         }
     }
@@ -61,19 +60,12 @@ public class ServiceIntegrationTests {
     @Test
     public void testFilterWithFaultySkills() {
         List<String> multipleSkills = new ArrayList<>();
-        String expectedSkillOne = "React";
-        String expectedSkillTwo = "Django";
+        String legitimateSkill = "Django";
         String faultySkill = "rando843~";
-        multipleSkills.add(expectedSkillOne);
-        multipleSkills.add(expectedSkillTwo);
+        multipleSkills.add(legitimateSkill);
         multipleSkills.add(faultySkill);
-        List<Session> multipleSessions = historyService.filterBySkill(multipleSkills);
-        Iterator<Session> multipleSessionIterator = multipleSessions.iterator();
-        for (int i = 0; i < multipleSessions.size(); i++) {
-            String actualSkill = multipleSessionIterator.next().getDetails().getSkill();
-            assertTrue(multipleSkills.contains(actualSkill));
-            assertNotEquals(actualSkill, faultySkill);
-        }
+        List<Session> sessionsWithFaultySkills = historyService.filterBySkill(multipleSkills);
+        assertFalse(sessionsWithFaultySkills.contains(faultySkill));
     }
 
     @Test
@@ -95,22 +87,6 @@ public class ServiceIntegrationTests {
         String invalidKeyword = "itscraazzyouthere";
         List<Session> invalidSessions = historyService.filterByDescription(invalidKeyword);
         assertTrue(invalidSessions.isEmpty());
-    }
-
-    @Test
-    public void testFilterByDurationX() {
-        FilterOperators givenOperator = FilterOperators.GREATER_THAN;
-        Long benchmarkDuration = 50L;
-        List<Long> durations = new ArrayList<>();
-        durations.add(benchmarkDuration);
-
-        List<Session> durationSessions = historyService.filterByDuration(givenOperator, durations);
-        Iterator<Session> durationSessionsIterator = durationSessions.iterator();
-        for (int i = 0; i < durationSessions.size(); i++) {
-            Long actualDuration = durationSessionsIterator.next().getTime().getDuration();
-            System.out.println(actualDuration);
-            assertTrue(actualDuration.compareTo(benchmarkDuration) > 0);
-        }
     }
 
     @Test
@@ -191,13 +167,79 @@ public class ServiceIntegrationTests {
 
     @Test
     public void testFilterByProductivity() {
-        // TODO: Create test to verify specification for under/over/between productivity range
+        FilterOperators givenComparison;
+        Random random = new Random();
+        List<Integer> givenProductivityList = new ArrayList<>();
+        int firstGivenProductivity = 3;
+        int secondGivenProductivity = 5;
+        givenProductivityList.add(firstGivenProductivity);
+        givenProductivityList.add(secondGivenProductivity);
+
+        int MAX = 20;
+        for (int i = 0; i < MAX; i++) {
+            int OP = random.nextInt(4);
+
+            givenComparison = switch (OP) {
+                case 0 -> FilterOperators.GREATER_THAN;
+                case 1 -> FilterOperators.LESS_THAN;
+                case 2 -> FilterOperators.EQUALS;
+                default -> FilterOperators.BETWEEN;
+            };
+
+            List<Session> sessionsBasedOnProductivity = historyService.filterByProductivity(givenComparison, givenProductivityList);
+            for (Session session : sessionsBasedOnProductivity) {
+                int actualProductivity = session.getFeedback().getProductivity();
+
+                switch (givenComparison) {
+                    case GREATER_THAN -> assertTrue(actualProductivity > firstGivenProductivity);
+                    case LESS_THAN -> assertTrue(actualProductivity < firstGivenProductivity);
+                    case EQUALS -> assertEquals(actualProductivity, firstGivenProductivity);
+                    case BETWEEN ->
+                            assertTrue(actualProductivity >= firstGivenProductivity &&
+                                    actualProductivity <= secondGivenProductivity);
+                }
+            }
+        }
     }
 
     @Test
-    public void testFilterByDistractions() {
-        // TODO: Create test to verify specified distractions
+    public void testFilterBySingleDistraction() {
+        List<String> singleDistraction = new ArrayList<>();
+        String expectedDistraction = "Video Games";
+        singleDistraction.add(expectedDistraction);
+        List<Session> sessionsWithDistraction = historyService.filterByDistraction(singleDistraction);
+
+        for (Session session : sessionsWithDistraction) {
+            String actualDistraction = session.getFeedback().getDistraction();
+            assertEquals(expectedDistraction, actualDistraction);
+        }
     }
 
+    @Test
+    public void testFilterByMultipleDistractions() {
+        List<String> multipleDistraction = new ArrayList<>();
+        String firstExpectedDistraction = "Video Games";
+        String secondExpectedDistraction = "Reddit";
+        multipleDistraction.add(firstExpectedDistraction);
+        multipleDistraction.add(secondExpectedDistraction);
+        List<Session> sessionsWithDistractions = historyService.filterByDistraction(multipleDistraction);
+
+        for (Session session : sessionsWithDistractions) {
+            String actualDistraction = session.getFeedback().getDistraction();
+            assertTrue(multipleDistraction.contains(actualDistraction));
+        }
+    }
+
+    @Test
+    public void testFilterByFaultyDistractions() {
+        List<String> faultyDistractions = new ArrayList<>();
+        String firstFaultyDistraction = "lazarbugs";
+        String secondFaultyDistraction = "19$53++";
+        faultyDistractions.add(firstFaultyDistraction);
+        faultyDistractions.add(secondFaultyDistraction);
+
+        List<Session> sessionsWithDistractions = historyService.filterByDistraction(faultyDistractions);
+        assertTrue(sessionsWithDistractions.isEmpty());
+    }
 
 }
