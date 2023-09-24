@@ -1,7 +1,9 @@
 package com.growthdiary.sessionlog.time;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -15,9 +17,14 @@ public class Time {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private LocalDateTime startPeriod;
+    private LocalDate startDate;
 
-    private LocalDateTime endPeriod;
+    private LocalTime startTime;
+
+    private LocalDate endDate;
+
+
+    private LocalTime endTime;
 
     private Long duration;
 
@@ -27,30 +34,48 @@ public class Time {
     public Time() {}
 
     public Time(LocalDateTime startPeriod, LocalDateTime endPeriod) {
-        this.startPeriod = startPeriod;
-        this.endPeriod = endPeriod;
+        this.startDate = startPeriod.toLocalDate();
+        this.startTime = startPeriod.toLocalTime();
+        this.endDate = endPeriod.toLocalDate();
+        this.endTime = endPeriod.toLocalTime();
 
         this.duration = calculateDuration(startPeriod, endPeriod);
     }
 
-    public void setStartPeriod(LocalDateTime startPeriod) {
-        this.startPeriod = startPeriod;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDateTime endPeriod) {
-        this.endPeriod = endPeriod;
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getStartTime() {
+        return this.startTime;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalDate getEndDate() {
+        return this.endDate;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public LocalTime getEndTime() {
+        return this.endTime;
     }
 
     public void setDuration(Long duration) {
         this.duration = duration;
-    }
-
-    public LocalDateTime getStartPeriod() {
-        return this.startPeriod;
-    }
-
-    public LocalDateTime getEndPeriod() {
-        return this.endPeriod;
     }
 
     public Long getDuration() {
@@ -58,8 +83,8 @@ public class Time {
     }
 
     /**
-     * Calculates how long a user spent on a session
-     * @return Long object representing the session duration in minutes
+     * Returns the duration of session in minutes
+     * @return duration in minutes
      */
     public Long calculateDuration(LocalDateTime startPeriod, LocalDateTime endPeriod) {
         return ChronoUnit.MINUTES.between(startPeriod, endPeriod);

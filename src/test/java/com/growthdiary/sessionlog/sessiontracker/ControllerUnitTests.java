@@ -2,17 +2,14 @@ package com.growthdiary.sessionlog.sessioninput;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.details.DetailsController;
 import com.growthdiary.sessionlog.details.DetailsService;
 import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.feedback.FeedbackController;
 import com.growthdiary.sessionlog.feedback.FeedbackService;
 import com.growthdiary.sessionlog.session.Session;
 import com.growthdiary.sessionlog.session.SessionController;
 import com.growthdiary.sessionlog.session.SessionDTO;
 import com.growthdiary.sessionlog.session.SessionService;
 import com.growthdiary.sessionlog.time.Time;
-import com.growthdiary.sessionlog.time.TimeController;
 import com.growthdiary.sessionlog.time.TimeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,14 +20,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest({DetailsController.class, FeedbackController.class, TimeController.class, SessionController.class})
+@WebMvcTest(SessionController.class)
 public class ControllerUnitTests {
 
     @Autowired

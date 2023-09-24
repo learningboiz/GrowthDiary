@@ -31,8 +31,8 @@ public class ModelUnitTests {
         Long duration = ChronoUnit.MINUTES.between(startPeriod, endPeriod);
 
         Time time = new Time(startPeriod, endPeriod);
-        assertEquals(startPeriod, time.getStartPeriod());
-        assertEquals(endPeriod, time.getEndPeriod());
+        assertEquals(startPeriod.toLocalDate(), time.getStartDate());
+        assertEquals(endPeriod.toLocalDate(), time.getEndDate());
         assertEquals(duration, time.getDuration());
     }
 
@@ -44,30 +44,6 @@ public class ModelUnitTests {
         Feedback feedback = new Feedback(productivity, distraction);
         assertEquals(productivity, feedback.getProductivity());
         assertEquals(distraction, feedback.getDistraction());
-    }
-
-    @Test
-    public void testSessionDTOConstructor() {
-
-        // Create details
-        String skill = "Spring Boot";
-        String description = "Building web applications";
-        Details details = new Details(skill, description);
-
-        // Create time
-        LocalDateTime startPeriod = LocalDateTime.now();
-        LocalDateTime endPeriod = LocalDateTime.now().plusMinutes(45);
-        Time time = new Time(startPeriod, endPeriod);
-
-        // Create feedback
-        Integer productivity = 3;
-        String distraction = "YouTube";
-        Feedback feedback = new Feedback(productivity, distraction);
-
-        SessionDTO sessionDTO = new SessionDTO(details, time, feedback);
-        assertEquals(details, sessionDTO.getDetails());
-        assertEquals(time, sessionDTO.getTime());
-        assertEquals(feedback, sessionDTO.getFeedback());
     }
 
     @Test

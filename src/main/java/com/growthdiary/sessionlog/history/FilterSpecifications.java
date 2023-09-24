@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryFilterSpecs {
+public class FilterSpecs {
 
     public static Specification<Session> joinTables() {
         return (root, query, criteriaBuilder) -> {
@@ -42,5 +42,16 @@ public class HistoryFilterSpecs {
             Join<Session, Details> detailsJoin = root.join("details");
             return criteriaBuilder.like(detailsJoin.get("description"), "%"+descriptionLike+"%");
         };
+    }
+
+    public static Specification<Session> durationEqualsUnderAbove(FilterOperators operators, Integer duration) {
+        return null;
+//        return (root, query, criteriaBuilder) -> {
+//        Join<Session, Time> timeJoin = root.join("duration");
+//
+//        switch (operators) {
+//            case EQUALS:
+//
+//        }
     }
 }
