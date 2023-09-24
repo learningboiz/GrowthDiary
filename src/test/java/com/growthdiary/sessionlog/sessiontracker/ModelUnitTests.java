@@ -1,9 +1,8 @@
-package com.growthdiary.sessionlog.sessioninput;
+package com.growthdiary.sessionlog.sessiontracker;
 
 import com.growthdiary.sessionlog.details.Details;
 import com.growthdiary.sessionlog.feedback.Feedback;
 import com.growthdiary.sessionlog.session.Session;
-import com.growthdiary.sessionlog.session.SessionDTO;
 import com.growthdiary.sessionlog.time.Time;
 import org.junit.jupiter.api.Test;
 
