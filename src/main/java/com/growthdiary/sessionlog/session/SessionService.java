@@ -19,8 +19,12 @@ public class SessionService {
     private final FeedbackService feedbackService;
 
     /**
-     * Injects a sessionRepository object into the Spring context to be used for each creation of Session object
+     * Injects a sessionRepository object into the Spring context
+     * Injects services for Details, Time and Feedback models for instantiation of objects during session creation
      * @param sessionRepository
+     * @param detailsService
+     * @param timeService
+     * @param feedbackService
      */
     @Autowired
     public SessionService(SessionRepository sessionRepository,
@@ -34,22 +38,18 @@ public class SessionService {
     }
 
     /**
-     * Take in a sessionDTO input and creates a Session object
+     * Creates a Session object using the SessionDTO and saves it into the database
+     * Creates Details, Time and Feedback objects using respective model services
      * @param sessionDTO SessionDTO that wraps the details, time and feedback objects
      * @return Session object
      */
     public Session createSession(SessionDTO sessionDTO) {
 
-        Details details = sessionDTO.getDetails();
-        Time time = sessionDTO.getTime();
-        Feedback feedback = sessionDTO.getFeedback();
-        return new Session(details, time, feedback);
-    }
+        Details details = detailsService.createDetails(sessionDTO.getSkill(), sessionDTO.getDescription());
+        Time time = timeService.createTime(sessionDTO.getStartPeriod(), sessionDTO.getEndPeriod());
+        Feedback feedback = feedbackService.createFeedback(sessionDTO.getProductivity(), sessionDTO.getDistraction());
 
-    public void saveSessionDetails(Session session) {
-        detailsService.saveDetails(session.getDetails());
-        timeService.saveTime(session.getTime());
-        feedbackService.saveFeedback(session.getFeedback());
-        sessionRepository.save(session);
+        Session session = new Session(details, time, feedback);
+        return sessionRepository.save(session);
     }
 }
