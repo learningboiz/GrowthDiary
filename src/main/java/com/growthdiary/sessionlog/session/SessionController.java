@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/session")
 public class SessionController {
 
     private final SessionService sessionService;
@@ -16,10 +15,9 @@ public class SessionController {
         this.sessionService = sessionService;
     }
 
-    @PostMapping("/complete")
+    @PostMapping("/session")
     public ResponseEntity<Session> session(@RequestBody SessionDTO sessionDTO) {
         Session session = sessionService.createSession(sessionDTO);
-        sessionService.saveSessionDetails(session);
         return new ResponseEntity<>(session, HttpStatus.CREATED);
     }
 }
