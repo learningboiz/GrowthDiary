@@ -21,22 +21,13 @@ public class FeedbackService {
     }
 
     /**
-     * Take in user input to create a Feedback object
+     * Creates a Feedback object and saves it into the database
      * @param productivity a rating of session productivity level on a scale of 1 to 5
      * @param distraction the most common distraction encountered during the session
      * @return a Feedback object
      */
-    public Feedback createFeedback(Integer productivity,
-                                   String distraction)
-    {
-        return new Feedback(productivity, distraction);
-    }
-
-    /**
-     * Takes in a Feedback object and persist it into the database
-     * @param feedback Feedback object
-     */
-    public void saveFeedback(Feedback feedback) {
-        feedbackRepository.save(feedback);
+    public Feedback createFeedback(Integer productivity, String distraction) {
+        Feedback feedback = new Feedback(productivity,distraction);
+        return feedbackRepository.save(feedback);
     }
 }
