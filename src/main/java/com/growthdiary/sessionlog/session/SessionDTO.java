@@ -1,30 +1,49 @@
 package com.growthdiary.sessionlog.session;
 
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.time.Time;
+import java.time.LocalDateTime;
 
 public class SessionDTO {
 
-    private Details details;
+    private String skill;
+    private String description;
+    private LocalDateTime startPeriod;
+    private LocalDateTime endPeriod;
+    private String distraction;
+    private Integer productivity;
 
-    private Time time;
-
-    private Feedback feedback;
-
-    public SessionDTO(Details details, Time time, Feedback feedback) {
-        this.details = details;
-        this.time = time;
-        this.feedback = feedback;
+    public SessionDTO() {
     }
 
-    public Details getDetails() { return this.details; }
-
-    public Time getTime() {
-        return this.time;
+    public SessionDTO(String skill, String description, LocalDateTime startPeriod, LocalDateTime endPeriod,
+                      Integer productivity, String distraction) {
+        this.skill = skill;
+        this.description = description;
+        this.startPeriod = startPeriod;
+        this.endPeriod = endPeriod;
+        this.productivity = productivity;
+        this.distraction = distraction;
     }
 
-    public Feedback getFeedback() {
-        return this.feedback;
+    public String getSkill() {
+        return this.skill;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public LocalDateTime getStartPeriod() {
+        return this.startPeriod;
+    }
+
+    public LocalDateTime getEndPeriod() {
+        return this.endPeriod;
+    }
+
+    public Integer getProductivity() {
+        return this.productivity;
+    }
+    public String getDistraction() {
+        return this.distraction;
     }
 }
