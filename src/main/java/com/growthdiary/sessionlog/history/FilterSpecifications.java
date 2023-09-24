@@ -9,7 +9,6 @@ import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,19 +45,19 @@ public class FilterSpecifications {
         };
     }
 
-    public static Specification<Session> durationEqualsUnderAbove(FilterOperators operator, Long duration) {
+    public static Specification<Session> durationEqualsUnderAbove(FilterOperators operator, Long givenDuration) {
         return (root, query, criteriaBuilder) -> {
             Join<Session, Time> timeJoin = root.join("time");
 
             switch (operator) {
                 case EQUALS -> {
-                    return criteriaBuilder.equal(timeJoin.get("duration"), duration);
+                    return criteriaBuilder.equal(timeJoin.get("duration"), givenDuration);
                 }
                 case GREATER_THAN -> {
-                    return criteriaBuilder.gt(timeJoin.get("duration"), duration);
+                    return criteriaBuilder.gt(timeJoin.get("duration"), givenDuration);
                 }
                 case LESS_THAN -> {
-                    return criteriaBuilder.lt(timeJoin.get("duration"), duration);
+                    return criteriaBuilder.lt(timeJoin.get("duration"), givenDuration);
                 }
                 default -> throw new RuntimeException("Operation not supported");
             }
@@ -72,19 +71,19 @@ public class FilterSpecifications {
         };
     }
 
-    public static Specification<Session> dateEqualsBeforeAfter(FilterOperators operator, LocalDate specifiedDate) {
+    public static Specification<Session> dateEqualsBeforeAfter(FilterOperators operator, LocalDate givenDate) {
         return (root, query, criteriaBuilder) -> {
             Join<Session, Time> timeJoin = root.join("time");
 
             switch (operator) {
                 case EQUALS -> {
-                    return criteriaBuilder.equal(timeJoin.get("startDate"), specifiedDate);
+                    return criteriaBuilder.equal(timeJoin.get("startDate"), givenDate);
                 }
                 case GREATER_THAN -> {
-                    return criteriaBuilder.greaterThan(timeJoin.get("startDate"), specifiedDate);
+                    return criteriaBuilder.greaterThan(timeJoin.get("startDate"), givenDate);
                 }
                 case LESS_THAN -> {
-                    return criteriaBuilder.lessThan(timeJoin.get("startDate"), specifiedDate);
+                    return criteriaBuilder.lessThan(timeJoin.get("startDate"), givenDate);
                 }
                 default -> throw new RuntimeException("Operation not supported");
             }
@@ -98,5 +97,42 @@ public class FilterSpecifications {
         };
     }
 
+    public static Specification<Session> productivityEqualsUnderAbove(FilterOperators operator, Integer givenProductivity) {
+        return (root, query, criteriaBuilder) -> {
+            Join<Session, Feedback> feedbackJoin = root.join("feedback");
 
+            switch (operator) {
+                case EQUALS -> {
+                    return criteriaBuilder.equal(feedbackJoin.get("productivity"), givenProductivity);
+                }
+                case GREATER_THAN -> {
+                    return criteriaBuilder.gt(feedbackJoin.get("productivity"), givenProductivity);
+                }
+                case LESS_THAN -> {
+                    return criteriaBuilder.lt(feedbackJoin.get("productivity"), givenProductivity);
+                }
+                default -> throw new RuntimeException("Operation not supported");
+            }
+        };
+    }
+
+    public static Specification<Session> productivityBetween(Integer startValue, Integer endValue) {
+        return (root, query, criteriaBuilder) -> {
+            Join<Session, Feedback> feedbackJoin = root.join("feedback");
+            return criteriaBuilder.between(feedbackJoin.get("productivity"), startValue, endValue);
+        };
+    }
+
+    public static Specification<Session> distractionIs(List<String> distractionList) {
+        return (root, query, criteriaBuilder) -> {
+
+            Join<Session, Feedback> feedbackJoin = root.join("feedback");
+            List<Predicate> distractionPredicates = new ArrayList<>();
+            for (String distraction : distractionList) {
+                Predicate predicate = criteriaBuilder.equal(feedbackJoin.get("distraction"), distraction);
+                distractionPredicates.add(predicate);
+            }
+            return criteriaBuilder.or(distractionPredicates.toArray(new Predicate[0]));
+        };
+    }
 }
