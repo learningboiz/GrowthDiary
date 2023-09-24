@@ -30,7 +30,7 @@ public class Session {
     /* Default no-argument constructor required by Hibernate
      * Used during database queries
      */
-    public  Session() {
+    public Session() {
     }
 
     public Session(Details details, Time time, Feedback feedback) {
