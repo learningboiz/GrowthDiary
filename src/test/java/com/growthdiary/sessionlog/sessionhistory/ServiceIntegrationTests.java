@@ -1,6 +1,7 @@
 package com.growthdiary.sessionlog.sessionhistory;
 
 import com.growthdiary.sessionlog.details.Details;
+import com.growthdiary.sessionlog.history.FilterOperators;
 import com.growthdiary.sessionlog.history.HistoryService;
 import com.growthdiary.sessionlog.session.Session;
 import com.growthdiary.sessionlog.session.SessionRepository;
@@ -10,9 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 @SpringBootTest
 public class ServiceIntegrationTests {
@@ -74,7 +78,7 @@ public class ServiceIntegrationTests {
 
     @Test
     public void testFilterByDescription() {
-        String validKeyword = "web application";
+        String validKeyword = "API";
         List<Session> validSessions = historyService.filterByDescription(validKeyword);
         assertFalse(validSessions.isEmpty());
 
@@ -94,13 +98,95 @@ public class ServiceIntegrationTests {
     }
 
     @Test
+    public void testFilterByDurationX() {
+        FilterOperators givenOperator = FilterOperators.GREATER_THAN;
+        Long benchmarkDuration = 50L;
+        List<Long> durations = new ArrayList<>();
+        durations.add(benchmarkDuration);
+
+        List<Session> durationSessions = historyService.filterByDuration(givenOperator, durations);
+        Iterator<Session> durationSessionsIterator = durationSessions.iterator();
+        for (int i = 0; i < durationSessions.size(); i++) {
+            Long actualDuration = durationSessionsIterator.next().getTime().getDuration();
+            System.out.println(actualDuration);
+            assertTrue(actualDuration.compareTo(benchmarkDuration) > 0);
+        }
+    }
+
+    @Test
     public void testFilterByDuration() {
-        // TODO: Create test to verify specification for under/over/between duration range
+        FilterOperators givenComparison;
+        Random random = new Random();
+        List<Long> givenDurationList = new ArrayList<>();
+        Long firstGivenDuration = 10L;
+        Long secondGivenDuration = 35L;
+        givenDurationList.add(firstGivenDuration);
+        givenDurationList.add(secondGivenDuration);
+
+        int MAX = 20;
+        for (int i = 0; i < MAX; i++) {
+            int OP = random.nextInt(4);
+
+            givenComparison = switch (OP) {
+                case 0 -> FilterOperators.GREATER_THAN;
+                case 1 -> FilterOperators.LESS_THAN;
+                case 2 -> FilterOperators.EQUALS;
+                default -> FilterOperators.BETWEEN;
+            };
+
+            List<Session> sessionsBasedOnDuration = historyService.filterByDuration(givenComparison, givenDurationList);
+            for (Session session : sessionsBasedOnDuration) {
+                Long actualDuration = session.getTime().getDuration();
+
+                switch (givenComparison) {
+                    case GREATER_THAN -> assertTrue(actualDuration.compareTo(firstGivenDuration) > 0);
+                    case LESS_THAN -> assertTrue(actualDuration.compareTo(firstGivenDuration) < 0);
+                    case EQUALS -> assertTrue(actualDuration.compareTo(firstGivenDuration) == 0);
+                    case BETWEEN ->
+                            assertTrue(actualDuration.compareTo(firstGivenDuration) == 0 ||
+                                    actualDuration.compareTo(secondGivenDuration) == 0 ||
+                                    actualDuration.compareTo(firstGivenDuration) > 0 &&
+                                            actualDuration.compareTo(secondGivenDuration) < 0);
+                }
+            }
+        }
     }
 
     @Test
     public void testFilterByDate() {
-        // TODO: Create test to verify specification for before/after/between date range
+        FilterOperators givenComparison;
+        Random random = new Random();
+        List<LocalDate> givenDateList = new ArrayList<>();
+        LocalDate givenDateOne = LocalDate.parse("2023-09-21");
+        LocalDate givenDateTwo = LocalDate.parse("2023-09-25");
+        givenDateList.add(givenDateOne);
+        givenDateList.add(givenDateTwo);
+
+        int MAX = 20;
+        for (int i = 0; i < MAX; i++) {
+            int OP = random.nextInt(4);
+
+            givenComparison = switch (OP) {
+                case 0 -> FilterOperators.GREATER_THAN;
+                case 1 -> FilterOperators.LESS_THAN;
+                case 2 -> FilterOperators.EQUALS;
+                default -> FilterOperators.BETWEEN;
+            };
+
+            List<Session> sessionsBasedOnDate = historyService.filterByDate(givenComparison, givenDateList);
+            for (Session session : sessionsBasedOnDate) {
+                LocalDate actualDate = session.getTime().getStartDate();
+
+                switch (givenComparison) {
+                    case GREATER_THAN -> assertTrue(actualDate.isAfter(givenDateOne));
+                    case LESS_THAN -> assertTrue(actualDate.isBefore(givenDateOne));
+                    case EQUALS -> assertEquals(actualDate, givenDateOne);
+                    case BETWEEN -> assertTrue(actualDate.isEqual(givenDateOne) ||
+                            actualDate.isEqual(givenDateTwo) ||
+                            actualDate.isAfter(givenDateOne) && actualDate.isBefore(givenDateTwo));
+                }
+            }
+        }
     }
 
     @Test
