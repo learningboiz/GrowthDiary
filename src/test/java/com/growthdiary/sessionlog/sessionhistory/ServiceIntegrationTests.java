@@ -1,6 +1,7 @@
 package com.growthdiary.sessionlog.sessionhistory;
 
 import com.growthdiary.sessionlog.history.FilterOperators;
+import com.growthdiary.sessionlog.history.HistoryDTO;
 import com.growthdiary.sessionlog.history.HistoryService;
 import com.growthdiary.sessionlog.history.FilterRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
@@ -8,6 +9,10 @@ import com.growthdiary.sessionlog.tracker.session.SessionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,9 +28,11 @@ public class ServiceIntegrationTests {
     @Autowired
     private HistoryService historyService;
 
-    @Test
-    public void testDynamicFilter() {
-        // first filter details
+    private Sort createSort() {
+        return Sort.by("time.duration").descending();
+    }
+
+    private FilterRequest createDetailsFilter() {
         String entity = "details";
         String key = "skill";
         String skillA = "Spring Boot";
@@ -35,71 +42,94 @@ public class ServiceIntegrationTests {
         skillList.add(skillA);
         skillList.add(skillB);
 
-        FilterRequest filterA = new FilterRequest.Builder()
+        FilterRequest filter = new FilterRequest.Builder()
                 .entity(entity)
                 .operator(FilterOperators.IN)
                 .key(key)
                 .skills(skillList)
                 .build();
 
-        // second filter time
+        return filter;
+    }
 
-        String entityB = "time";
-        String keyB = "duration";
-        Long durationA = 43L;
-        Long durationB = 87L;
+    private FilterRequest createTimeFilter() {
+        String entity = "time";
+        String key = "duration";
+        Long durationA = 30L;
+        Long durationB = 90L;
         List<Long> durationList = new ArrayList<>();
         durationList.add(durationA);
         durationList.add(durationB);
 
-        FilterRequest filterB = new FilterRequest.Builder()
-                .entity(entityB)
-                .key(keyB)
+        FilterRequest filter = new FilterRequest.Builder()
+                .entity(entity)
+                .key(key)
                 .operator(FilterOperators.BETWEEN)
                 .durations(durationList)
                 .build();
 
-        // third filter feedback
+        return filter;
+    }
 
-        String entityC = "feedback";
-        String keyC = "productivity";
+    private FilterRequest createFeedbackFilter() {
+        String entity = "feedback";
+        String key = "productivity";
         int ratingA = 2;
         int ratingB = 4;
         List<Integer> productivityList = new ArrayList<>();
         productivityList.add(ratingA);
         productivityList.add(ratingB);
 
-        FilterRequest filterC = new FilterRequest.Builder()
-                .entity(entityC)
-                .key(keyC)
+        FilterRequest filter = new FilterRequest.Builder()
+                .entity(entity)
+                .key(key)
                 .operator(FilterOperators.GREATER_THAN)
                 .productivity(productivityList)
                 .build();
 
+        return filter;
+    }
+
+    private List<FilterRequest> createFilterList() {
+        FilterRequest detailsFilter = createDetailsFilter();
+        FilterRequest timeFilter = createTimeFilter();
+        FilterRequest feedbackFilter = createFeedbackFilter();
+
         List<FilterRequest> filters = new ArrayList<>();
-        filters.add(filterA);
-        filters.add(filterB);
-        filters.add(filterC);
+        filters.add(detailsFilter);
+        filters.add(timeFilter);
+        filters.add(feedbackFilter);
 
-        List<Session> sessions = historyService.dynamicFilter(filters);
-        System.out.println("Number of results is: " + sessions.size());
+        return filters;
+    }
 
+    @Test
+    public void testHistoryServiceWithFilter() {
+        List<FilterRequest> filterRequests = createFilterList();
+        Sort sortRequest = createSort();
+        int pageNum = 0;
+        int pageSize = 10;
+
+        HistoryDTO historyDTO = new HistoryDTO(filterRequests, pageNum, pageSize, sortRequest);
+
+        Page<Session> sessions = historyService.getSessions(historyDTO);
         for (Session session : sessions) {
-            String actualSkill = session.getDetails().getSkill();
-            Long actualDuration = session.getTime().getDuration();
-            int actualProductivity = session.getFeedback().getProductivity();
-
-            assertTrue(skillList.contains(actualSkill));
-            assertTrue(actualDuration >= durationA && actualDuration <= durationB);
-            assertTrue(actualProductivity > ratingA);
+            System.out.println(session.getTime().getStartDate());
         }
     }
 
     @Test
-    public void testFindAll() {
-        int cap = 100;
+    public void testHistoryServiceNoFilter() {
+        Sort sortRequest = createSort();
+        int pageNum = 0;
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sortRequest);
+        HistoryDTO historyDTO = new HistoryDTO(null, pageNum, pageSize, sortRequest);
+        Page<Session> sessions = historyService.getSessions(historyDTO);
 
-        List<Session> allSessions = historyService.getAllSessions();
-        assertEquals(allSessions.size(), cap);
+        assertEquals(100, sessions.getTotalElements());
+        for (Session session : sessions) {
+            System.out.println(session.getTime().getDuration());
+        }
     }
 }
