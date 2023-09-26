@@ -3,6 +3,9 @@ package com.growthdiary.sessionlog.history;
 import com.growthdiary.sessionlog.history.specifications.*;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,18 +22,15 @@ public class HistoryService {
         this.historyRepository = historyRepository;
     }
 
+    public Page<Session> getSessions(HistoryDTO historyDTO) {
 
-    /** Creates a Sort object that specifies property to be sorted and order of sorting
-     *
-     * @param direction The order to sort results in either ASC or DESC
-     * @param property The property to be sorted
-     * @return Sort object with specified sort direction and property
-     */
-    public Sort createSort(SortDirection direction, String property) {
-        if (direction == SortDirection.ASC) {
-            return Sort.by(Sort.Direction.ASC, property);
+        Pageable pageable = PageRequest.of(historyDTO.getPageNum(), historyDTO.getPageSize(), historyDTO.getSort());
+
+        if (historyDTO.getFilterRequest() == null) {
+            return historyRepository.findAll(pageable);
         } else {
-            return Sort.by(Sort.Direction.DESC, property);
+            List<FilterRequest> filterRequest = historyDTO.getFilterRequest();
+            return historyRepository.findAll(dynamicFilter(filterRequest), pageable);
         }
     }
 
@@ -38,7 +38,7 @@ public class HistoryService {
         return historyRepository.findAll();
     }
 
-    public List<Session> dynamicFilter(List<FilterRequest> filterRequests) {
+    private Specification<Session> dynamicFilter(List<FilterRequest> filterRequests) {
 
         Specification<Session> compiledSpecs = Specification.where(null);
 
@@ -60,7 +60,6 @@ public class HistoryService {
                 }
             }
         }
-        return historyRepository.findAll(compiledSpecs);
+        return compiledSpecs;
     }
-
 }
