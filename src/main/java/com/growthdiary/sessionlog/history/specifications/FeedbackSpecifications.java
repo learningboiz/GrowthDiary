@@ -1,9 +1,9 @@
 package com.growthdiary.sessionlog.history.specifications;
 
-import com.growthdiary.sessionlog.feedback.Feedback;
+import com.growthdiary.sessionlog.tracker.feedback.Feedback;
 import com.growthdiary.sessionlog.history.FilterOperators;
 import com.growthdiary.sessionlog.history.FilterRequest;
-import com.growthdiary.sessionlog.session.Session;
+import com.growthdiary.sessionlog.tracker.session.Session;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;

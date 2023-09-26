@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.history;
 
 import com.growthdiary.sessionlog.history.specifications.*;
-import com.growthdiary.sessionlog.session.Session;
+import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
