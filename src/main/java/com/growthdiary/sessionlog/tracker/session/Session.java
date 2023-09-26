@@ -1,8 +1,8 @@
-package com.growthdiary.sessionlog.session;
+package com.growthdiary.sessionlog.tracker.session;
 
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.time.Time;
+import com.growthdiary.sessionlog.tracker.details.Details;
+import com.growthdiary.sessionlog.tracker.feedback.Feedback;
+import com.growthdiary.sessionlog.tracker.time.Time;
 import jakarta.persistence.*;
 
 /**

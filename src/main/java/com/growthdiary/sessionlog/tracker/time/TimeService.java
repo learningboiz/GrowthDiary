@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.time;
+package com.growthdiary.sessionlog.tracker.time;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

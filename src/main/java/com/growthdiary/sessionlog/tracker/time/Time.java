@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.time;
+package com.growthdiary.sessionlog.tracker.time;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

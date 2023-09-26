@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.details;
+package com.growthdiary.sessionlog.tracker.details;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

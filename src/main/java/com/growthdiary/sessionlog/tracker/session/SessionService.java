@@ -1,11 +1,11 @@
-package com.growthdiary.sessionlog.session;
+package com.growthdiary.sessionlog.tracker.session;
 
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.details.DetailsService;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.feedback.FeedbackService;
-import com.growthdiary.sessionlog.time.Time;
-import com.growthdiary.sessionlog.time.TimeService;
+import com.growthdiary.sessionlog.tracker.details.Details;
+import com.growthdiary.sessionlog.tracker.details.DetailsService;
+import com.growthdiary.sessionlog.tracker.feedback.Feedback;
+import com.growthdiary.sessionlog.tracker.feedback.FeedbackService;
+import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.time.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

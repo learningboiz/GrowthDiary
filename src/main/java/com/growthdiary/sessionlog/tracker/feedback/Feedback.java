@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.feedback;
+package com.growthdiary.sessionlog.tracker.feedback;
 
 import jakarta.persistence.*;
 

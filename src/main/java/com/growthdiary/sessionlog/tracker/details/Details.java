@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.details;
+package com.growthdiary.sessionlog.tracker.details;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

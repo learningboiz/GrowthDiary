@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.session;
+package com.growthdiary.sessionlog.tracker.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

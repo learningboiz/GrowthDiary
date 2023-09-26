@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.session;
+package com.growthdiary.sessionlog.tracker.session;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
