@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history.specifications;
+package com.growthdiary.sessionlog.history;
 
 import java.time.LocalDate;
 import java.util.List;
