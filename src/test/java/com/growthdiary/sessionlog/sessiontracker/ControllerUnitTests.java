@@ -1,16 +1,16 @@
 package com.growthdiary.sessionlog.sessiontracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.details.DetailsService;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.feedback.FeedbackService;
-import com.growthdiary.sessionlog.session.Session;
-import com.growthdiary.sessionlog.session.SessionController;
-import com.growthdiary.sessionlog.session.SessionDTO;
-import com.growthdiary.sessionlog.session.SessionService;
-import com.growthdiary.sessionlog.time.Time;
-import com.growthdiary.sessionlog.time.TimeService;
+import com.growthdiary.sessionlog.tracker.details.Details;
+import com.growthdiary.sessionlog.tracker.details.DetailsService;
+import com.growthdiary.sessionlog.tracker.feedback.Feedback;
+import com.growthdiary.sessionlog.tracker.feedback.FeedbackService;
+import com.growthdiary.sessionlog.tracker.session.Session;
+import com.growthdiary.sessionlog.tracker.session.SessionController;
+import com.growthdiary.sessionlog.tracker.session.SessionDTO;
+import com.growthdiary.sessionlog.tracker.session.SessionService;
+import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.time.TimeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

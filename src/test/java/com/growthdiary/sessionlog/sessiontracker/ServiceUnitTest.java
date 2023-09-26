@@ -1,26 +1,23 @@
 package com.growthdiary.sessionlog.sessiontracker;
 
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.details.DetailsService;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.feedback.FeedbackService;
-import com.growthdiary.sessionlog.session.Session;
-import com.growthdiary.sessionlog.session.SessionDTO;
-import com.growthdiary.sessionlog.session.SessionRepository;
-import com.growthdiary.sessionlog.session.SessionService;
-import com.growthdiary.sessionlog.time.Time;
-import com.growthdiary.sessionlog.time.TimeService;
-import org.junit.jupiter.api.BeforeEach;
+import com.growthdiary.sessionlog.tracker.details.Details;
+import com.growthdiary.sessionlog.tracker.details.DetailsService;
+import com.growthdiary.sessionlog.tracker.feedback.Feedback;
+import com.growthdiary.sessionlog.tracker.feedback.FeedbackService;
+import com.growthdiary.sessionlog.tracker.session.Session;
+import com.growthdiary.sessionlog.tracker.session.SessionDTO;
+import com.growthdiary.sessionlog.tracker.session.SessionRepository;
+import com.growthdiary.sessionlog.tracker.session.SessionService;
+import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.time.TimeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;

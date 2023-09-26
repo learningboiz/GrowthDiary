@@ -1,9 +1,9 @@
 package com.growthdiary.sessionlog.sessiontracker;
 
-import com.growthdiary.sessionlog.details.Details;
-import com.growthdiary.sessionlog.feedback.Feedback;
-import com.growthdiary.sessionlog.session.Session;
-import com.growthdiary.sessionlog.time.Time;
+import com.growthdiary.sessionlog.tracker.details.Details;
+import com.growthdiary.sessionlog.tracker.feedback.Feedback;
+import com.growthdiary.sessionlog.tracker.session.Session;
+import com.growthdiary.sessionlog.tracker.time.Time;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
