@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history;
+package com.growthdiary.sessionlog.history.filters;
 
 public enum FilterOperators {
 
