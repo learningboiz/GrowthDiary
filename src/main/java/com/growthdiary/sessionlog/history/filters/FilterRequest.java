@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history.specifications;
+package com.growthdiary.sessionlog.history.filters;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,7 +9,7 @@ public class FilterRequest {
 
     private FilterOperators operator;
 
-    private String key;
+    private String property;
 
     private List<String> skills;
 
@@ -25,7 +25,10 @@ public class FilterRequest {
 
     private FilterRequest() {}
 
-    // Builder
+    /*
+    Builder method for the FilterRequest object
+    Builder pattern used to support the creation of objects with varying list types
+     */
     public static class Builder {
         private final FilterRequest request = new FilterRequest();
 
@@ -39,8 +42,8 @@ public class FilterRequest {
             return this;
         }
 
-        public Builder key(String key) {
-            request.key = key;
+        public Builder property(String property) {
+            request.property = property;
             return this;
         }
 
@@ -88,8 +91,8 @@ public class FilterRequest {
         return this.operator;
     }
 
-    public String getKey() {
-        return this.key;
+    public String getProperty() {
+        return this.property;
     }
     public List<String> getSkills() {
         return this.skills;
