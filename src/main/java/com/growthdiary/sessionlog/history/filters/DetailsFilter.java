@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history.specifications;
+package com.growthdiary.sessionlog.history.filters;
 
 import com.growthdiary.sessionlog.tracker.details.Details;
 import com.growthdiary.sessionlog.history.FilterRequest;
@@ -10,21 +10,29 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsSpecifications {
+public class DetailsFilter {
 
-    public static Specification<Session> createDetailsSpec(FilterRequest filterRequest) {
-        Specification<Session> detailsSpecs = Specification.where(null);
-        String key = filterRequest.getKey();
+    /**
+     * Creates a Specification that retrieves sessions based on Details-related filter requests
+     * @param filter FilterRequest object containing the filter criteria for Details properties
+     * @return a Specification object that filters sessions based on the specified Details criteria
+     */
+    public static Specification<Session> buildWith(FilterRequest filter) {
+
+        Specification<Session> filteredSessions = Specification.where(null);
+        String key = filter.getProperty();
+
+        // calls appropriate methods based on the property assigned
         if (key.equals("skill")) {
-            detailsSpecs = skillIn(filterRequest.getSkills());
+            filteredSessions = findSkillIn(filter.getSkills());
 
         } else if (key.equals("description")) {
-            detailsSpecs = descriptionLike(filterRequest.getDescriptions().get(0));
+            filteredSessions = findDescriptionsLike(filter.getDescriptions().get(0));
         }
-        return detailsSpecs;
+        return filteredSessions;
     }
 
-    private static Specification<Session> skillIn(List<String> skillList) {
+    private static Specification<Session> findSkillIn(List<String> skillList) {
         return (root, query, criteriaBuilder) -> {
 
             Join<Session, Details> detailsJoin = root.join("details");
@@ -39,7 +47,7 @@ public class DetailsSpecifications {
         };
     }
 
-    private static Specification<Session> descriptionLike(String givenDescription) {
+    private static Specification<Session> findDescriptionsLike(String givenDescription) {
         return (root, query, criteriaBuilder) -> {
             Join<Session, Details> detailsJoin = root.join("details");
             return criteriaBuilder.like(detailsJoin.get("description"), "%"+givenDescription+"%");
