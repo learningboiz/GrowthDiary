@@ -1,7 +1,5 @@
 package com.growthdiary.sessionlog.history.filters;
 
-import com.growthdiary.sessionlog.history.FilterOperators;
-import com.growthdiary.sessionlog.history.FilterRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import com.growthdiary.sessionlog.tracker.time.Time;
 import jakarta.persistence.criteria.Join;

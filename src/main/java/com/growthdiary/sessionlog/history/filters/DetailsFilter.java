@@ -1,7 +1,6 @@
 package com.growthdiary.sessionlog.history.filters;
 
 import com.growthdiary.sessionlog.tracker.details.Details;
-import com.growthdiary.sessionlog.history.FilterRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
