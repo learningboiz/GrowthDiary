@@ -1,9 +1,9 @@
 package com.growthdiary.sessionlog.sessionhistory;
 
-import com.growthdiary.sessionlog.history.FilterOperators;
+import com.growthdiary.sessionlog.history.filters.FilterOperators;
 import com.growthdiary.sessionlog.history.HistoryDTO;
 import com.growthdiary.sessionlog.history.HistoryService;
-import com.growthdiary.sessionlog.history.FilterRequest;
+import com.growthdiary.sessionlog.history.filters.FilterRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import com.growthdiary.sessionlog.tracker.session.SessionRepository;
 import org.junit.jupiter.api.Test;
@@ -29,12 +29,12 @@ public class ServiceIntegrationTests {
     private HistoryService historyService;
 
     private Sort createSort() {
-        return Sort.by("time.duration").descending();
+        return Sort.by("time.startDate").descending();
     }
 
     private FilterRequest createDetailsFilter() {
         String entity = "details";
-        String key = "skill";
+        String property = "skill";
         String skillA = "Spring Boot";
         String skillB = "TypeScript";
 
@@ -45,7 +45,7 @@ public class ServiceIntegrationTests {
         FilterRequest filter = new FilterRequest.Builder()
                 .entity(entity)
                 .operator(FilterOperators.IN)
-                .key(key)
+                .property(property)
                 .skills(skillList)
                 .build();
 
@@ -54,7 +54,7 @@ public class ServiceIntegrationTests {
 
     private FilterRequest createTimeFilter() {
         String entity = "time";
-        String key = "duration";
+        String property = "duration";
         Long durationA = 30L;
         Long durationB = 90L;
         List<Long> durationList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest filter = new FilterRequest.Builder()
                 .entity(entity)
-                .key(key)
+                .property(property)
                 .operator(FilterOperators.BETWEEN)
                 .durations(durationList)
                 .build();
@@ -73,7 +73,7 @@ public class ServiceIntegrationTests {
 
     private FilterRequest createFeedbackFilter() {
         String entity = "feedback";
-        String key = "productivity";
+        String property = "productivity";
         int ratingA = 2;
         int ratingB = 4;
         List<Integer> productivityList = new ArrayList<>();
@@ -82,7 +82,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest filter = new FilterRequest.Builder()
                 .entity(entity)
-                .key(key)
+                .property(property)
                 .operator(FilterOperators.GREATER_THAN)
                 .productivity(productivityList)
                 .build();
@@ -112,7 +112,7 @@ public class ServiceIntegrationTests {
 
         HistoryDTO historyDTO = new HistoryDTO(filterRequests, pageNum, pageSize, sortRequest);
 
-        Page<Session> sessions = historyService.getSessions(historyDTO);
+        Page<Session> sessions = historyService.getRequestedSessions(historyDTO);
         for (Session session : sessions) {
             System.out.println(session.getTime().getStartDate());
         }
@@ -125,7 +125,7 @@ public class ServiceIntegrationTests {
         int pageSize = 10;
         Pageable pageable = PageRequest.of(pageNum, pageSize, sortRequest);
         HistoryDTO historyDTO = new HistoryDTO(null, pageNum, pageSize, sortRequest);
-        Page<Session> sessions = historyService.getSessions(historyDTO);
+        Page<Session> sessions = historyService.getRequestedSessions(historyDTO);
 
         assertEquals(100, sessions.getTotalElements());
         for (Session session : sessions) {
