@@ -7,13 +7,13 @@ public class FilterRequest {
 
     private String entity;
 
-    private FilterOperators operator;
+    private FilterOperations operator;
 
     private String property;
 
     private List<String> skills;
 
-    private List<String> descriptions;
+    private List<String> description;
 
     private List<Long> durations;
 
@@ -32,48 +32,48 @@ public class FilterRequest {
     public static class Builder {
         private final FilterRequest request = new FilterRequest();
 
-        public Builder entity(String entity) {
-            request.entity = entity;
-            return this;
-        }
-
-        public Builder operator(FilterOperators operator) {
-            request.operator = operator;
-            return this;
-        }
-
-        public Builder property(String property) {
-            request.property = property;
-            return this;
-        }
-
-        public Builder skills(List<String> skills) {
+        public Builder filterBySkill(List<String> skills) {
+            request.entity = "details";
+            request.property = "skill";
             request.skills = skills;
             return this;
         }
 
-        public Builder descriptions(List<String> descriptions) {
-            request.descriptions = descriptions;
+        public Builder filterByDescription(List<String> description) {
+            request.entity = "details";
+            request.property = "description";
+            request.description = description;
             return this;
         }
 
-        public Builder durations(List<Long> durations) {
+        public Builder filterByDuration(List<Long> durations, FilterOperations operation) {
+            request.entity = "time";
+            request.property = "duration";
+            request.operator = operation;
             request.durations = durations;
             return this;
         }
 
-        public Builder dates(List<LocalDate> dates) {
+        public Builder filterByDate(List<LocalDate> dates, FilterOperations operation) {
+            request.entity = "time";
+            request.property = "startDate";
+            request.operator = operation;
             request.dates = dates;
             return this;
         }
 
-        public Builder productivity(List<Integer> productivity) {
+        public Builder filterByProductivity(List<Integer> productivity, FilterOperations operation) {
+            request.entity = "feedback";
+            request.property = "productivity";
+            request.operator = operation;
             request.productivity = productivity;
             return this;
         }
 
-        public Builder distractions(List<String> distractions) {
-            request.distractions = distractions;
+        public Builder filterByDistraction(List<String> distraction) {
+            request.entity = "feedback";
+            request.property = "distraction";
+            request.distractions = distraction;
             return this;
         }
 
@@ -87,7 +87,7 @@ public class FilterRequest {
         return this.entity;
     }
 
-    public FilterOperators getOperator() {
+    public FilterOperations getOperator() {
         return this.operator;
     }
 
@@ -99,7 +99,7 @@ public class FilterRequest {
     }
 
     public List<String> getDescriptions() {
-        return this.descriptions;
+        return this.description;
     }
 
     public List<Long> getDurations() {
