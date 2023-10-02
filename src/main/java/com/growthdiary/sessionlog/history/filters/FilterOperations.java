@@ -1,9 +1,7 @@
 package com.growthdiary.sessionlog.history.filters;
 
-public enum FilterOperators {
-
-    IN,
-    LIKE,
+public enum FilterOperations {
+    
     EQUALS,
     LESS_THAN,
     GREATER_THAN,
