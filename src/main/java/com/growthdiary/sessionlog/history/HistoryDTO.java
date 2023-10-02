@@ -1,5 +1,6 @@
 package com.growthdiary.sessionlog.history;
 
+import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
