@@ -1,12 +1,12 @@
 package com.growthdiary.sessionlog.history;
 
 import com.growthdiary.sessionlog.history.filters.*;
+import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,9 +35,11 @@ public class HistoryService {
     }
 
     /**
-     * Creates a Page of session based on the user requested parameters
+     * Creates a Page of sessions based on the user requested parameters
+     * Applies requested filters and sort criteria if both are present
+     * Applies only sort criteria if there are not filter requests
      * @param historyDTO Object containing user request regarding page numbers, page size, sorts and data filters
-     * @return a Page of filtered session
+     * @return a Page of filtered sessions
      */
     public Page<Session> getRequestedSessions(HistoryDTO historyDTO) {
 
@@ -47,32 +49,7 @@ public class HistoryService {
             return historyRepository.findAll(pageable);
         } else {
             List<FilterRequest> filterRequest = historyDTO.getFilterRequest();
-            return historyRepository.findAll(getFilteredSessions(filterRequest), pageable);
+            return historyRepository.findAll(FilterMapper.getFilteredSessions(filterRequest), pageable);
         }
-    }
-
-    private Specification<Session> getFilteredSessions(List<FilterRequest> filterRequests) {
-
-        Specification<Session> compiledSpecs = Specification.where(null);
-
-        for (FilterRequest filter : filterRequests) {
-            String entity = filter.getEntity();
-
-            switch (entity) {
-                case "details": {
-                    Specification<Session> detailsSpec = DetailsFilter.buildWith(filter);
-                    compiledSpecs = compiledSpecs.and(detailsSpec);
-                }
-                case "time": {
-                    Specification<Session> timeSpec = TimeFilter.buildWith(filter);
-                    compiledSpecs = compiledSpecs.and(timeSpec);
-                }
-                case "feedback": {
-                    Specification<Session> feedbackSpec = FeedbackFilter.buildWith(filter);
-                    compiledSpecs = compiledSpecs.and(feedbackSpec);
-                }
-            }
-        }
-        return compiledSpecs;
     }
 }
