@@ -1,4 +1,6 @@
-package com.growthdiary.sessionlog.history.filters;
+package com.growthdiary.sessionlog.history.requests;
+
+import com.growthdiary.sessionlog.history.filters.FilterOperations;
 
 import java.time.LocalDate;
 import java.util.List;
