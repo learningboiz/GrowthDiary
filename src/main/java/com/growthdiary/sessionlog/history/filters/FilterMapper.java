@@ -1,5 +1,6 @@
 package com.growthdiary.sessionlog.history.filters;
 
+import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -9,15 +10,24 @@ import java.util.List;
 public class FilterMapper {
 
     /**
-     * Creates a Specification that wraps multiple specifications for each filter
+     * Creates a Specification object that combines multiple specifications for each filter
      * @param filterRequests List containing filter requests
      * @return a Specification object
      */
     public static Specification<Session> getFilteredSessions(List<FilterRequest> filterRequests) {
 
+        /*
+        Create a base/wrapper specification object to combine other specifications
+         */
         Specification<Session> compiledSpecs = Specification.where(null);
 
+        /*
+        Iterate through the list of filter requests
+        Each filter is mapped to the appropriate helper function based on the given entity
+        Exception thrown if the entity provided does not match the existing models
+         */
         for (FilterRequest request : filterRequests) {
+
             String entity = request.getEntity();
 
             switch (entity) {
@@ -33,7 +43,7 @@ public class FilterMapper {
                     Specification<Session> feedbackSpec = filterByFeedback(request);
                     compiledSpecs = compiledSpecs.and(feedbackSpec);
                 }
-                default -> throw new RuntimeException("Entity must be 'details', 'time' or 'feedback'");
+                default -> throw new IllegalArgumentException("Entity must be 'details', 'time' or 'feedback'");
             }
         }
         return compiledSpecs;
