@@ -19,8 +19,11 @@ public class FilterSpecifications {
                 predicates.add(predicate);
             }
 
-            // convert ArrayList into an array of predicates since cb.or only takes in Predicates
-            // utilised ArrayList from the start since its dynamic, while regular array cannot be appended
+            /*
+            The code below converts the ArrayList into an array of predicates
+            CriteriaBuilder only takes in Predicates as an argument, hence the need for the conversion
+            ArrayList was utilised since it allows for the dynamic addition of values, compared to the fixed regular array
+             */
             return criteriaBuilder.or(predicates.toArray(new Predicate[0]));
         };
     }
@@ -50,7 +53,7 @@ public class FilterSpecifications {
                 case BETWEEN -> {
                     return criteriaBuilder.between(root.join(entity).get(property), firstValue, secondValue);
                 }
-                default -> throw new RuntimeException("Provided operation must be EQUALS, GREATER_THAN, LESS_THAN OR BETWEEN");
+                default -> throw new IllegalArgumentException("Provided operation must be EQUALS, GREATER_THAN, LESS_THAN OR BETWEEN");
             }
         };
     }
