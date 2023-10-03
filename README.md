@@ -8,7 +8,12 @@ The GrowthDiary is a web-application that tracks individual learning progress. T
 ### Tech Stack
 Backend framework: Spring Boot
 Database: MySQL
+Testing: JUnit, Mockito - Unit/Integration
 Design architecture: MVC 
+
+### Features
+- Filter: JPA Specifications, Criteria API, JPA Metamodel
+- Tracker: MVC architecture
 
 ## Core functionalities
 
@@ -33,8 +38,8 @@ Design architecture: MVC
     - Specific distractions
 
 ### 3. Analytics
-- Users will be presented trends and analysis of their learning habits
-- Analysis can be modified based on categories to compare (daily, weekly etc) or (skills, time etc)
+- Present top (5/10/15) skills, distractions, session timings, durations
+- Correlation between distractions/session timings/skill and productivity; 
 
 ## Additional features
 ### 4. Email messaging 
