@@ -10,7 +10,7 @@ public class SortRequest {
     }
 
     public static class Builder {
-        private Sort.Direction direction = Sort.Direction.DESC;
+        private Sort.Direction direction;
         private String property;
 
         public Builder() {}
@@ -66,7 +66,7 @@ public class SortRequest {
             if (this.direction != null) {
                 throw new UnsupportedOperationException("Each request can only have one sort direction");
             } else {
-                this.direction = Sort.Direction.DESC;
+                this.direction = Sort.Direction.ASC;
                 return this;
             }
         }
@@ -74,6 +74,8 @@ public class SortRequest {
         public SortRequest build() {
             if (this.property == null) {
                 throw new UnsupportedOperationException("Request must specify the sort criteria");
+            } else if (this.direction == null) {
+                throw new UnsupportedOperationException("Request must specific sort direction");
             } else {
                 request.sort = Sort.by(direction, property);
                 return request;
