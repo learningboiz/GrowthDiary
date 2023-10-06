@@ -2,88 +2,36 @@ package com.growthdiary.sessionlog.history.requests;
 
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Main class that manages the creation of sort queries based on selected properties
+ *
+ * <p>Supports sorting the following properties:</p>
+ * <ul>
+ *     <li>skill</li>
+ *     <li>duration</li>
+ *     <li>startDate</li>
+ *     <li>productivity</li>
+ * </ul>
+ */
 public class SortRequest {
 
-    private Sort sort;
-
-    private SortRequest() {
+    public static Sort sortByAscending(String property) {
+        validateProperty(property);
+        return Sort.by(property).ascending();
     }
 
-    public static class Builder {
-        private Sort.Direction direction;
-        private String property;
-
-        public Builder() {}
-
-        private final SortRequest request = new SortRequest();
-
-        public Builder sortBySkill() {
-            if (this.property != null) {
-                throw new UnsupportedOperationException("Each request can only have one sort criteria");
-            } else {
-                this.property = "details.skill";
-                return this;
-            }
-        }
-
-        public Builder sortByDate() {
-            if (this.property != null) {
-                throw new UnsupportedOperationException("Each request can only have one sort criteria");
-            } else {
-                this.property = "time.startDate";
-                return this;
-            }
-        }
-
-        public Builder sortByDuration() {
-            if (this.property != null) {
-                throw new UnsupportedOperationException("Each request can only have one sort criteria");
-            } else {
-                this.property = "time.duration";
-                return this;
-            }
-        }
-
-        public Builder sortByProductivity() {
-            if (this.property != null) {
-                throw new UnsupportedOperationException("Each request can only have one sort criteria");
-            } else {
-                this.property = "feedback.productivity";
-                return this;
-            }
-        }
-
-        public Builder descending() {
-            if (this.direction != null) {
-                throw new UnsupportedOperationException("Each request can only have one sort direction");
-            } else {
-                this.direction = Sort.Direction.DESC;
-                return this;
-            }
-        }
-
-        public Builder ascending() {
-            if (this.direction != null) {
-                throw new UnsupportedOperationException("Each request can only have one sort direction");
-            } else {
-                this.direction = Sort.Direction.ASC;
-                return this;
-            }
-        }
-
-        public SortRequest build() {
-            if (this.property == null) {
-                throw new UnsupportedOperationException("Request must specify the sort criteria");
-            } else if (this.direction == null) {
-                throw new UnsupportedOperationException("Request must specific sort direction");
-            } else {
-                request.sort = Sort.by(direction, property);
-                return request;
-            }
-        }
+    public static Sort sortByDescending(String property) {
+        validateProperty(property);
+        return Sort.by(property).descending();
     }
 
-    public Sort getSort() {
-        return sort;
+    private static void validateProperty(String property) {
+        List<String> validProperties = Arrays.asList("skill", "duration", "startDate", "productivity");
+        if (!validProperties.contains(property)) {
+            throw new IllegalArgumentException("Only skill, duration, startDate and productivity can be sorted");
+        }
     }
 }
