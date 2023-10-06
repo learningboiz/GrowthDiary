@@ -2,38 +2,55 @@ package com.growthdiary.sessionlog.sessionhistory;
 
 import com.growthdiary.sessionlog.history.requests.SortRequest;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Sort;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SortRequestUnitTests {
-
     @Test
-    public void testSortCreation() {
-        SortRequest request = new SortRequest.Builder()
-                .sortByDuration()
-                .build();
+    public void testSortAscending() {
+        String property = "duration";
+        Sort expectedSort = Sort.by(property).ascending();
 
-        assertNotNull(request.getSort());
+        Sort actualSort = SortRequest.sortByAscending(property);
+
+        assertEquals(expectedSort, actualSort);
     }
 
     @Test
-    public void testMultipleSorts() {
+    public void testSortDescending() {
+        String property = "duration";
+        Sort expectedSort = Sort.by(property).descending();
 
-        // Each request should only have one sorting criteria
-        assertThrows(UnsupportedOperationException.class, () -> {
-                SortRequest request = new SortRequest.Builder()
-                .sortByDuration()
-                .sortByDate()
-                .sortByDate()
-                .ascending()
-                .build();
+        Sort actualSort = SortRequest.sortByDescending(property);
+
+        assertEquals(expectedSort, actualSort);
+    }
+
+    @Test
+    public void testInvalidProperty() {
+        String property = "description";
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Sort illegalSort1 = SortRequest.sortByAscending(property);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Sort illegalSort2 = SortRequest.sortByDescending(property);
         });
     }
 
     @Test
-    public void testEmptyRequest() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            SortRequest request = new SortRequest.Builder().build();
+    public void testNullProperty() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Sort illegalSort = SortRequest.sortByAscending(null);
+        });
+    }
+
+    @Test
+    public void testEmptyString() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Sort illegalSort = SortRequest.sortByAscending("");
         });
     }
 }
