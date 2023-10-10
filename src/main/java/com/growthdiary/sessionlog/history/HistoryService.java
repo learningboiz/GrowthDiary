@@ -45,10 +45,11 @@ public class HistoryService {
 
         Pageable pageable = PageRequest.of(historyDTO.getPageNum(), historyDTO.getPageSize(), historyDTO.getSort());
 
-        if (historyDTO.getFilterRequest() == null) {
+        FilterRequest filterRequest = historyDTO.getFilterRequest();
+
+        if (filterRequest == null) {
             return historyRepository.findAll(pageable);
         } else {
-            List<FilterRequest> filterRequest = historyDTO.getFilterRequest();
             return historyRepository.findAll(FilterMapper.getFilteredSessions(filterRequest), pageable);
         }
     }
