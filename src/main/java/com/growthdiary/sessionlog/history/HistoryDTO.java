@@ -7,7 +7,7 @@ import java.util.List;
 
 public class HistoryDTO {
 
-    private final List<FilterRequest> filterRequest;
+    private final FilterRequest filterRequest;
 
     private final int pageNum;
 
@@ -15,14 +15,14 @@ public class HistoryDTO {
 
     private final Sort sort;
 
-    public HistoryDTO(List<FilterRequest> filterRequest, int pageNum, int pageSize, Sort sort) {
+    public HistoryDTO(FilterRequest filterRequest, int pageNum, int pageSize, Sort sort) {
         this.filterRequest = filterRequest;
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.sort = sort;
     }
 
-    public List<FilterRequest> getFilterRequest() {
+    public FilterRequest getFilterRequest() {
         return this.filterRequest;
     }
 
