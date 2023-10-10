@@ -1,55 +1,230 @@
 package com.growthdiary.sessionlog.sessionhistory;
 
 import com.growthdiary.sessionlog.history.filters.FilterOperations;
+import com.growthdiary.sessionlog.history.requests.DetailsRequest;
+import com.growthdiary.sessionlog.history.requests.FeedbackRequest;
 import com.growthdiary.sessionlog.history.requests.FilterRequest;
+import com.growthdiary.sessionlog.history.requests.TimeRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FilterRequestUnitTests {
 
-    @Test
-    public void testSkillFilterRequest() {
-        List<String> skills = new ArrayList<>();
-        String sampleOne = "Spring Boot";
-        String sampleTwo = "Hashmaps";
-        skills.add(sampleOne);
-        skills.add(sampleTwo);
+    private List<String> skills;
+    private String description;
 
-        FilterRequest request = new FilterRequest.Builder()
-                .filterBySkill(skills)
+    private LocalDate minDate;
+    private LocalDate maxDate;
+    private Long minDuration;
+    private Long maxDuration;
+    private Integer minProd;
+    private Integer maxProd;
+    private List<String> distractions;
+
+    @BeforeEach
+    public void createDummyValues() {
+        skills = Arrays.asList("Java", "Django");
+        description = "API";
+        minDate = LocalDate.of(2023, 10, 10);
+        maxDate = LocalDate.of(2023, 10, 10);
+        minDuration = 45L;
+        maxDuration = 60L;
+        minProd = 2;
+        maxProd = 4;
+        distractions = Arrays.asList("YouTube", "Reddit");
+    }
+
+
+    @Test
+    public void sanityTestForRequests() {
+        DetailsRequest detailsRequest = new DetailsRequest();
+        assertNotNull(detailsRequest);
+
+        TimeRequest timeRequest = new TimeRequest();
+        assertNotNull(timeRequest);
+
+        FeedbackRequest feedbackRequest = new FeedbackRequest();
+        assertNotNull(feedbackRequest);
+    }
+
+    @Test
+    public void testDetailRequestCreation() {
+        DetailsRequest detailsRequest = new DetailsRequest();
+
+        detailsRequest.setSkills(skills);
+        detailsRequest.setDescription(description);
+
+        assertEquals(skills, detailsRequest.getSkills());
+        assertEquals(description, detailsRequest.getDescription());
+    }
+
+    @Test
+    public void testTimeRequestCreation() {
+        TimeRequest timeRequest = new TimeRequest();
+
+        // set-up dates
+        FilterOperations dateOp = FilterOperations.BETWEEN;
+        timeRequest.setDateOp(dateOp);
+        timeRequest.setMinDate(minDate);
+        timeRequest.setMaxDate(maxDate);
+
+        // set-up durations
+        FilterOperations durationOp = FilterOperations.BETWEEN;
+        timeRequest.setDurationOp(durationOp);
+        timeRequest.setMinDuration(minDuration);
+        timeRequest.setMaxDuration(maxDuration);
+
+        // validate dates
+        assertEquals(dateOp, timeRequest.getDateOp());
+        assertEquals(minDate, timeRequest.getMinDate());
+        assertEquals(maxDate, timeRequest.getMaxDate());
+
+        // validate durations
+        assertEquals(durationOp, timeRequest.getDurationOp());
+        assertEquals(minDuration, timeRequest.getMinDuration());
+        assertEquals(maxDuration, timeRequest.getMaxDuration());
+    }
+
+    @Test
+    public void testFeedbackRequestCreation() {
+        FeedbackRequest feedbackRequest = new FeedbackRequest();
+
+        feedbackRequest.setDistractions(distractions);
+
+        FilterOperations prodOp = FilterOperations.BETWEEN;
+        feedbackRequest.setProdOp(prodOp);
+        feedbackRequest.setMinProd(minProd);
+        feedbackRequest.setMaxProd(maxProd);
+
+        assertEquals(distractions, feedbackRequest.getDistractions());
+        assertEquals(prodOp, feedbackRequest.getProdOp());
+        assertEquals(minProd, feedbackRequest.getMinProd());
+        assertEquals(maxProd, feedbackRequest.getMaxProd());
+    }
+
+    @Test
+    public void testEmptyFilterRequest() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest().build();
+        });
+    }
+
+    @Test
+    public void testFilterRequestCreation() {
+        FilterOperations op = FilterOperations.BETWEEN;
+
+        FilterRequest filterRequest = new FilterRequest.BuildRequest()
+                .filterSkill(skills)
+                .filterDescription(description)
+                .filterDate(minDate, maxDate, op)
+                .filterDuration(minDuration, maxDuration, op)
+                .filterProductivity(minProd, maxProd, op)
+                .filterDistractions(distractions)
                 .build();
 
-        assertEquals("details", request.getEntity());
-        assertEquals("skill", request.getProperty());
-        assertEquals(skills, request.getSkills());
-        assertNull(request.getProductivity());
-        assertNull(request.getDates());
+        assertNotNull(filterRequest.getDetailsRequest().getSkills());
+        assertNotNull(filterRequest.getDetailsRequest().getDescription());
+        assertNotNull(filterRequest.getTimeRequest().getMinDate());
+        assertNotNull(filterRequest.getTimeRequest().getMinDuration());
+        assertNotNull(filterRequest.getFeedbackRequest().getMinProd());
+        assertNotNull(filterRequest.getFeedbackRequest().getDistractions());
     }
 
     @Test
-    public void testMultipleFiltersPerRequest() {
-        List<String> descriptions = new ArrayList<>();
-        descriptions.add("web app");
+    public void testNullValuesForBetweenOperation() {
+        FilterOperations op = FilterOperations.BETWEEN;
 
-        List<Integer> productivity = new ArrayList<>();
-        productivity.add(3);
-
-        assertThrows(UnsupportedOperationException.class, () -> {
-            FilterRequest request = new FilterRequest.Builder()
-                    .filterByDescription(descriptions)
-                    .filterByProductivity(productivity, FilterOperations.EQUALS)
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest().
+                    filterDate(minDate, null, op)
                     .build();
         });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest().
+                    filterDuration(minDuration, null, op)
+                    .build();
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest().
+                    filterProductivity(minProd, null, op)
+                    .build();
+        });
+
     }
 
     @Test
-    public void testEmptyRequest() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            FilterRequest request = new FilterRequest.Builder().build();
+    public void testNegativeValues() {
+        // negative durations
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest()
+                    .filterDuration(-20L, 40L, FilterOperations.BETWEEN).
+                    build();
         });
+
+        // negative productivity
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest()
+                    .filterProductivity(-70, 999, FilterOperations.BETWEEN).
+                    build();
+        });
+    }
+
+    @Test
+    public void testMinValueGreaterThanMaxValue() {
+        // durations
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest()
+                    .filterDuration(60L, 20L, FilterOperations.BETWEEN).
+                    build();
+        });
+
+        // dates
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest()
+                    .filterDate(minDate.plusDays(1), maxDate, FilterOperations.BETWEEN).
+                    build();
+        });
+
+        // productivity
+        assertThrows(IllegalArgumentException.class, () -> {
+            FilterRequest filterRequest = new FilterRequest.BuildRequest()
+                    .filterProductivity(5,3 , FilterOperations.BETWEEN).
+                    build();
+        });
+    }
+
+    @Test
+    public void testNotAllFiltersRequested() {
+        // only details
+        FilterRequest filterRequestDetails = new FilterRequest.BuildRequest()
+                .filterSkill(skills)
+                .build();
+
+        assertNull(filterRequestDetails.getTimeRequest());
+        assertNull(filterRequestDetails.getFeedbackRequest());
+
+        // only time
+        FilterRequest filterRequestTime = new FilterRequest.BuildRequest()
+                .filterDuration(minDuration, null, FilterOperations.EQUALS)
+                .build();
+
+        assertNull(filterRequestTime.getDetailsRequest());
+        assertNull(filterRequestTime.getFeedbackRequest());
+
+        // only feedback
+        FilterRequest filterRequestFeedback = new FilterRequest.BuildRequest()
+                .filterDistractions(distractions)
+                .build();
+
+        assertNull(filterRequestFeedback.getDetailsRequest());
+        assertNull(filterRequestFeedback.getTimeRequest());
     }
 }
