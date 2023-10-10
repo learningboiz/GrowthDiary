@@ -29,7 +29,10 @@ public class SortRequest {
     }
 
     private static void validateProperty(String property) {
-        List<String> validProperties = Arrays.asList("skill", "duration", "startDate", "productivity");
+        /*
+        Entity added before property to prevent any mapping errors
+         */
+        List<String> validProperties = Arrays.asList("details.skill", "time.duration", "time.startDate", "feedback.productivity");
         if (!validProperties.contains(property)) {
             throw new IllegalArgumentException("Only skill, duration, startDate and productivity can be sorted");
         }
