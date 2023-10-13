@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SortRequestUnitTests {
     @Test
     public void testSortAscending() {
-        String property = "duration";
+        String property = "time.duration";
         Sort expectedSort = Sort.by(property).ascending();
 
         Sort actualSort = SortRequest.sortByAscending(property);
@@ -19,7 +19,7 @@ public class SortRequestUnitTests {
 
     @Test
     public void testSortDescending() {
-        String property = "duration";
+        String property = "time.duration";
         Sort expectedSort = Sort.by(property).descending();
 
         Sort actualSort = SortRequest.sortByDescending(property);
@@ -29,7 +29,7 @@ public class SortRequestUnitTests {
 
     @Test
     public void testInvalidProperty() {
-        String property = "description";
+        String property = "details.description";
 
         assertThrows(IllegalArgumentException.class, () -> {
             Sort illegalSort1 = SortRequest.sortByAscending(property);
