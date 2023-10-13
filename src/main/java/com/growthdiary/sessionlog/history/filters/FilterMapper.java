@@ -24,7 +24,7 @@ public class FilterMapper {
         if (filterRequest.getFeedbackRequest() != null) {
             allSpecifications = allSpecifications.and(filterByFeedback(filterRequest.getFeedbackRequest()));
         }
-        return null;
+        return allSpecifications;
     }
 
     private static Specification<Session> filterByDetails(DetailsRequest detailsRequest) {
