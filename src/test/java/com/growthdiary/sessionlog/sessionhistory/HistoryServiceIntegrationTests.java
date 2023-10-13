@@ -15,11 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,17 +33,33 @@ public class HistoryServiceIntegrationTests {
     private Sort sortRequest;
     private FilterRequest filterRequest;
 
+    private int totalEntries;
+    private List<String> expectedSkills;
+    private Long expectedMinDuration;
+    private Long expectedMaxDuration;
+    private int expectedMinProd;
+    private int expectedMaxProd;
+
+
     @BeforeEach
     public void setRequestValues() {
-        sortRequest = SortRequest.sortByDescending("time.startDate");
+        // dummy values
+        totalEntries = 100;
+        expectedSkills = Arrays.asList("Spring Boot", "TypeScript");
+        expectedMinDuration = 30L;
+        expectedMaxDuration = 90L;
+        expectedMinProd = 2;
+        expectedMaxProd = 3;
+        String sortMapping = "time.startDate";
 
+        // build requests
+        sortRequest = SortRequest.sortByDescending(sortMapping);
         filterRequest = new FilterRequest.BuildRequest()
-                .filterSkill(Arrays.asList("Spring Boot", "TypeScript"))
-                .filterDuration(30L, 90L, FilterOperations.BETWEEN)
-                .filterProductivity(2, 3, FilterOperations.BETWEEN)
+                .filterSkill(expectedSkills)
+                .filterDuration(expectedMinDuration, expectedMaxDuration, FilterOperations.BETWEEN)
+                .filterProductivity(expectedMinProd, expectedMaxProd, FilterOperations.BETWEEN)
                 .build();
     }
-
 
     @Test
     public void testHistoryServiceWithFilter() {
@@ -56,7 +70,12 @@ public class HistoryServiceIntegrationTests {
 
         Page<Session> sessions = historyService.getRequestedSessions(historyDTO);
         for (Session session : sessions) {
-            System.out.println(session.getTime().getStartDate());
+            String actualSkill = session.getDetails().getSkill();
+            Long actualDuration = session.getTime().getDuration();
+            int actualProductivity = session.getFeedback().getProductivity();
+            assertTrue(expectedSkills.contains(actualSkill));
+            assertTrue(actualDuration >= expectedMinDuration && actualDuration <= expectedMaxDuration);
+            assertTrue(actualProductivity >= expectedMinProd && actualProductivity <= expectedMaxProd);
         }
     }
 
@@ -64,13 +83,30 @@ public class HistoryServiceIntegrationTests {
     public void testHistoryServiceNoFilter() {
         int pageNum = 0;
         int pageSize = 10;
-        Pageable pageable = PageRequest.of(pageNum, pageSize, sortRequest);
         HistoryDTO historyDTO = new HistoryDTO(null, pageNum, pageSize, sortRequest);
         Page<Session> sessions = historyService.getRequestedSessions(historyDTO);
 
-        assertEquals(100, sessions.getTotalElements());
-        for (Session session : sessions) {
-            System.out.println(session.getTime().getDuration());
-        }
+        assertEquals(totalEntries, sessions.getTotalElements());
+    }
+
+    @Test
+    public void testNegativePageNumAndSize() {
+        int pageNum = -4783;
+        int pageSize = -100;
+        HistoryDTO historyDTO = new HistoryDTO(null, pageNum, pageSize, sortRequest);
+
+        assertThrows(IllegalArgumentException.class, () -> { // exception built into page request
+            Page<Session> sessions = historyService.getRequestedSessions(historyDTO);
+        });
+    }
+
+    @Test
+    public void testPageSizeGreaterThanSessionCount() {
+        int pageNum = 0;
+        int pageSize = totalEntries + 10;
+        HistoryDTO historyDTO = new HistoryDTO(null, pageNum, pageSize, sortRequest);
+        assertThrows(IllegalArgumentException.class, () -> { // exception built into page request
+            Page<Session> sessions = historyService.getRequestedSessions(historyDTO);
+        });
     }
 }
