@@ -1,5 +1,6 @@
 package com.growthdiary.sessionlog.tracker.time;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,11 +35,6 @@ public class Time {
     public Time() {}
 
     public Time(LocalDateTime startPeriod, LocalDateTime endPeriod) {
-
-        if (startPeriod.isAfter(endPeriod)) {
-            throw new IllegalArgumentException("Start period should come before end period");
-        }
-
         this.startDate = startPeriod.toLocalDate();
         this.startTime = startPeriod.toLocalTime();
         this.endDate = endPeriod.toLocalDate();
