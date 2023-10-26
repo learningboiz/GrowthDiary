@@ -1,11 +1,8 @@
 package com.growthdiary.sessionlog.tracker.time;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Main entity to represent the dates, timing and duration of a session
@@ -34,13 +31,16 @@ public class Time {
      */
     public Time() {}
 
-    public Time(LocalDateTime startPeriod, LocalDateTime endPeriod) {
-        this.startDate = startPeriod.toLocalDate();
-        this.startTime = startPeriod.toLocalTime();
-        this.endDate = endPeriod.toLocalDate();
-        this.endTime = endPeriod.toLocalTime();
-
-        this.duration = calculateDuration(startPeriod, endPeriod);
+    public Time(LocalDate startDate,
+                LocalDate endDate,
+                LocalTime startTime,
+                LocalTime endTime,
+                Long duration) {
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.duration = duration;
     }
 
     public void setStartDate(LocalDate startDate) {
@@ -81,13 +81,5 @@ public class Time {
 
     public Long getDuration() {
         return this.duration;
-    }
-
-    /**
-     * Returns the duration of session in minutes
-     * @return duration in minutes
-     */
-    public Long calculateDuration(LocalDateTime startPeriod, LocalDateTime endPeriod) {
-        return ChronoUnit.MINUTES.between(startPeriod, endPeriod);
     }
 }
