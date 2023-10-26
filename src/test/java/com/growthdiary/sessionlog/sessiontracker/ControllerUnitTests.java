@@ -2,15 +2,12 @@ package com.growthdiary.sessionlog.sessiontracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.growthdiary.sessionlog.tracker.details.Details;
-import com.growthdiary.sessionlog.tracker.details.DetailsService;
 import com.growthdiary.sessionlog.tracker.feedback.Feedback;
-import com.growthdiary.sessionlog.tracker.feedback.FeedbackService;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import com.growthdiary.sessionlog.tracker.session.SessionController;
 import com.growthdiary.sessionlog.tracker.session.SessionDTO;
 import com.growthdiary.sessionlog.tracker.session.SessionService;
 import com.growthdiary.sessionlog.tracker.time.Time;
-import com.growthdiary.sessionlog.tracker.time.TimeService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -31,15 +29,6 @@ public class ControllerUnitTests {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private DetailsService detailsService;
-
-    @MockBean
-    private FeedbackService feedbackService;
-
-    @MockBean
-    private TimeService timeService;
 
     @MockBean
     private SessionService sessionService;
@@ -56,9 +45,12 @@ public class ControllerUnitTests {
         Details mockDetails = new Details(skill, description);
 
         // Create Time object
-        LocalDateTime startPeriod = LocalDateTime.now();
-        LocalDateTime endPeriod = LocalDateTime.now().plusMinutes(45);
-        Time mockTime = new Time(startPeriod, endPeriod);
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+        LocalTime startTime = LocalTime.now();
+        LocalTime endTime = LocalTime.now().plusMinutes(45);
+        Long duration = 45L;
+        Time mockTime = new Time(startDate, endDate, startTime, endTime, duration);
 
         // Create Feedback object
         Integer productivity = 4;
@@ -66,7 +58,7 @@ public class ControllerUnitTests {
         Feedback mockFeedback = new Feedback(productivity, distraction);
 
         // Create SessionDTO and Session objects
-        SessionDTO mockDTO = new SessionDTO(skill, description, startPeriod, endPeriod, productivity, distraction);
+        SessionDTO mockDTO = new SessionDTO(mockDetails, mockTime, mockFeedback);
         Session expectedSession = new Session(mockDetails, mockTime, mockFeedback);
 
         Mockito.when(sessionService.createSession(mockDTO))
