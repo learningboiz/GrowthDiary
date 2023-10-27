@@ -1,6 +1,6 @@
-package com.growthdiary.sessionlog.history.specifications;
+package com.growthdiary.sessionlog.history.historyfilter;
 
-import com.growthdiary.sessionlog.history.historyfilter.FilterRequestDTO;
+import com.growthdiary.sessionlog.history.dtos.FilterRequestDTO;
 
 /**
  * The {@code FilterOperations} enum represents the valid operations that can be used when filtering session attributes.
