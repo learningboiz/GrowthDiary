@@ -1,5 +1,8 @@
 package com.growthdiary.sessionlog.history;
 
+import com.growthdiary.sessionlog.history.dtos.FilterRequestDTO;
+import com.growthdiary.sessionlog.history.dtos.HistoryViewDTO;
+import com.growthdiary.sessionlog.history.dtos.SortRequestDTO;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +28,9 @@ public class HistoryController {
     }
 
     @GetMapping("/session/history/filter")
-    public ResponseEntity<Page<Session>> requestedSessionHistory(@RequestBody HistoryDTO historyDTO) {
-        return new ResponseEntity<>(sessionHistoryService.getRequestedSessions(historyDTO), HttpStatus.ACCEPTED);
+    public ResponseEntity<Page<Session>> requestedSessionHistory(@RequestBody FilterRequestDTO filterRequestDTO,
+                                                                 @RequestBody HistoryViewDTO historyViewDTO,
+                                                                 @RequestBody SortRequestDTO sortRequestDTO) {
+        return new ResponseEntity<>(sessionHistoryService.getRequestedSessions(filterRequestDTO, historyViewDTO, sortRequestDTO), HttpStatus.ACCEPTED);
     }
 }
