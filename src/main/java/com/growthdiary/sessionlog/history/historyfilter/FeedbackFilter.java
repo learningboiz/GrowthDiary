@@ -1,49 +1,58 @@
-package com.growthdiary.sessionlog.history.requests;
-
-import com.growthdiary.sessionlog.history.specifications.FilterOperations;
+package com.growthdiary.sessionlog.history.historyfilter;
 
 import java.util.List;
 
-public class FeedbackRequest {
+public class FeedbackFilter {
 
-    List<String> distractions;
+    private List<String> distractions;
 
-    FilterOperations prodOp;
-    Integer minProd;
+    private FilterOperations productivityOperation;
+    private Integer primaryProductivity;
 
-    Integer maxProd;
+    private Integer secondaryProductivity;
 
-    public FeedbackRequest() {}
-
-    public void setDistractions(List<String> distractions) {
-        this.distractions = distractions;
+    private FeedbackFilter() {
     }
 
     public List<String> getDistractions() {
         return this.distractions;
     }
 
-    public void setProdOp(FilterOperations prodOp) {
-        this.prodOp = prodOp;
+    public FilterOperations getProductivityOperation() {
+        return this.productivityOperation;
     }
 
-    public FilterOperations getProdOp() {
-        return this.prodOp;
+    public Integer getPrimaryProductivity() {
+        return this.primaryProductivity;
     }
 
-    public void setMinProd(Integer minProd) {
-        this.minProd = minProd;
+    public Integer getSecondaryProductivity() {
+        return this.secondaryProductivity;
     }
 
-    public Integer getMinProd() {
-        return this.minProd;
-    }
+    public static class BuildFilter {
+        private final FeedbackFilter filter = new FeedbackFilter();
 
-    public void setMaxProd(Integer maxProd) {
-        this.maxProd = maxProd;
-    }
+        public BuildFilter filterDistractions(List<String> distractions) {
+            filter.distractions = distractions;
+            return this;
+        }
 
-    public Integer getMaxProd() {
-        return this.maxProd;
+        public BuildFilter filterProductivity (Integer primaryProductivity, FilterOperations operation) {
+            filter.primaryProductivity = primaryProductivity;
+            filter.productivityOperation = operation;
+            return this;
+        }
+
+        public BuildFilter filterProductivity (Integer primaryProductivity, Integer secondaryProductivity) {
+            filter.primaryProductivity = primaryProductivity;
+            filter.secondaryProductivity = secondaryProductivity;
+            filter.productivityOperation = FilterOperations.BETWEEN;
+            return this;
+        }
+
+        public FeedbackFilter build() {
+            return filter;
+        }
     }
 }

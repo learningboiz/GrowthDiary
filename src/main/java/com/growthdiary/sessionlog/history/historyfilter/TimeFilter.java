@@ -1,66 +1,73 @@
-package com.growthdiary.sessionlog.history.requests;
-
-import com.growthdiary.sessionlog.history.specifications.FilterOperations;
+package com.growthdiary.sessionlog.history.historyfilter;
 
 import java.time.LocalDate;
 
-public class TimeRequest {
+public class TimeFilter {
 
-    private FilterOperations dateOp;
+    private FilterOperations dateOperation;
+    private LocalDate primaryDate;
+    private LocalDate secondaryDate;
+    private FilterOperations durationOperation;
+    private Long primaryDuration;
+    private Long secondaryDuration;
 
-    private LocalDate minDate;
-    private LocalDate maxDate;
-    private FilterOperations durationOp;
-    private Long minDuration;
-    private Long maxDuration;
+    private TimeFilter() {}
 
-    public TimeRequest() {}
-
-    public void setDateOp(FilterOperations dateOp) {
-        this.dateOp = dateOp;
+    public FilterOperations getDateOperation() {
+        return this.dateOperation;
     }
 
-    public FilterOperations getDateOp() {
-        return this.dateOp;
+    public LocalDate getPrimaryDate() {
+        return this.primaryDate;
     }
 
-    public void setMinDate(LocalDate minDate) {
-        this.minDate = minDate;
+    public LocalDate getSecondaryDate() {
+        return this.secondaryDate;
     }
 
-    public LocalDate getMinDate() {
-        return this.minDate;
+    public FilterOperations getDurationOperation() {
+        return this.durationOperation;
     }
 
-    public void setMaxDate(LocalDate maxDate) {
-        this.maxDate = maxDate;
+    public Long getPrimaryDuration() {
+        return this.primaryDuration;
     }
 
-    public LocalDate getMaxDate() {
-        return this.maxDate;
+    public Long getSecondaryDuration() {
+        return this.secondaryDuration;
     }
 
-    public void setDurationOp(FilterOperations durationOp) {
-        this.durationOp = durationOp;
-    }
+    public static class BuildFilter {
+        private final TimeFilter filter = new TimeFilter();
 
-    public FilterOperations getDurationOp() {
-        return this.durationOp;
-    }
+        public BuildFilter filterDates (LocalDate primaryDate, FilterOperations operation) {
+            filter.primaryDate = primaryDate;
+            filter.dateOperation = operation;
+            return this;
+        }
 
-    public void setMinDuration(Long minDuration) {
-        this.minDuration = minDuration;
-    }
+        public BuildFilter filterDates (LocalDate primaryDate, LocalDate secondaryDate) {
+            filter.primaryDate = primaryDate;
+            filter.secondaryDate = secondaryDate;
+            filter.dateOperation = FilterOperations.BETWEEN;
+            return this;
+        }
 
-    public Long getMinDuration() {
-        return this.minDuration;
-    }
+        public BuildFilter filterDuration (Long primaryDuration, FilterOperations operation) {
+            filter.primaryDuration = primaryDuration;
+            filter.durationOperation = operation;
+            return this;
+        }
 
-    public void setMaxDuration(Long maxDuration) {
-        this.maxDuration = maxDuration;
-    }
+        public BuildFilter filterDuration (Long primaryDuration, Long secondaryDuration) {
+            filter.primaryDuration = primaryDuration;
+            filter.secondaryDuration = secondaryDuration;
+            filter.durationOperation = FilterOperations.BETWEEN;
+            return this;
+        }
 
-    public Long getMaxDuration() {
-        return this.maxDuration;
+        public TimeFilter build() {
+            return filter;
+        }
     }
 }
