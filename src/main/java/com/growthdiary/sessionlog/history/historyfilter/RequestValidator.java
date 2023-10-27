@@ -1,6 +1,6 @@
 package com.growthdiary.sessionlog.history.requests;
 
-import com.growthdiary.sessionlog.history.filters.FilterOperations;
+import com.growthdiary.sessionlog.history.specifications.FilterOperations;
 
 import java.time.LocalDate;
 

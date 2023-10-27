@@ -7,8 +7,18 @@ import com.growthdiary.sessionlog.history.requests.TimeRequest;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.data.jpa.domain.Specification;
 
+/**
+ * The {@code FilterMapper} class provides methods for creating Specifications based on the requested filter criteria.
+ * @see FilterRequest
+ */
 public class FilterMapper {
 
+    /**
+     * Builds a Specification used to filter sessions based on the requested attributes
+     *
+     * @param filterRequest Requests for specific Session attributes including Details, Time and Feedback
+     * @return A specification to return sessions that match the request criteria
+     */
     public static Specification<Session> getFilteredSessions(FilterRequest filterRequest) {
 
         Specification<Session> allSpecifications = Specification.where(null);
@@ -27,6 +37,11 @@ public class FilterMapper {
         return allSpecifications;
     }
 
+    /*
+     * Utility method that maps attributes of a DetailsRequests to their respective Specification handler
+     * findValueIn() method handles `skills` requests as users can retrieve sessions focusing on different skills
+     * findValuesLike() method handles `description requests as users can only request one word/phrase to match
+     */
     private static Specification<Session> filterByDetails(DetailsRequest detailsRequest) {
 
         Specification<Session> detailsSpecs = Specification.where(null);
@@ -54,6 +69,10 @@ public class FilterMapper {
         return detailsSpecs;
     }
 
+    /*
+     * Utility method that maps attributes of a TimeRequests to their respective Specification handler
+     * compareValues() method handles these attributes since the filtering supports before, after, equals or during operations
+     */
     private static Specification<Session> filterByTime(TimeRequest timeRequest) {
 
         Specification<Session> timeSpecs = Specification.where(null);
@@ -85,6 +104,11 @@ public class FilterMapper {
         return timeSpecs;
     }
 
+    /*
+     * Utility method that maps attributes of a FeedbackRequests to their respective Specification handler
+     * compareValues() method handles `productivity` requests since the filtering supports before, after, equals or during operations
+     * findValueIn() method handles `distractions` requests as users can retrieve sessions with different distractions
+     */
     private static Specification<Session> filterByFeedback(FeedbackRequest feedbackRequest) {
 
         Specification<Session> feedbackSpecs = Specification.where(null);

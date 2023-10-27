@@ -1,10 +1,10 @@
 package com.growthdiary.sessionlog.sessionhistory;
 
-import com.growthdiary.sessionlog.history.filters.FilterOperations;
-import com.growthdiary.sessionlog.history.requests.DetailsRequest;
-import com.growthdiary.sessionlog.history.requests.FeedbackRequest;
-import com.growthdiary.sessionlog.history.requests.FilterRequest;
-import com.growthdiary.sessionlog.history.requests.TimeRequest;
+import com.growthdiary.sessionlog.history.specifications.FilterOperations;
+import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
+import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
+import com.growthdiary.sessionlog.history.historyfilter.FilterRequest;
+import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,19 +43,19 @@ public class FilterRequestUnitTests {
 
     @Test
     public void sanityTestForRequests() {
-        DetailsRequest detailsRequest = new DetailsRequest();
+        DetailsFilter detailsRequest = new DetailsFilter();
         assertNotNull(detailsRequest);
 
-        TimeRequest timeRequest = new TimeRequest();
+        TimeFilter timeRequest = new TimeFilter();
         assertNotNull(timeRequest);
 
-        FeedbackRequest feedbackRequest = new FeedbackRequest();
+        FeedbackFilter feedbackRequest = new FeedbackFilter();
         assertNotNull(feedbackRequest);
     }
 
     @Test
     public void testDetailRequestCreation() {
-        DetailsRequest detailsRequest = new DetailsRequest();
+        DetailsFilter detailsRequest = new DetailsFilter();
 
         detailsRequest.setSkills(skills);
         detailsRequest.setDescription(description);
@@ -66,7 +66,7 @@ public class FilterRequestUnitTests {
 
     @Test
     public void testTimeRequestCreation() {
-        TimeRequest timeRequest = new TimeRequest();
+        TimeFilter timeRequest = new TimeFilter();
 
         // set-up dates
         FilterOperations dateOp = FilterOperations.BETWEEN;
@@ -93,7 +93,7 @@ public class FilterRequestUnitTests {
 
     @Test
     public void testFeedbackRequestCreation() {
-        FeedbackRequest feedbackRequest = new FeedbackRequest();
+        FeedbackFilter feedbackRequest = new FeedbackFilter();
 
         feedbackRequest.setDistractions(distractions);
 
