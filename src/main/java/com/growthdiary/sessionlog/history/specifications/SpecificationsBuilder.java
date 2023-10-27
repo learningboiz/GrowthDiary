@@ -1,5 +1,6 @@
-package com.growthdiary.sessionlog.history.filters;
+package com.growthdiary.sessionlog.history.specifications;
 
+import com.growthdiary.sessionlog.history.historyfilter.FilterOperations;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
@@ -8,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code FilterSpecifications} class provides methods for creating custom Spring JPA Specifications.
+ * The {@code SpecificationsBuilder} class provides methods for creating custom Spring JPA Specifications.
  * These Specifications are used to query and retrieve Sessions that match the requested filters.
- * @see FilterMapper
+ * @see SpecificationsMapper
  */
-public class FilterSpecifications {
+public class SpecificationsBuilder {
 
     /**
      * Builds a Specification that filters entries where the specified property's value matches any of the values in the given list
@@ -65,10 +66,10 @@ public class FilterSpecifications {
      * @throws IllegalArgumentException Exception thrown if invalid operation is provided
      */
     public static <T extends Comparable<T>> Specification<Session> compareValues(FilterOperations operation,
-                                                           T firstValue,
-                                                           T secondValue,
-                                                           String entity,
-                                                           String property) {
+                                                                                 T firstValue,
+                                                                                 T secondValue,
+                                                                                 String entity,
+                                                                                 String property) {
         return (root, query, criteriaBuilder) -> {
             switch (operation) {
                 case EQUALS -> {

@@ -1,17 +1,20 @@
-package com.growthdiary.sessionlog.history.filters;
+package com.growthdiary.sessionlog.history.specifications;
 
-import com.growthdiary.sessionlog.history.requests.DetailsRequest;
-import com.growthdiary.sessionlog.history.requests.FeedbackRequest;
-import com.growthdiary.sessionlog.history.requests.FilterRequest;
-import com.growthdiary.sessionlog.history.requests.TimeRequest;
+import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
+import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
+import com.growthdiary.sessionlog.history.dtos.FilterRequestDTO;
+import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
- * The {@code FilterMapper} class provides methods for creating Specifications based on the requested filter criteria.
- * @see FilterRequest
+ * The {@code SpecificationsMapper} class provides methods that maps attributes of a FilterRequestDTO
+ * to their respective Specifications Builder.
+ *
+ * @see SpecificationsBuilder
+ * @see FilterRequestDTO
  */
-public class FilterMapper {
+public class SpecificationsMapper {
 
     /**
      * Builds a Specification used to filter sessions based on the requested attributes
@@ -19,47 +22,47 @@ public class FilterMapper {
      * @param filterRequest Requests for specific Session attributes including Details, Time and Feedback
      * @return A specification to return sessions that match the request criteria
      */
-    public static Specification<Session> getFilteredSessions(FilterRequest filterRequest) {
+    public static Specification<Session> getAllSpecifications(FilterRequestDTO filterRequest) {
 
         Specification<Session> allSpecifications = Specification.where(null);
 
-        if (filterRequest.getDetailsRequest() != null) {
-            allSpecifications = allSpecifications.and(filterByDetails(filterRequest.getDetailsRequest()));
+        if (filterRequest.getDetailsFilter() != null) {
+            allSpecifications = allSpecifications.and(filterByDetails(filterRequest.getDetailsFilter()));
         }
 
-        if (filterRequest.getTimeRequest() != null) {
-            allSpecifications = allSpecifications.and(filterByTime(filterRequest.getTimeRequest()));
+        if (filterRequest.getTimeFilter() != null) {
+            allSpecifications = allSpecifications.and(filterByTime(filterRequest.getTimeFilter()));
         }
 
-        if (filterRequest.getFeedbackRequest() != null) {
-            allSpecifications = allSpecifications.and(filterByFeedback(filterRequest.getFeedbackRequest()));
+        if (filterRequest.getFeedbackFilter() != null) {
+            allSpecifications = allSpecifications.and(filterByFeedback(filterRequest.getFeedbackFilter()));
         }
         return allSpecifications;
     }
 
     /*
-     * Utility method that maps attributes of a DetailsRequests to their respective Specification handler
+     * Utility method that maps attributes of a DetailsFilter to their respective Specification handler
      * findValueIn() method handles `skills` requests as users can retrieve sessions focusing on different skills
      * findValuesLike() method handles `description requests as users can only request one word/phrase to match
      */
-    private static Specification<Session> filterByDetails(DetailsRequest detailsRequest) {
+    private static Specification<Session> filterByDetails(DetailsFilter detailsFilter) {
 
         Specification<Session> detailsSpecs = Specification.where(null);
 
-        if (detailsRequest.getSkills() != null) {
+        if (detailsFilter.getSkills() != null) {
             detailsSpecs = detailsSpecs.and(
-                    FilterSpecifications.findValueIn(
-                    detailsRequest.getSkills(),
+                    SpecificationsBuilder.findValueIn(
+                    detailsFilter.getSkills(),
                     "details",
                     "skill"
                     )
             );
         }
 
-        if (detailsRequest.getDescription() != null) {
+        if (detailsFilter.getDescription() != null) {
             detailsSpecs = detailsSpecs.and(
-                    FilterSpecifications.findValuesLike(
-                            detailsRequest.getDescription(),
+                    SpecificationsBuilder.findValuesLike(
+                            detailsFilter.getDescription(),
                             "details",
                             "skill"
                     )
@@ -70,31 +73,31 @@ public class FilterMapper {
     }
 
     /*
-     * Utility method that maps attributes of a TimeRequests to their respective Specification handler
+     * Utility method that maps attributes of a TimeFilter to their respective Specification handler
      * compareValues() method handles these attributes since the filtering supports before, after, equals or during operations
      */
-    private static Specification<Session> filterByTime(TimeRequest timeRequest) {
+    private static Specification<Session> filterByTime(TimeFilter timeFilter) {
 
         Specification<Session> timeSpecs = Specification.where(null);
 
-        if (timeRequest.getDateOp() != null) {
+        if (timeFilter.getDateOperation() != null) {
             timeSpecs = timeSpecs.and(
-                    FilterSpecifications.compareValues(
-                            timeRequest.getDateOp(),
-                            timeRequest.getMinDate(),
-                            timeRequest.getMaxDate(),
+                    SpecificationsBuilder.compareValues(
+                            timeFilter.getDateOperation(),
+                            timeFilter.getPrimaryDate(),
+                            timeFilter.getSecondaryDate(),
                             "time",
                             "startDate"
                     )
             );
         }
 
-        if (timeRequest.getDurationOp() != null) {
+        if (timeFilter.getDurationOperation() != null) {
             timeSpecs = timeSpecs.and(
-                    FilterSpecifications.compareValues(
-                            timeRequest.getDurationOp(),
-                            timeRequest.getMinDuration(),
-                            timeRequest.getMaxDuration(),
+                    SpecificationsBuilder.compareValues(
+                            timeFilter.getDurationOperation(),
+                            timeFilter.getPrimaryDuration(),
+                            timeFilter.getSecondaryDuration(),
                             "time",
                             "duration"
                     )
@@ -105,36 +108,35 @@ public class FilterMapper {
     }
 
     /*
-     * Utility method that maps attributes of a FeedbackRequests to their respective Specification handler
+     * Utility method that maps attributes of a FeedbackFilter to their respective Specification handler
      * compareValues() method handles `productivity` requests since the filtering supports before, after, equals or during operations
      * findValueIn() method handles `distractions` requests as users can retrieve sessions with different distractions
      */
-    private static Specification<Session> filterByFeedback(FeedbackRequest feedbackRequest) {
+    private static Specification<Session> filterByFeedback(FeedbackFilter feedbackFilter) {
 
         Specification<Session> feedbackSpecs = Specification.where(null);
 
-        if (feedbackRequest.getProdOp() != null) {
+        if (feedbackFilter.getProductivityOperation() != null) {
             feedbackSpecs = feedbackSpecs.and(
-                    FilterSpecifications.compareValues(
-                            feedbackRequest.getProdOp(),
-                            feedbackRequest.getMinProd(),
-                            feedbackRequest.getMaxProd(),
+                    SpecificationsBuilder.compareValues(
+                            feedbackFilter.getProductivityOperation(),
+                            feedbackFilter.getPrimaryProductivity(),
+                            feedbackFilter.getSecondaryProductivity(),
                             "feedback",
                             "productivity"
                     )
             );
         }
 
-        if (feedbackRequest.getDistractions() != null) {
+        if (feedbackFilter.getDistractions() != null) {
             feedbackSpecs = feedbackSpecs.and(
-                    FilterSpecifications.findValueIn(
-                            feedbackRequest.getDistractions(),
+                    SpecificationsBuilder.findValueIn(
+                            feedbackFilter.getDistractions(),
                             "feedback",
                             "distractions"
                     )
             );
         }
-
         return feedbackSpecs;
     }
 }
