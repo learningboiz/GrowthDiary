@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history;
+package com.growthdiary.sessionlog.history.dtos;
 
 public class HistoryViewDTO {
 
