@@ -1,4 +1,8 @@
-package com.growthdiary.sessionlog.history.historyfilter;
+package com.growthdiary.sessionlog.history.dtos;
+
+import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
+import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
+import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 
 public class FilterRequestDTO {
 
