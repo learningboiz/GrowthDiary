@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.sessionhistory;
+package com.growthdiary.sessionlog.sessionhistory.unit;
 
 import com.growthdiary.sessionlog.history.historyfilter.FilterOperations;
 import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
@@ -21,8 +21,8 @@ public class HistoryFilterUnitTests {
         String description = "API";
 
         DetailsFilter detailsFilter = new DetailsFilter.BuildFilter()
-                .filterSkill(skills)
-                .filterDescription(description)
+                .findSkillIn(skills)
+                .findDescriptionLike(description)
                 .build();
 
         assertEquals(detailsFilter.getSkills(), skills);
@@ -41,8 +41,8 @@ public class HistoryFilterUnitTests {
         FilterOperations durationOperation = FilterOperations.LESS_THAN;
 
         TimeFilter timeFilter = new TimeFilter.BuildFilter()
-                .filterDates(primaryDate, secondaryDate)
-                .filterDuration(primaryDuration, durationOperation)
+                .findDatesBetween(primaryDate, secondaryDate)
+                .findDuration(primaryDuration, durationOperation)
                 .build();
 
         assertEquals(timeFilter.getPrimaryDate(), primaryDate);
@@ -62,8 +62,8 @@ public class HistoryFilterUnitTests {
         List<String> distractions = Arrays.asList("YouTube", "Reddit");
 
         FeedbackFilter feedbackFilter = new FeedbackFilter.BuildFilter()
-                .filterDistractions(distractions)
-                .filterProductivity(primaryProductivity, secondaryProductivity)
+                .findDistractionIn(distractions)
+                .findProductivityBetween(primaryProductivity, secondaryProductivity)
                 .build();
 
         assertEquals(feedbackFilter.getDistractions(), distractions);

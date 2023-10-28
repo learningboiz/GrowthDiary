@@ -2,6 +2,12 @@ package com.growthdiary.sessionlog.history.historyfilter;
 
 import java.time.LocalDate;
 
+/**
+ * A filter used to create a customised view of past sessions that match the specified time-related criteria
+ *
+ * @see DetailsFilter
+ * @see FeedbackFilter
+ */
 public class TimeFilter {
 
     private FilterOperations dateOperation;
@@ -37,29 +43,33 @@ public class TimeFilter {
         return this.secondaryDuration;
     }
 
+    /**
+     * Builder class used to create a TimeFilter object.
+     * Allows creation of filter that finds sessions which match the given dates, durations or both.
+     */
     public static class BuildFilter {
         private final TimeFilter filter = new TimeFilter();
 
-        public BuildFilter filterDates (LocalDate primaryDate, FilterOperations operation) {
+        public BuildFilter findDates(FilterOperations operation, LocalDate primaryDate) {
             filter.primaryDate = primaryDate;
             filter.dateOperation = operation;
             return this;
         }
 
-        public BuildFilter filterDates (LocalDate primaryDate, LocalDate secondaryDate) {
+        public BuildFilter findDatesBetween(LocalDate primaryDate, LocalDate secondaryDate) {
             filter.primaryDate = primaryDate;
             filter.secondaryDate = secondaryDate;
             filter.dateOperation = FilterOperations.BETWEEN;
             return this;
         }
 
-        public BuildFilter filterDuration (Long primaryDuration, FilterOperations operation) {
+        public BuildFilter findDuration(FilterOperations operation, Long primaryDuration) {
             filter.primaryDuration = primaryDuration;
             filter.durationOperation = operation;
             return this;
         }
 
-        public BuildFilter filterDuration (Long primaryDuration, Long secondaryDuration) {
+        public BuildFilter findDurationsBetween(Long primaryDuration, Long secondaryDuration) {
             filter.primaryDuration = primaryDuration;
             filter.secondaryDuration = secondaryDuration;
             filter.durationOperation = FilterOperations.BETWEEN;
