@@ -2,13 +2,13 @@ package com.growthdiary.sessionlog.history.dtos;
 
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
 
-public class SortRequestDTO {
+public class SortRequest {
 
     private final String property;
 
     private final SortDirection sortDirection;
 
-    public SortRequestDTO(String property, SortDirection sortDirection) {
+    public SortRequest(String property, SortDirection sortDirection) {
         this.property = property;
         this.sortDirection = sortDirection;
     }

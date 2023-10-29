@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.history.validators;
 
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
-import com.growthdiary.sessionlog.history.dtos.SortRequestDTO;
+import com.growthdiary.sessionlog.history.dtos.SortRequest;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -14,7 +14,7 @@ import java.util.List;
  * This class is a Spring Validator implementation used to validate instances of the SortRequestDTO object
  * Checks validity of SortRequestDTO object attributes
  *
- * @see SortRequestDTO
+ * @see SortRequest
  */
 @Component
 public class SortRequestDTOValidator implements Validator {
@@ -24,7 +24,7 @@ public class SortRequestDTOValidator implements Validator {
 
     @Override
     public boolean supports(@NotNull Class clazz) {
-        return SortRequestDTO.class.equals(clazz);
+        return SortRequest.class.equals(clazz);
     }
 
     /*
@@ -40,7 +40,7 @@ public class SortRequestDTOValidator implements Validator {
     @Override
     public void validate(@NotNull Object target, @NotNull Errors errors) {
 
-        SortRequestDTO sortRequestDTO = (SortRequestDTO) target;
+        SortRequest sortRequestDTO = (SortRequest) target;
 
         validateProperty(sortRequestDTO.getProperty(), errors);
         validateDirection(sortRequestDTO.getSortDirection(), errors);

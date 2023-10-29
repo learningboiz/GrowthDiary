@@ -4,7 +4,7 @@ import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 
-public class FilterRequestDTO {
+public class FilterRequest {
 
     private final DetailsFilter detailsFilter;
 
@@ -12,7 +12,7 @@ public class FilterRequestDTO {
 
     private final FeedbackFilter feedbackFilter;
 
-    public FilterRequestDTO(DetailsFilter detailsFilter, TimeFilter timeFilter, FeedbackFilter feedbackFilter) {
+    public FilterRequest(DetailsFilter detailsFilter, TimeFilter timeFilter, FeedbackFilter feedbackFilter) {
         this.detailsFilter = detailsFilter;
         this.timeFilter = timeFilter;
         this.feedbackFilter = feedbackFilter;

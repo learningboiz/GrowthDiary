@@ -1,6 +1,6 @@
 package com.growthdiary.sessionlog.history.validators;
 
-import com.growthdiary.sessionlog.history.dtos.FilterRequestDTO;
+import com.growthdiary.sessionlog.history.dtos.FilterRequest;
 import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
@@ -19,17 +19,17 @@ public class FilterRequestDTOValidator implements Validator {
 
     @Override
     public boolean supports(@NotNull Class clazz) {
-        return FilterRequestDTO.class.equals(clazz);
+        return FilterRequest.class.equals(clazz);
     }
 
     @Override
     public void validate(@NotNull Object target, @NotNull Errors errors) {
 
-        FilterRequestDTO filterRequestDTO = (FilterRequestDTO) target;
+        FilterRequest filterRequest = (FilterRequest) target;
 
-        DetailsFilter detailsFilter = filterRequestDTO.getDetailsFilter();
-        TimeFilter timeFilter = filterRequestDTO.getTimeFilter();
-        FeedbackFilter feedbackFilter = filterRequestDTO.getFeedbackFilter();
+        DetailsFilter detailsFilter = filterRequest.getDetailsFilter();
+        TimeFilter timeFilter = filterRequest.getTimeFilter();
+        FeedbackFilter feedbackFilter = filterRequest.getFeedbackFilter();
 
         validateNestedFilter(detailsFilter, "detailsFilter", detailsFilterValidator, errors);
         validateNestedFilter(timeFilter, "timeFilter", timeFilterValidator, errors);
