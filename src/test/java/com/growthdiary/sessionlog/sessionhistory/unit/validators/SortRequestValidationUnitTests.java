@@ -1,8 +1,8 @@
 package com.growthdiary.sessionlog.sessionhistory.unit.validators;
 
-import com.growthdiary.sessionlog.history.dtos.SortRequestDTO;
+import com.growthdiary.sessionlog.history.requests.SortRequest;
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
-import com.growthdiary.sessionlog.history.validators.SortRequestDTOValidator;
+import com.growthdiary.sessionlog.history.validators.SortRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SortRequestValidationUnitTests {
 
-    private final SortRequestDTOValidator sortRequestDTOValidator = new SortRequestDTOValidator();
+    private final SortRequestValidator sortRequestDTOValidator = new SortRequestValidator();
 
     private final String property = "time.startDate";
     private final SortDirection direction = SortDirection.DESC;
@@ -19,7 +19,7 @@ public class SortRequestValidationUnitTests {
     @Test
     public void sortWithBothPropertyAndDirectionIsValid() {
 
-        SortRequestDTO sortRequestDTO = new SortRequestDTO(property, direction);
+        SortRequest sortRequestDTO = new SortRequest(property, direction);
 
         Errors errors = new BeanPropertyBindingResult(sortRequestDTO, "sortRequestDTO");
         sortRequestDTOValidator.validate(sortRequestDTO, errors);
@@ -29,7 +29,7 @@ public class SortRequestValidationUnitTests {
     @Test
     public void sortWithoutPropertyIsInvalid() {
 
-        SortRequestDTO missingPropertyDTO = new SortRequestDTO(null, direction);
+        SortRequest missingPropertyDTO = new SortRequest(null, direction);
 
         Errors errors = new BeanPropertyBindingResult(missingPropertyDTO, "missingPropertyDTO");
         sortRequestDTOValidator.validate(missingPropertyDTO, errors);
@@ -40,7 +40,7 @@ public class SortRequestValidationUnitTests {
     @Test
     public void sortWithoutDirectionIsInvalid() {
 
-        SortRequestDTO missingDirectionDTO = new SortRequestDTO(property, null);
+        SortRequest missingDirectionDTO = new SortRequest(property, null);
 
         Errors errors = new BeanPropertyBindingResult(missingDirectionDTO, "missingDirectionDTO");
         sortRequestDTOValidator.validate(missingDirectionDTO, errors);
@@ -51,7 +51,7 @@ public class SortRequestValidationUnitTests {
     @Test
     public void sortPropertyInputNotInValidList() {
 
-        SortRequestDTO invalidPropertyInput = new SortRequestDTO("goldfish", direction);
+        SortRequest invalidPropertyInput = new SortRequest("goldfish", direction);
 
         Errors errors = new BeanPropertyBindingResult(invalidPropertyInput, "invalidPropertyInput");
         sortRequestDTOValidator.validate(invalidPropertyInput, errors);

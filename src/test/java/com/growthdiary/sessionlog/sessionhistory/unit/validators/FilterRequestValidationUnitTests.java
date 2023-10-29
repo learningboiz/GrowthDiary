@@ -1,10 +1,10 @@
 package com.growthdiary.sessionlog.sessionhistory.unit.validators;
 
-import com.growthdiary.sessionlog.history.dtos.FilterRequestDTO;
+import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
-import com.growthdiary.sessionlog.history.validators.FilterRequestDTOValidator;
+import com.growthdiary.sessionlog.history.validators.FilterRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FilterRequestValidationUnitTests {
 
-    private final FilterRequestDTOValidator filterRequestDTOValidator = new FilterRequestDTOValidator();
+    private final FilterRequestValidator filterRequestDTOValidator = new FilterRequestValidator();
 
     @Test
     public void validRequestShouldNotHaveErrors() {
@@ -29,7 +29,7 @@ public class FilterRequestValidationUnitTests {
                 .findProductivityBetween(2, 5)
                 .build();
 
-        FilterRequestDTO filterRequestDTO = new FilterRequestDTO(validDetails, validTime, validFeedback);
+        FilterRequest filterRequestDTO = new FilterRequest(validDetails, validTime, validFeedback);
 
         Errors errors = new BeanPropertyBindingResult(filterRequestDTO, "filterRequestDTO");
         filterRequestDTOValidator.validate(filterRequestDTO, errors);
@@ -50,7 +50,7 @@ public class FilterRequestValidationUnitTests {
                 .findProductivityBetween(-100, -200)
                 .build();
 
-        FilterRequestDTO invalidRequestDTO = new FilterRequestDTO(invalidDetails, invalidTime, invalidFeedback);
+        FilterRequest invalidRequestDTO = new FilterRequest(invalidDetails, invalidTime, invalidFeedback);
 
         Errors errors = new BeanPropertyBindingResult(invalidRequestDTO, "invalidRequestDTO");
         filterRequestDTOValidator.validate(invalidRequestDTO, errors);
