@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HistorySortUnitTests {
+public class SortBuilderUnitTests {
 
     @Test
     public void testSortBuilder() {
