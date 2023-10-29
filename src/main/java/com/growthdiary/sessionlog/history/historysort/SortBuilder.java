@@ -1,6 +1,6 @@
 package com.growthdiary.sessionlog.history.historysort;
 
-import com.growthdiary.sessionlog.history.dtos.SortRequestDTO;
+import com.growthdiary.sessionlog.history.requests.SortRequest;
 import org.springframework.data.domain.Sort;
 
 /**
@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
  * It simplifies the creation of sorting criteria by building the appropriate Sort object based on the property and direction provided.
  *
  * @see SortDirection
- * @see SortRequestDTO
+ * @see SortRequest
  * @see Sort
  */
 public class SortBuilder {
