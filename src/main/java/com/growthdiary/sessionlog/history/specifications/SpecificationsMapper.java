@@ -2,7 +2,7 @@ package com.growthdiary.sessionlog.history.specifications;
 
 import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
-import com.growthdiary.sessionlog.history.dtos.FilterRequestDTO;
+import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import com.growthdiary.sessionlog.tracker.session.Session;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
  * to their respective Specifications Builder.
  *
  * @see SpecificationsBuilder
- * @see FilterRequestDTO
+ * @see FilterRequest
  */
 public class SpecificationsMapper {
 
@@ -22,7 +22,7 @@ public class SpecificationsMapper {
      * @param filterRequest Requests for specific Session attributes including Details, Time and Feedback
      * @return A specification to return sessions that match the request criteria
      */
-    public static Specification<Session> getAllSpecifications(FilterRequestDTO filterRequest) {
+    public static Specification<Session> getAllSpecifications(FilterRequest filterRequest) {
 
         Specification<Session> allSpecifications = Specification.where(null);
 
@@ -64,7 +64,7 @@ public class SpecificationsMapper {
                     SpecificationsBuilder.findValuesLike(
                             detailsFilter.getDescription(),
                             "details",
-                            "skill"
+                            "description"
                     )
             );
         }
