@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history.dtos;
+package com.growthdiary.sessionlog.history.requests;
 
 public class PageViewRequest {
 

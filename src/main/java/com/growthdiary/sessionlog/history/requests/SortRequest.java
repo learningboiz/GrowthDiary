@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.history.dtos;
+package com.growthdiary.sessionlog.history.requests;
 
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
 
