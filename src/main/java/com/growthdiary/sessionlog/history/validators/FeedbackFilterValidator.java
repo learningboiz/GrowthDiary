@@ -51,16 +51,19 @@ public class FeedbackFilterValidator implements Validator  {
         Integer primaryProductivity = feedbackFilter.getPrimaryProductivity();
         Integer secondaryProductivity = feedbackFilter.getSecondaryProductivity();
 
-        if (primaryProductivity == null) {
-            errors.rejectValue(fieldName, fieldName + ".null", "Filtering by productivity requires a productivity value");
-        } else if (productivityOperation == FilterOperations.BETWEEN && secondaryProductivity == null) {
-            errors.rejectValue(fieldName, fieldName + ".secondaryProductivity.null", "Filtering by a range requires two values");
-        } else if (!isInRange(primaryProductivity)) {
-            errors.rejectValue(fieldName, fieldName + ".negativeValue", "Productivity must be within a range of 1 and 5 inclusive");
-        } else if (secondaryProductivity != null && !isInRange(secondaryProductivity)) {
-            errors.rejectValue("secondaryProductivity", "secondaryProductivity.negativeValue","Productivity must be within a range of 1 and 5 inclusive");
-        } else if (productivityOperation == FilterOperations.BETWEEN && !firstValueLessThanSecond(primaryProductivity, secondaryProductivity)) {
-            errors.rejectValue(fieldName, fieldName + ".secondProductivity.incorrectOrder", "Filtering by productivity requires the first value to be less than the second");
+        if (productivityOperation == FilterOperations.BETWEEN) {
+
+            if (primaryProductivity == null || secondaryProductivity == null) {
+                errors.rejectValue(fieldName, fieldName + ".secondValueNull", "Missing value(s): Productivity range filter requires two values");
+
+            } else if (!isInRange(primaryProductivity) || !isInRange(secondaryProductivity)) {
+                errors.rejectValue(fieldName, fieldName + ".valuesOutOfRange", "Out of range: Productivity values must be between 1 and 5 inclusive");
+
+            } else if (!firstValueLessThanSecond(primaryProductivity, secondaryProductivity)) {
+                errors.rejectValue(fieldName, fieldName + ".incorrectOrderOfValues", "Incorrect order: First value must be less than the second");
+            }
+        } else if (primaryProductivity == null || !isInRange(primaryProductivity)) {
+            errors.rejectValue(fieldName, fieldName + ".nullOrOutOfRange", "Missing value: Productivity filter requires a value between 1 and 5 inclusive");
         }
     }
 

@@ -40,7 +40,7 @@ public class TimeFilterValidator implements Validator {
         FilterOperations dateOperation = timeFilter.getDateOperation();
         FilterOperations durationOperation = timeFilter.getDurationOperation();
 
-        if (eitherOperationNotNull(dateOperation, durationOperation, errors)) {
+        if (oneOrMoreOperationsSpecified(dateOperation, durationOperation, errors)) {
 
             if (dateOperation != null && operationIsValid(dateOperation, "dateOperation", errors)) {
                 validateDates(timeFilter, errors);
@@ -54,9 +54,11 @@ public class TimeFilterValidator implements Validator {
 
     /* ---------------------------- Private helper methods: Verify operations -------------------------------------- */
 
-    private boolean eitherOperationNotNull(FilterOperations dateOperation, FilterOperations durationOperation, Errors errors) {
+    // TODO might be useful to find away to abstract away the operator checks
+
+    private boolean oneOrMoreOperationsSpecified(FilterOperations dateOperation, FilterOperations durationOperation, Errors errors) {
         if (dateOperation == null && durationOperation == null) {
-            errors.reject("timeFilter.bothOperators.null", "TimeFilter must have one working operator");
+            errors.reject("timeFilter.bothOperators.null", "Missing value(s): Time filter must specify operations");
             return false;
         } else {
             return true;
@@ -81,12 +83,17 @@ public class TimeFilterValidator implements Validator {
         LocalDate primaryDate = timeFilter.getPrimaryDate();
         LocalDate secondaryDate = timeFilter.getSecondaryDate();
 
-        if (primaryDate == null) {
-            errors.rejectValue(fieldName, fieldName + ".null", "Filtering by date requires a date value");
-        } else if (dateOperation == FilterOperations.BETWEEN && secondaryDate == null) {
-            errors.rejectValue(fieldName, fieldName + ".secondDate.null", "Filtering by a range requires two values");
-        } else if (dateOperation == FilterOperations.BETWEEN && !firstDateBeforeSecond(primaryDate, secondaryDate)) {
-            errors.rejectValue(fieldName, fieldName + ".secondDate.incorrectOrder", "Filtering by date range requires the first date to come before the second date");
+        if (dateOperation == FilterOperations.BETWEEN) {
+
+            if (primaryDate == null || secondaryDate == null) {
+                errors.rejectValue(fieldName, fieldName + ".secondValueNull", "Missing value(s): Date range filter requires two values");
+
+            } else if (!firstDateBeforeSecond(primaryDate, secondaryDate)) {
+                errors.rejectValue(fieldName, fieldName + ".incorrectOrderOfValues", "Incorrect order: First date must be earlier than the second date");
+            }
+
+        } else if (primaryDate == null) {
+            errors.rejectValue(fieldName, fieldName + ".null", "Missing value: Date filter requires a date value");
         }
     }
 
@@ -102,16 +109,20 @@ public class TimeFilterValidator implements Validator {
         Long primaryDuration = timeFilter.getPrimaryDuration();
         Long secondaryDuration = timeFilter.getSecondaryDuration();
 
-        if (primaryDuration == null) {
-            errors.rejectValue(fieldName, fieldName + ".null", "Filtering by duration requires a duration value");
-        } else if (durationOperation == FilterOperations.BETWEEN && secondaryDuration == null) {
-            errors.rejectValue(fieldName, fieldName + ".secondDuration.null", "Filtering by a range requires two values");
-        } else if (!positiveDuration(primaryDuration)) {
-            errors.rejectValue(fieldName, fieldName + ".negativeValue", "Duration must be a positive value");
-        } else if (secondaryDuration != null && !positiveDuration(secondaryDuration)) {
-            errors.rejectValue("secondaryDuration", "secondaryDuration.negativeValue","Duration must be a positive value" );
-        } else if (durationOperation == FilterOperations.BETWEEN && !firstDurationLessThanSecond(primaryDuration, secondaryDuration)) {
-            errors.rejectValue(fieldName, fieldName + ".secondDate.incorrectOrder", "Filtering by duration requires the first value to be less than the second");
+        if (durationOperation == FilterOperations.BETWEEN) {
+
+            if (primaryDuration == null || secondaryDuration == null) {
+                errors.rejectValue(fieldName, fieldName + ".secondValueNull", "Missing value(s): Duration range filter requires two values");
+
+            } else if (!positiveDuration(primaryDuration) || !positiveDuration(secondaryDuration)) {
+                errors.rejectValue(fieldName, fieldName + ".negativeValue", "Negative value(s): Duration values must be positive");
+
+            } else if (!firstDurationLessThanSecond(primaryDuration, secondaryDuration)) {
+                errors.rejectValue(fieldName, fieldName + ".incorrectOrderOfValues", "Incorrect order: First duration must be shorter than the second");
+            }
+
+        } else if (primaryDuration == null || !positiveDuration(primaryDuration)) {
+            errors.rejectValue(fieldName, fieldName + ".nullOrNegative", "Missing value: Duration filter requires a positive duration value");
         }
     }
 
