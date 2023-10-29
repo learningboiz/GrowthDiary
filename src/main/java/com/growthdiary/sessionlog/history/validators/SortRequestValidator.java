@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.history.validators;
 
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
-import com.growthdiary.sessionlog.history.dtos.SortRequest;
+import com.growthdiary.sessionlog.history.requests.SortRequest;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -17,7 +17,7 @@ import java.util.List;
  * @see SortRequest
  */
 @Component
-public class SortRequestDTOValidator implements Validator {
+public class SortRequestValidator implements Validator {
 
     private final List<String> validProperties = Arrays.asList("details.skill", "time.duration", "time.startDate", "feedback.productivity");
     private final List<SortDirection> validDirections = Arrays.asList(SortDirection.ASC, SortDirection.DESC);
@@ -40,10 +40,10 @@ public class SortRequestDTOValidator implements Validator {
     @Override
     public void validate(@NotNull Object target, @NotNull Errors errors) {
 
-        SortRequest sortRequestDTO = (SortRequest) target;
+        SortRequest sortRequest = (SortRequest) target;
 
-        validateProperty(sortRequestDTO.getProperty(), errors);
-        validateDirection(sortRequestDTO.getSortDirection(), errors);
+        validateProperty(sortRequest.getProperty(), errors);
+        validateDirection(sortRequest.getSortDirection(), errors);
     }
 
     /* ----------------------------- Private helper methods ---------------------------------------------------- */
