@@ -1,4 +1,4 @@
-package com.growthdiary.sessionlog.sessionhistory.unit;
+package com.growthdiary.sessionlog.sessionhistory.unit.builders;
 
 import com.growthdiary.sessionlog.history.historysort.SortBuilder;
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
