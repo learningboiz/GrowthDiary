@@ -133,7 +133,7 @@ public class SpecificationsMapper {
                     SpecificationsBuilder.findValueIn(
                             feedbackFilter.getDistractions(),
                             "feedback",
-                            "distractions"
+                            "distraction"
                     )
             );
         }
