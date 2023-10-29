@@ -1,6 +1,6 @@
 package com.growthdiary.sessionlog.history.validators;
 
-import com.growthdiary.sessionlog.history.dtos.FilterRequest;
+import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
@@ -11,7 +11,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class FilterRequestDTOValidator implements Validator {
+public class FilterRequestValidator implements Validator {
 
     private final DetailsFilterValidator detailsFilterValidator = new DetailsFilterValidator();
     private final TimeFilterValidator timeFilterValidator = new TimeFilterValidator();
