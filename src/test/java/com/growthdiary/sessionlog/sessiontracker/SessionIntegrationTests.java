@@ -48,7 +48,13 @@ public class SessionIntegrationTests {
     @BeforeEach
     public void createDummyValues() {
         details = new Details("Programming", "Learning basic loops");
-        time = new Time(LocalDate.now(), LocalDate.now(), LocalTime.now(), LocalTime.now().plusMinutes(45), 45L);
+
+        time = new Time(LocalDate.of(2023,10,4),
+                        LocalDate.of(2023, 10, 4),
+                        LocalTime.of(9,30),
+                        LocalTime.of(10,0),
+                        30L);
+
         feedback = new Feedback(3, "Reddit");
     }
 
