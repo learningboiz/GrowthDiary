@@ -24,12 +24,12 @@ public class HistoryController {
     }
 
     @GetMapping("/session/history")
-    public ResponseEntity<Page<Session>> allSessionHistory() {
+    public ResponseEntity<Page<Session>> getAllSessionHistory() {
         return new ResponseEntity<>(sessionHistoryService.getDefaultSessions(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/session/history/filter")
-    public ResponseEntity<Page<Session>> requestedSessionHistory(@RequestBody SessionHistoryDTO sessionHistoryDTO) {
+    public ResponseEntity<Page<Session>> getRequestedSessionHistory(@RequestBody SessionHistoryDTO sessionHistoryDTO) {
         return new ResponseEntity<>(sessionHistoryService.getRequestedSessions(sessionHistoryDTO), HttpStatus.ACCEPTED);
     }
 
