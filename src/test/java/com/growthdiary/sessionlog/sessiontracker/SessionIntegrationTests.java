@@ -1,13 +1,13 @@
 package com.growthdiary.sessionlog.sessiontracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.growthdiary.sessionlog.tracker.details.Details;
-import com.growthdiary.sessionlog.tracker.feedback.Feedback;
-import com.growthdiary.sessionlog.tracker.session.SessionController;
-import com.growthdiary.sessionlog.tracker.session.SessionDTO;
-import com.growthdiary.sessionlog.tracker.session.SessionRepository;
-import com.growthdiary.sessionlog.tracker.session.SessionService;
-import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.models.Details;
+import com.growthdiary.sessionlog.tracker.models.Feedback;
+import com.growthdiary.sessionlog.tracker.SessionController;
+import com.growthdiary.sessionlog.tracker.SessionDTO;
+import com.growthdiary.sessionlog.tracker.SessionRepository;
+import com.growthdiary.sessionlog.tracker.SessionService;
+import com.growthdiary.sessionlog.tracker.models.Time;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class SessionIntegrationTests {
 
     @BeforeEach
     public void createDummyValues() {
-        details = new Details("Programming", "Learning basic loops");
+        details = new Details("Spring Boot", "Building backend API");
 
         time = new Time(LocalDate.of(2023,10,4),
                         LocalDate.of(2023, 10, 4),
