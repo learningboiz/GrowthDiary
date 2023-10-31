@@ -1,8 +1,8 @@
-package com.growthdiary.sessionlog.tracker.session;
+package com.growthdiary.sessionlog.tracker;
 
-import com.growthdiary.sessionlog.tracker.details.Details;
-import com.growthdiary.sessionlog.tracker.feedback.Feedback;
-import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.models.Details;
+import com.growthdiary.sessionlog.tracker.models.Feedback;
+import com.growthdiary.sessionlog.tracker.models.Time;
 
 public class SessionDTO {
 

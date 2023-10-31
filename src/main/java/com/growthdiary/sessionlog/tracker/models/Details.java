@@ -1,22 +1,16 @@
-package com.growthdiary.sessionlog.tracker.details;
+package com.growthdiary.sessionlog.tracker.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-@Entity
+@Embeddable
 public class Details {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     private String skill;
 
     private String description;
 
-    /* Default no-argument constructor required by Hibernate
-     * Used during database queries
+    /*
+     * A no-args constructor is required by Hibernate when inserting data into the database
      */
     public Details(){}
 
