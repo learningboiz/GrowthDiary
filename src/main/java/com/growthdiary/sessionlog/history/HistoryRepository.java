@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.history;
 
-import com.growthdiary.sessionlog.tracker.session.Session;
-import com.growthdiary.sessionlog.tracker.session.SessionRepository;
+import com.growthdiary.sessionlog.tracker.models.Session;
+import com.growthdiary.sessionlog.tracker.SessionRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 

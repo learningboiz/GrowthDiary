@@ -1,17 +1,15 @@
 package com.growthdiary.sessionlog.sessiontracker;
 
-import com.growthdiary.sessionlog.tracker.details.Details;
-import com.growthdiary.sessionlog.tracker.feedback.Feedback;
-import com.growthdiary.sessionlog.tracker.session.Session;
-import com.growthdiary.sessionlog.tracker.session.SessionDTO;
-import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.models.Details;
+import com.growthdiary.sessionlog.tracker.models.Feedback;
+import com.growthdiary.sessionlog.tracker.models.Session;
+import com.growthdiary.sessionlog.tracker.SessionDTO;
+import com.growthdiary.sessionlog.tracker.models.Time;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 

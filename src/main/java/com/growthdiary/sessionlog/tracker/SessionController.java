@@ -1,5 +1,6 @@
-package com.growthdiary.sessionlog.tracker.session;
+package com.growthdiary.sessionlog.tracker;
 
+import com.growthdiary.sessionlog.tracker.models.Session;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Validated
 public class SessionController {
 
     private final SessionService sessionService;
@@ -20,13 +20,13 @@ public class SessionController {
     }
 
     @PostMapping("/session")
-    public ResponseEntity<Session> createSession(@Valid @RequestBody SessionDTO sessionDTO) {
+    public ResponseEntity<Session> createSession(@RequestBody SessionDTO sessionDTO) {
         Session session = sessionService.createSession(sessionDTO);
         return new ResponseEntity<>(session, HttpStatus.CREATED);
     }
 
     @ExceptionHandler(ValidationException.class)
-    protected ResponseEntity<String> invalidSessionHandler(ValidationException exception) {
+    protected ResponseEntity<String> handleInvalidSessionInput(ValidationException exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(exception.getMessage());

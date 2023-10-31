@@ -1,24 +1,16 @@
-package com.growthdiary.sessionlog.tracker.feedback;
+package com.growthdiary.sessionlog.tracker.models;
 
 import jakarta.persistence.*;
 
-/**
- * Main entity to represent user feedback on how their session went
- */
-@Entity
+@Embeddable
 public class Feedback {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     private Integer productivity;
 
     private String distraction;
 
-    /* Default no-argument constructor required by Hibernate
-     * Used during database queries
+    /*
+     * A no-args constructor is required by Hibernate when inserting data into the database
      */
     public Feedback() {}
 

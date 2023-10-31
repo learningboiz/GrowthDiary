@@ -1,6 +1,6 @@
 package com.growthdiary.sessionlog.tracker.validators;
 
-import com.growthdiary.sessionlog.tracker.session.SessionDTO;
+import com.growthdiary.sessionlog.tracker.SessionDTO;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

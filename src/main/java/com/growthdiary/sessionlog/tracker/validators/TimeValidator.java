@@ -1,6 +1,6 @@
 package com.growthdiary.sessionlog.tracker.validators;
 
-import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.models.Time;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

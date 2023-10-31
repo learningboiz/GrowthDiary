@@ -1,13 +1,13 @@
 package com.growthdiary.sessionlog.sessiontracker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.growthdiary.sessionlog.tracker.details.Details;
-import com.growthdiary.sessionlog.tracker.feedback.Feedback;
-import com.growthdiary.sessionlog.tracker.session.Session;
-import com.growthdiary.sessionlog.tracker.session.SessionController;
-import com.growthdiary.sessionlog.tracker.session.SessionDTO;
-import com.growthdiary.sessionlog.tracker.session.SessionService;
-import com.growthdiary.sessionlog.tracker.time.Time;
+import com.growthdiary.sessionlog.tracker.models.Details;
+import com.growthdiary.sessionlog.tracker.models.Feedback;
+import com.growthdiary.sessionlog.tracker.models.Session;
+import com.growthdiary.sessionlog.tracker.SessionController;
+import com.growthdiary.sessionlog.tracker.SessionDTO;
+import com.growthdiary.sessionlog.tracker.SessionService;
+import com.growthdiary.sessionlog.tracker.models.Time;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SessionController.class)

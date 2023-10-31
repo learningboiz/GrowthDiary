@@ -1,33 +1,20 @@
-package com.growthdiary.sessionlog.tracker.time;
+package com.growthdiary.sessionlog.tracker.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- * Main entity to represent the dates, timing and duration of a session
- */
-@Entity
+@Embeddable
 public class Time {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
     private LocalDate startDate;
-
     private LocalTime startTime;
-
     private LocalDate endDate;
-
-
     private LocalTime endTime;
-
     private Long duration;
 
-    /* Default no-argument constructor required by Hibernate
-     * Used during database queries
+    /*
+     * A no-args constructor is required by Hibernate when inserting data into the database
      */
     public Time() {}
 

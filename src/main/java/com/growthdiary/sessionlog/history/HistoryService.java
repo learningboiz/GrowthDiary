@@ -9,7 +9,7 @@ import com.growthdiary.sessionlog.history.specifications.*;
 import com.growthdiary.sessionlog.history.requests.FilterRequest;
 import com.growthdiary.sessionlog.history.validators.FilterRequestValidator;
 import com.growthdiary.sessionlog.history.validators.SortRequestValidator;
-import com.growthdiary.sessionlog.tracker.session.Session;
+import com.growthdiary.sessionlog.tracker.models.Session;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
