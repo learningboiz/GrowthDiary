@@ -1,7 +1,7 @@
 package com.growthdiary.sessionlog.history;
 
 import com.growthdiary.sessionlog.history.requests.SessionHistoryDTO;
-import com.growthdiary.sessionlog.tracker.session.Session;
+import com.growthdiary.sessionlog.tracker.models.Session;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
