@@ -12,7 +12,6 @@ import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
-import com.growthdiary.sessionlog.tracker.session.SessionDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

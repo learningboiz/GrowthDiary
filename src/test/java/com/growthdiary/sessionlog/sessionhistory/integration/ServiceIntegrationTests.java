@@ -12,14 +12,11 @@ import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import com.growthdiary.sessionlog.history.historysort.SortBuilder;
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
-import com.growthdiary.sessionlog.tracker.session.Session;
+import com.growthdiary.sessionlog.tracker.models.Session;
 import jakarta.validation.ValidationException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.stubbing.defaultanswers.GloballyConfiguredAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
