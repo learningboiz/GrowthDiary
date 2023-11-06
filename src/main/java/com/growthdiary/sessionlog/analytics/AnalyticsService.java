@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class AnalyticsService {
@@ -26,6 +27,15 @@ public class AnalyticsService {
             Long rangeOfDays = ChronoUnit.DAYS.between(dateOnMonday, currentDate) + 1;
             return analyticsRepository.getSummary(dateOnMonday, currentDate, rangeOfDays);
         }
+    }
+
+    public List<ProductivityChart> createProductivityChart(ProductivityAttributes attribute) {
+        return switch (attribute) {
+            case duration -> analyticsRepository.getDurationCorrelation();
+            case time -> analyticsRepository.getTimeCorrelation();
+            case distraction -> analyticsRepository.getDistractionCorrelation();
+            default -> throw new IllegalArgumentException("Attribute not supported: Only duration, time and distraction are supported");
+        };
     }
 
     private LocalDate findDateOnMonday(LocalDate currentDate) {

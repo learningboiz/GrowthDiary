@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 public class AnalyticsController {
@@ -25,10 +27,22 @@ public class AnalyticsController {
         return new ResponseEntity<>(analyticsService.createWeeklySummary(currentDate), HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/session/analytics/productivity")
+    public ResponseEntity<List<ProductivityChart>> getProductivityChart(@RequestParam ProductivityAttributes attribute) {
+        return new ResponseEntity<>(analyticsService.createProductivityChart(attribute), HttpStatus.ACCEPTED);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<String> handleIllegalArgumentErrors(IllegalArgumentException exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(exception.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<String> handleArgumentMismatchErrors(MethodArgumentTypeMismatchException exception) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Accepted attributes are duration, time and distraction");
     }
 }
