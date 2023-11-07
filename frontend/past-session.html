@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log a completed session</title>
+</head>
+<body>
+<form action="http://localhost:8080/session" method="post" class="past-session-form" id="past-session-form">
+    <div class="past-session-form">
+        <label for="skill">Skill:</label>
+        <input type="text" id="skill" name="skill" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="start-date">Start date:</label>
+        <input type="date" id="start-date" name="start-date" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="start-time">Start time:</label>
+        <input type="time" id="start-time" name="start-time" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="end-date">End date:</label>
+        <input type="date" id="end-date" name="end-date" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="end-time">End time:</label>
+        <input type="time" id="end-time" name="end-time" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="duration">How long did it take:</label>
+        <input type="number" id="duration" name="duration" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="distraction">Top distraction:</label>
+        <input type="text" id="distraction" name="distraction" required>
+    </div>
+
+    <div class="past-session-form">
+        <label for="productivity">How productive was the session:</label>
+        <input type="number" id="productivity" name="productivity" required>
+    </div>
+
+    <div class="past-session-form">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+<script src="formConverter.js"></script>
+
+</body>
+</html>
