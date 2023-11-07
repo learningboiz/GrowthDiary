@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:63343")
 @RestController
 public class SessionController {
 
@@ -19,7 +20,7 @@ public class SessionController {
         this.sessionService = sessionService;
     }
 
-    @PostMapping("/session")
+    @PostMapping(value = "/session", consumes = "application/json")
     public ResponseEntity<Session> createSession(@RequestBody SessionDTO sessionDTO) {
         Session session = sessionService.createSession(sessionDTO);
         return new ResponseEntity<>(session, HttpStatus.CREATED);
