@@ -79,3 +79,36 @@ export default function SessionForm() {
         </form>
     )
 }
+
+function calculateDuration(startPeriod, endPeriod) {
+    const startDate = new Date(startPeriod);
+    const endDate = new Date(endPeriod);
+    const differenceInMilliseconds = endDate - startDate;
+    return Math.round(differenceInMilliseconds / 60000);
+}
+
+function createJsonObject(form) {
+    const details = {
+        skill: form.skill,
+        description: form.description,
+    };
+
+    const time = {
+        startDate: form.startPeriod.split("T")[0],
+        startTime: form.startPeriod.split("T")[1],
+        endDate: form.endPeriod.split("T")[0],
+        endTime: form.endPeriod.split("T")[1],
+        duration: calculateDuration(form.startPeriod, form.endPeriod),
+    }
+
+    const feedback = {
+        distraction: form.distraction,
+        productivity: form.productivity,
+    }
+
+    return {
+        details,
+        time,
+        feedback,
+    };
+}
