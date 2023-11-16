@@ -1,37 +1,35 @@
 import './App.css'
+import MainSessionPage from './tracker/pages/MainSessionPage.jsx'
 import {
     BrowserRouter as Router,
     Routes,
     Route,
     Link
 } from "react-router-dom";
+import SessionPageButton from "./tracker/SessionPageButton.jsx";
 
 export default function App() {
     return (
         <Router>
             <nav>
                 <Link to="/">Home</Link>
-                <Link to="/new-session">New Session</Link>
-                <Link to="/old-session">Old Session</Link>
+                <Link to="/session">Start Session</Link>
             </nav>
 
             <Routes>
                 <Route exact path='/' element={<Home />} />
-                <Route path='/new-session' element={<NewSession />} />
-                <Route path='/old-session' element={<OldSession />} />
+                <Route path='/session' element={<MainSessionPage />} />
             </Routes>
         </Router>
     );
 }
 
 function Home() {
-    return <h2>Welcome back</h2>
-}
+    return (
+        <>
+            <h2>Welcome back</h2>
+            <SessionPageButton />
+        </>
 
-function NewSession() {
-    return <h2>Start a new session</h2>
-}
-
-function OldSession() {
-    return <h2>Log a completed session</h2>
+    )
 }
