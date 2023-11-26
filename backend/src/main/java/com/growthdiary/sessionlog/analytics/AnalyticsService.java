@@ -33,7 +33,7 @@ public class AnalyticsService {
         return switch (attribute) {
             case duration -> analyticsRepository.getDurationCorrelation();
             case time -> analyticsRepository.getTimeCorrelation();
-            case distraction -> analyticsRepository.getDistractionCorrelation();
+            case obstacle -> analyticsRepository.getObstacleCorrelation();
             default -> throw new IllegalArgumentException("Attribute not supported: Only duration, time and distraction are supported");
         };
     }

@@ -13,11 +13,11 @@ import java.util.List;
 public interface AnalyticsRepository extends CrudRepository<Session, Long> {
 
     @Query(value = "SELECT " +
-            "(SELECT skill " +
+            "(SELECT topic " +
             "FROM Session " +
             "WHERE start_date >= :minRange " +
             "AND start_date <= :maxRange " +
-            "GROUP BY skill " +
+            "GROUP BY topic " +
             "ORDER BY SUM(duration) DESC " +
             "LIMIT 1) AS topSkill, " +
             "SUM(duration) AS totalDuration, " +
@@ -57,10 +57,10 @@ public interface AnalyticsRepository extends CrudRepository<Session, Long> {
     List<ProductivityChart> getTimeCorrelation();
 
     @Query(value = "SELECT " +
-            "distraction AS attributeCategory, " +
+            "obstacle AS attributeCategory, " +
             "AVG(productivity) AS averageProductivity " +
             "FROM Session " +
             "GROUP BY attributeCategory " +
             "ORDER BY averageProductivity DESC ", nativeQuery = true)
-    List<ProductivityChart> getDistractionCorrelation();
+    List<ProductivityChart> getObstacleCorrelation();
 }

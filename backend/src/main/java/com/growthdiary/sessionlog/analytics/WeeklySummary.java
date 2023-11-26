@@ -5,7 +5,7 @@ package com.growthdiary.sessionlog.analytics;
  */
 public interface WeeklySummary {
 
-    String getTopSkill();
+    String getTopTopic();
     Long getTotalDuration();
     Double getAvgProductivity();
 }

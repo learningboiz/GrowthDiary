@@ -5,5 +5,5 @@ package com.growthdiary.sessionlog.analytics;
  */
 public enum ProductivityAttributes {
 
-    duration, distraction, time
+    duration, obstacle, time
 }
