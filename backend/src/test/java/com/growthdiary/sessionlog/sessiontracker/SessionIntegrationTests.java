@@ -50,9 +50,7 @@ public class SessionIntegrationTests {
         details = new Details("Spring Boot", "Building backend API");
 
         time = new Time(LocalDate.of(2023,10,4),
-                        LocalDate.of(2023, 10, 4),
                         LocalTime.of(9,30),
-                        LocalTime.of(10,0),
                         30L);
 
         feedback = new Feedback(3, "Reddit");
@@ -83,7 +81,7 @@ public class SessionIntegrationTests {
     public void testNestedObjectsWithNullAttributes() throws Exception {
 
         Details invalidDetails = new Details(null, null);
-        Time invalidTime = new Time(null, null, null, null, null);
+        Time invalidTime = new Time(null, null, null);
         Feedback invalidFeedback = new Feedback(null, null);
         SessionDTO invalidDTO = new SessionDTO(invalidDetails, invalidTime, invalidFeedback);
 
@@ -94,31 +92,12 @@ public class SessionIntegrationTests {
     }
 
     @Test
-    public void testInvalidDates() throws Exception {
-        LocalDate invalidStartDate = LocalDate.of(2023, 10, 9); // start should not come after end
-        LocalDate endDate = LocalDate.of(2023, 5, 9);
-        LocalTime startTime = LocalTime.now();
-        LocalTime endTime = LocalTime.now().plusMinutes(45);
-        Long duration = 45L;
-
-        Time invalidTime = new Time(invalidStartDate, endDate, startTime, endTime, duration);
-        SessionDTO invalidDTO = new SessionDTO(details, invalidTime, feedback);
-
-        mockMvc.perform(post("/session")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidDTO)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void testInvalidDuration() throws Exception {
         LocalDate startDate = LocalDate.of(2023, 10, 9);
-        LocalDate endDate = LocalDate.of(2023, 10, 9);
         LocalTime startTime = LocalTime.now();
-        LocalTime endTime = LocalTime.now().plusMinutes(45);
         Long invalidDuration = -99L;
 
-        Time invalidTime = new Time(startDate, endDate, startTime, endTime, invalidDuration);
+        Time invalidTime = new Time(startDate, startTime, invalidDuration);
         SessionDTO invalidDTO = new SessionDTO(details, invalidTime, feedback);
 
         mockMvc.perform(post("/session")

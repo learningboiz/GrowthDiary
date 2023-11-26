@@ -36,10 +36,8 @@ public class TimeValidator implements Validator {
 
         if (anyNullProperties(time)) {
             errors.reject("time.null", "Dates, times and duration must not be null");
-        } else if (illogicalDate(time)) {
-            errors.reject("time.null", "Start date must come before end date");
-        } else if (!consistentDuration(time)) {
-            errors.rejectValue("duration", "duration.inconsistent", "Duration must be consistent with dates and time provided");
+        } else if (!validDuration(time)) {
+            errors.rejectValue("duration", "duration.negative", "Duration must be a non-negative value");
         }
     }
 
@@ -47,33 +45,15 @@ public class TimeValidator implements Validator {
      * Utility method to check if any attributes are null
      */
     private boolean anyNullProperties(Time time) {
-        return time.getStartDate() == null || time.getStartTime() == null || time.getEndDate() == null ||
-                time.getEndTime() == null || time.getDuration() == null;
-    }
-
-    /*
-     * Utility method to ensure that startDate comes before endDate
-     */
-    private boolean illogicalDate(Time time) {
-        LocalDate startDate = time.getStartDate();
-        LocalDate endDate = time.getEndDate();
-        return startDate.isAfter(endDate);
+        return time.getStartDate() == null || time.getStartTime() == null || time.getDuration() == null;
     }
 
     /*
      * Utility method used to verify whether the provided duration is consistent with the dates and times provided
      * Returns a boolean value to indicate whether duration is consistent
      */
-    private boolean consistentDuration(Time time) {
-        LocalDateTime startPeriod = time.getStartDate().atTime(time.getStartTime());
-        LocalDateTime endPeriod = time.getEndDate().atTime(time.getEndTime());
-
-        Long actualDuration = time.getDuration();
-        Long expectedDuration = ChronoUnit.MINUTES.between(startPeriod, endPeriod);
-        return expectedDuration.equals(actualDuration);
+    private boolean validDuration(Time time) {
+        return time.getDuration() >= 0;
     }
-
-
-
 
 }

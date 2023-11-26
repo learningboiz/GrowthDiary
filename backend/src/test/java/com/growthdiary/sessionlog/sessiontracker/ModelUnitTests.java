@@ -18,9 +18,7 @@ public class ModelUnitTests {
     private String skill;
     private String description;
     private LocalDate startDate;
-    private LocalDate endDate;
     private LocalTime startTime;
-    private LocalTime endTime;
     private Long duration;
     private Integer productivity;
     private String distraction;
@@ -31,9 +29,7 @@ public class ModelUnitTests {
         skill = "Java";
         description = "Creating a Spring Boot application";
         startDate = LocalDate.now();
-        endDate = LocalDate.now();
         startTime = LocalTime.now();
-        endTime = LocalTime.now().plusMinutes(45);
         duration = 45L;
         productivity = 5;
         distraction = "Reddit";
@@ -48,11 +44,9 @@ public class ModelUnitTests {
 
     @Test
     public void testTimeConstructor() {
-        Time time = new Time(startDate, endDate, startTime, endTime, duration);
+        Time time = new Time(startDate, startTime, duration);
         assertEquals(startDate, time.getStartDate());
-        assertEquals(endDate, time.getEndDate());
         assertEquals(startTime, time.getStartTime());
-        assertEquals(endTime, time.getEndTime());
         assertEquals(duration, time.getDuration());
     }
 
@@ -65,7 +59,7 @@ public class ModelUnitTests {
     @Test
     public void testSessionDTOCreation() {
         Details details = new Details(skill, description);
-        Time time = new Time(startDate, endDate, startTime, endTime, duration);
+        Time time = new Time(startDate, startTime, duration);
         Feedback feedback = new Feedback(productivity, distraction);
 
         SessionDTO sessionDTO = new SessionDTO(details, time, feedback);
@@ -76,7 +70,7 @@ public class ModelUnitTests {
     @Test
     public void testSessionConstructor() {
         Details details = new Details(skill, description);
-        Time time = new Time(startDate, endDate, startTime, endTime, duration);
+        Time time = new Time(startDate, startTime, duration);
         Feedback feedback = new Feedback(productivity, distraction);
 
         Session session = new Session(details, time, feedback);

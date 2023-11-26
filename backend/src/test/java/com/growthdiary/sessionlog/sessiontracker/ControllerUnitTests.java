@@ -44,11 +44,9 @@ public class ControllerUnitTests {
 
         // Create Time object
         LocalDate startDate = LocalDate.now();
-        LocalDate endDate = LocalDate.now();
         LocalTime startTime = LocalTime.now();
-        LocalTime endTime = LocalTime.now().plusMinutes(45);
         Long duration = 45L;
-        Time mockTime = new Time(startDate, endDate, startTime, endTime, duration);
+        Time mockTime = new Time(startDate, startTime, duration);
 
         // Create Feedback object
         Integer productivity = 4;
