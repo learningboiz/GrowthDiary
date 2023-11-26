@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class FeedbackFilter {
 
-    private List<String> distractions;
+    private List<String> obstacles;
 
     private FilterOperations productivityOperation;
     private Integer primaryProductivity;
@@ -20,8 +20,8 @@ public class FeedbackFilter {
     private FeedbackFilter() {
     }
 
-    public List<String> getDistractions() {
-        return this.distractions;
+    public List<String> getObstacles() {
+        return this.obstacles;
     }
 
     public FilterOperations getProductivityOperation() {
@@ -43,8 +43,8 @@ public class FeedbackFilter {
     public static class BuildFilter {
         private final FeedbackFilter filter = new FeedbackFilter();
 
-        public BuildFilter findDistractionIn(List<String> distractions) {
-            filter.distractions = distractions;
+        public BuildFilter findObstacleIn(List<String> obstacles) {
+            filter.obstacles = obstacles;
             return this;
         }
 

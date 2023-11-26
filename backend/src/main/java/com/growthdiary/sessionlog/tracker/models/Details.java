@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Embeddable
 public class Details {
 
-    private String skill;
+    private String topic;
 
     private String description;
 
@@ -14,21 +14,21 @@ public class Details {
      */
     public Details(){}
 
-    public Details(String skill, String description) {
-        this.skill = skill;
+    public Details(String topic, String description) {
+        this.topic = topic;
         this.description = description;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public void setTopic(String skill) {
+        this.topic = skill;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getSkill() {
-        return this.skill;
+    public String getTopic() {
+        return this.topic;
     }
 
     public String getDescription() {

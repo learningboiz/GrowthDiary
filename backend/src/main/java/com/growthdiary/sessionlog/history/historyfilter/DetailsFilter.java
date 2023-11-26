@@ -9,15 +9,15 @@ import java.util.List;
  * @see TimeFilter
  */
 public class DetailsFilter {
-    private List<String> skills;
+    private List<String> topics;
 
     private String description;
 
     private DetailsFilter() {
     }
 
-    public List<String> getSkills() {
-        return this.skills;
+    public List<String> getTopics() {
+        return this.topics;
     }
 
     public String getDescription() {
@@ -31,8 +31,8 @@ public class DetailsFilter {
     public static class BuildFilter {
         private final DetailsFilter filter = new DetailsFilter();
 
-        public BuildFilter findSkillIn(List<String> skills) {
-            filter.skills = skills;
+        public BuildFilter findTopicIn(List<String> topics) {
+            filter.topics = topics;
             return this;
         }
 

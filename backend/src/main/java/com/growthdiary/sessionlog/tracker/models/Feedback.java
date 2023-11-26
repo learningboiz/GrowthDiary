@@ -7,16 +7,16 @@ public class Feedback {
 
     private Integer productivity;
 
-    private String distraction;
+    private String obstacle;
 
     /*
      * A no-args constructor is required by Hibernate when inserting data into the database
      */
     public Feedback() {}
 
-    public Feedback(Integer productivity, String distraction) {
+    public Feedback(Integer productivity, String obstacle) {
         this.productivity = productivity;
-        this.distraction = distraction;
+        this.obstacle = obstacle;
     }
 
     public void setProductivity(Integer productivityRating) {
@@ -27,11 +27,11 @@ public class Feedback {
         return this.productivity;
     }
 
-    public void setDistraction(String keyDistraction) {
-        this.distraction = keyDistraction;
+    public void setObstacle(String keyDistraction) {
+        this.obstacle = keyDistraction;
     }
 
-    public String getDistraction() {
-        return this.distraction;
+    public String getObstacle() {
+        return this.obstacle;
     }
 }

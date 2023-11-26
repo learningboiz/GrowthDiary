@@ -32,8 +32,8 @@ public class DetailsValidator implements Validator {
 
         Details details = (Details) target;
 
-        if (details.getSkill() == null) {
-            errors.rejectValue("skill", "skill.null", "Skill must not be empty");
+        if (details.getTopic() == null) {
+            errors.rejectValue("topic", "topic.null", "Topic must not be empty");
         }
 
         if (details.getDescription() == null) {

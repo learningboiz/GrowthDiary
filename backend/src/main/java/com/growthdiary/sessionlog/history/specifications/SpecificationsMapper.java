@@ -39,10 +39,10 @@ public class SpecificationsMapper {
         String attribute = "details";
         Specification<Session> detailsSpecifications = Specification.where(null);
 
-        if (detailsFilter.getSkills() != null) {
-            String subAttribute = "skill";
+        if (detailsFilter.getTopics() != null) {
+            String subAttribute = "topic";
             detailsSpecifications = detailsSpecifications.and(
-                    SpecificationsBuilder.findValueIn(detailsFilter.getSkills(), attribute, subAttribute));
+                    SpecificationsBuilder.findValueIn(detailsFilter.getTopics(), attribute, subAttribute));
         }
 
         if (detailsFilter.getDescription() != null) {
@@ -115,11 +115,11 @@ public class SpecificationsMapper {
             );
         }
 
-        if (feedbackFilter.getDistractions() != null) {
-            String subAttribute = "distraction";
+        if (feedbackFilter.getObstacles() != null) {
+            String subAttribute = "obstacle";
             feedbackSpecifications = feedbackSpecifications.and(
                     SpecificationsBuilder.findValueIn(
-                            feedbackFilter.getDistractions(),
+                            feedbackFilter.getObstacles(),
                             attribute,
                             subAttribute));
         }

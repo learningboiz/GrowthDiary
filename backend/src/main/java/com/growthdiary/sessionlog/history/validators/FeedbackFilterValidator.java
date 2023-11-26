@@ -33,11 +33,11 @@ public class FeedbackFilterValidator implements Validator  {
 
         FeedbackFilter feedbackFilter = (FeedbackFilter) target;
 
-        List<String> distractions = feedbackFilter.getDistractions();
+        List<String> obstacles = feedbackFilter.getObstacles();
         FilterOperations productivityOperations = feedbackFilter.getProductivityOperation();
 
-        if ((distractions == null || distractions.isEmpty()) && productivityOperations == null) {
-            errors.reject("feedbackFilter.attributes.null", "Feedback filter must specify distractions, productivity or both");
+        if ((obstacles == null || obstacles.isEmpty()) && productivityOperations == null) {
+            errors.reject("feedbackFilter.attributes.null", "Feedback filter must specify obstacles, productivity or both");
         } else if (productivityOperations != null) {
             validateProductivity(feedbackFilter, errors);
         }

@@ -19,11 +19,11 @@ public class DetailsFilterValidator implements Validator {
 
         DetailsFilter detailsFilter = (DetailsFilter) target;
 
-        List<String> givenSkills = detailsFilter.getSkills();
+        List<String> givenTopics = detailsFilter.getTopics();
         String givenDescription = detailsFilter.getDescription();
 
-        if ((givenSkills == null || givenSkills.isEmpty()) && givenDescription == null) {
-            errors.reject("detailsFilter.attributes.null", "Details filter must specify skills, description or both");
+        if ((givenTopics == null || givenTopics.isEmpty()) && givenDescription == null) {
+            errors.reject("detailsFilter.attributes.null", "Details filter must specify topics, description or both");
         }
     }
 }

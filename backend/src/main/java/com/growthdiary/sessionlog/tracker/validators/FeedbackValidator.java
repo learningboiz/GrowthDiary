@@ -31,8 +31,8 @@ public class FeedbackValidator implements Validator {
 
         Feedback feedback = (Feedback) target;
 
-        if (feedback.getDistraction() == null) {
-            errors.rejectValue("distraction", "distraction.null", "Distraction must not be empty");
+        if (feedback.getObstacle() == null) {
+            errors.rejectValue("obstacle", "obstacle.null", "Obstacle must not be empty");
         }
 
         if (feedback.getProductivity() == null) {

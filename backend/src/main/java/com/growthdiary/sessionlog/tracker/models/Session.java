@@ -31,7 +31,6 @@ public class Session {
      * reduce need for joins and streamlines database calls for other use cases
      */
     @Embedded
-    @AttributeOverride(name = "skill", column = @Column(name = "skill"))
     private Details details;
 
     @Embedded
