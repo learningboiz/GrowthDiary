@@ -15,30 +15,30 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ModelUnitTests {
 
-    private String skill;
+    private String topic;
     private String description;
     private LocalDate startDate;
     private LocalTime startTime;
     private Long duration;
     private Integer productivity;
-    private String distraction;
+    private String obstacle;
 
 
     @BeforeEach
     public void setDummyValues() {
-        skill = "Java";
+        topic = "Java";
         description = "Creating a Spring Boot application";
         startDate = LocalDate.now();
         startTime = LocalTime.now();
         duration = 45L;
         productivity = 5;
-        distraction = "Reddit";
+        obstacle = "Social media";
     }
 
     @Test
     public void testDetailsConstructor() {
-        Details details = new Details(skill, description);
-        assertEquals(skill, details.getSkill());
+        Details details = new Details(topic, description);
+        assertEquals(topic, details.getTopic());
         assertEquals(description, details.getDescription());
     }
 
@@ -52,15 +52,15 @@ public class ModelUnitTests {
 
     @Test
     public void testFeedbackConstructor() {
-        Feedback feedback = new Feedback(productivity, distraction);
+        Feedback feedback = new Feedback(productivity, obstacle);
         assertEquals(productivity, feedback.getProductivity());
-        assertEquals(distraction, feedback.getDistraction());
+        assertEquals(obstacle, feedback.getObstacle());
     }
     @Test
     public void testSessionDTOCreation() {
-        Details details = new Details(skill, description);
+        Details details = new Details(topic, description);
         Time time = new Time(startDate, startTime, duration);
-        Feedback feedback = new Feedback(productivity, distraction);
+        Feedback feedback = new Feedback(productivity, obstacle);
 
         SessionDTO sessionDTO = new SessionDTO(details, time, feedback);
         assertEquals(details, sessionDTO.getDetails());
@@ -69,9 +69,9 @@ public class ModelUnitTests {
     }
     @Test
     public void testSessionConstructor() {
-        Details details = new Details(skill, description);
+        Details details = new Details(topic, description);
         Time time = new Time(startDate, startTime, duration);
-        Feedback feedback = new Feedback(productivity, distraction);
+        Feedback feedback = new Feedback(productivity, obstacle);
 
         Session session = new Session(details, time, feedback);
         assertEquals(details, session.getDetails());

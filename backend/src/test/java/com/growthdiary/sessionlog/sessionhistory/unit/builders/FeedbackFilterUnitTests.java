@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FeedbackFilterUnitTests {
 
-    private List<String> distractions;
+    private List<String> obstacles;
 
     private FilterOperations productivityOperation;
     private Integer primaryProductivity;
@@ -22,7 +22,7 @@ public class FeedbackFilterUnitTests {
 
     @BeforeEach
     public void createDummyValues() {
-        distractions = Arrays.asList("Reddit", "YouTube");
+        obstacles = Arrays.asList("Social media", "Overthinking");
         productivityOperation = FilterOperations.GREATER_THAN;
         primaryProductivity = 2;
         secondaryProductivity = 5;
@@ -32,11 +32,11 @@ public class FeedbackFilterUnitTests {
     public void createBothDistractionsAndProductivity() {
 
         FeedbackFilter feedbackFilter = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(distractions)
+                .findObstacleIn(obstacles)
                 .findProductivityBetween(primaryProductivity, secondaryProductivity)
                 .build();
 
-        assertEquals(distractions, feedbackFilter.getDistractions());
+        assertEquals(obstacles, feedbackFilter.getObstacles());
         assertEquals(primaryProductivity, feedbackFilter.getPrimaryProductivity());
         assertEquals(secondaryProductivity, feedbackFilter.getSecondaryProductivity());
     }
@@ -44,12 +44,12 @@ public class FeedbackFilterUnitTests {
     @Test
     public void createOnlyDistractions() {
 
-        FeedbackFilter justDistractionsFilter = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(distractions)
+        FeedbackFilter justObstacleFilter = new FeedbackFilter.BuildFilter()
+                .findObstacleIn(obstacles)
                 .build();
 
-        assertEquals(distractions, justDistractionsFilter.getDistractions());
-        assertNull(justDistractionsFilter.getPrimaryProductivity());
+        assertEquals(obstacles, justObstacleFilter.getObstacles());
+        assertNull(justObstacleFilter.getPrimaryProductivity());
     }
 
     @Test
@@ -61,23 +61,23 @@ public class FeedbackFilterUnitTests {
 
         assertEquals(primaryProductivity, justProductivityFilter.getPrimaryProductivity());
         assertEquals(productivityOperation, justProductivityFilter.getProductivityOperation());
-        assertNull(justProductivityFilter.getDistractions());
+        assertNull(justProductivityFilter.getObstacles());
     }
 
     @Test
     public void filterTakesTheLatestArgument() {
 
-        List<String> latestDistractions = Arrays.asList("Netflix", "Online games");
+        List<String> latestObstacles = Arrays.asList("Streaming services", "Lack of direction");
         Integer latestProductivity = 4;
 
         FeedbackFilter feedbackFilter = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(distractions)
+                .findObstacleIn(obstacles)
                 .findProductivity(productivityOperation, primaryProductivity)
-                .findDistractionIn(latestDistractions)
+                .findObstacleIn(latestObstacles)
                 .findProductivity(productivityOperation, latestProductivity)
                 .build();
 
-        assertEquals(latestDistractions, feedbackFilter.getDistractions());
+        assertEquals(latestObstacles, feedbackFilter.getObstacles());
         assertEquals(latestProductivity, feedbackFilter.getPrimaryProductivity());
     }
 }

@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DetailsFilterUnitTests {
 
-    private List<String> skills;
+    private List<String> topics;
     private String description;
 
     @BeforeEach
     public void createDummyValues() {
 
-        skills = Arrays.asList("Java", "Django");
+        topics = Arrays.asList("Java", "Django");
         description = "tests";
     }
 
@@ -26,11 +26,11 @@ public class DetailsFilterUnitTests {
     public void createBothSkillAndDescription() {
 
         DetailsFilter detailsFilter = new DetailsFilter.BuildFilter()
-                .findSkillIn(skills)
+                .findTopicIn(topics)
                 .findDescriptionLike(description)
                 .build();
 
-        assertEquals(detailsFilter.getSkills(), skills);
+        assertEquals(detailsFilter.getTopics(), topics);
         assertEquals(detailsFilter.getDescription(), description);
     }
 
@@ -38,10 +38,10 @@ public class DetailsFilterUnitTests {
     public void createOnlySkill() {
 
         DetailsFilter justSkillsFilter = new DetailsFilter.BuildFilter()
-                .findSkillIn(skills)
+                .findTopicIn(topics)
                 .build();
 
-        assertEquals(justSkillsFilter.getSkills(), skills);
+        assertEquals(justSkillsFilter.getTopics(), topics);
         assertNull(justSkillsFilter.getDescription());
     }
 
@@ -53,28 +53,28 @@ public class DetailsFilterUnitTests {
                 .build();
 
         assertEquals(justDescriptionsFilter.getDescription(), description);
-        assertNull(justDescriptionsFilter.getSkills());
+        assertNull(justDescriptionsFilter.getTopics());
     }
 
     @Test
     public void filterTakesTheLatestArgument() {
 
-        List<String> extraSkills = Arrays.asList("MySQL", "React");
-        List<String> latestSkills = Arrays.asList("Python", "HTML");
+        List<String> extraTopics = Arrays.asList("MySQL", "React");
+        List<String> latestTopics = Arrays.asList("Python", "HTML");
 
         String extraDescription = "API";
         String latestDescription = "tutorials";
 
         DetailsFilter detailsFilter = new DetailsFilter.BuildFilter()
                 .findDescriptionLike(description)
-                .findSkillIn(skills)
+                .findTopicIn(topics)
                 .findDescriptionLike(extraDescription)
                 .findDescriptionLike(latestDescription)
-                .findSkillIn(extraSkills)
-                .findSkillIn(latestSkills)
+                .findTopicIn(extraTopics)
+                .findTopicIn(latestTopics)
                 .build();
 
-        assertEquals(latestSkills, detailsFilter.getSkills());
+        assertEquals(latestTopics, detailsFilter.getTopics());
         assertEquals(latestDescription, detailsFilter.getDescription());
     }
 }

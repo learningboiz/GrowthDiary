@@ -19,7 +19,7 @@ public class DetailsFilterValidationUnitTests {
     public void validFilterReturnsNoErrors() {
 
         DetailsFilter detailsFilter = new DetailsFilter.BuildFilter()
-                .findSkillIn(Arrays.asList("Java", "Spring Boot"))
+                .findTopicIn(Arrays.asList("Java", "Spring Boot"))
                 .findDescriptionLike("web application")
                 .build();
 
@@ -32,7 +32,7 @@ public class DetailsFilterValidationUnitTests {
     public void bothAttributesCannotBeNull() {
 
         DetailsFilter invalidDetailsFilter = new DetailsFilter.BuildFilter()
-                .findSkillIn(null)
+                .findTopicIn(null)
                 .findDescriptionLike(null)
                 .build();
 
@@ -46,7 +46,7 @@ public class DetailsFilterValidationUnitTests {
     public void skillListCannotBeEmpty() {
 
         DetailsFilter emptySkills = new DetailsFilter.BuildFilter()
-                .findSkillIn(List.of())
+                .findTopicIn(List.of())
                 .build();
 
         Errors errors = new BeanPropertyBindingResult(emptySkills, "emptySkills");

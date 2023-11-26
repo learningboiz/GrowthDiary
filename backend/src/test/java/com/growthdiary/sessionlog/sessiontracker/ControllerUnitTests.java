@@ -38,9 +38,9 @@ public class ControllerUnitTests {
     public void testSessionController() throws Exception {
 
         // Create Details object
-        String skill = "Hashmap";
+        String topic = "Hashmap";
         String description = "Leetcode to work on algorithms";
-        Details mockDetails = new Details(skill, description);
+        Details mockDetails = new Details(topic, description);
 
         // Create Time object
         LocalDate startDate = LocalDate.now();
@@ -50,8 +50,8 @@ public class ControllerUnitTests {
 
         // Create Feedback object
         Integer productivity = 4;
-        String distraction = "LinkedIn";
-        Feedback mockFeedback = new Feedback(productivity, distraction);
+        String obstacle = "Social media";
+        Feedback mockFeedback = new Feedback(productivity, obstacle);
 
         // Create SessionDTO and Session objects
         SessionDTO mockDTO = new SessionDTO(mockDetails, mockTime, mockFeedback);

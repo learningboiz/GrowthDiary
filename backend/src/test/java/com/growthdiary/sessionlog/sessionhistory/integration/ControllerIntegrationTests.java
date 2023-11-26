@@ -12,6 +12,7 @@ import com.growthdiary.sessionlog.history.historyfilter.DetailsFilter;
 import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,16 +46,16 @@ public class ControllerIntegrationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private FilterRequest filterRequest;
-    private PageViewRequest pageViewRequest;
-    private SortRequest sortRequest;
-    private SessionHistoryDTO sessionHistoryDTO;
+    private static FilterRequest filterRequest;
+    private static PageViewRequest pageViewRequest;
+    private static SortRequest sortRequest;
+    private static SessionHistoryDTO sessionHistoryDTO;
 
-    @BeforeEach
-    public void createDummyValues() {
+    @BeforeAll
+    public static void createDummyValues() {
 
         DetailsFilter detailsFilter = new DetailsFilter.BuildFilter()
-                .findSkillIn(Arrays.asList("NodeJS", "Spring Boot"))
+                .findTopicIn(Arrays.asList("NodeJS", "Spring Boot"))
                 .build();
 
         TimeFilter timeFilter = new TimeFilter.BuildFilter()
@@ -62,7 +63,7 @@ public class ControllerIntegrationTests {
                 .build();
 
         FeedbackFilter feedbackFilter = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(Arrays.asList("Reddit", "YouTube"))
+                .findObstacleIn(Arrays.asList("Reddit", "YouTube"))
                 .build();
 
         filterRequest = new FilterRequest(detailsFilter, timeFilter, feedbackFilter);
@@ -112,7 +113,7 @@ public class ControllerIntegrationTests {
     public void testRequestWithInvalidFilters() throws Exception {
 
         DetailsFilter invalidDetails = new DetailsFilter.BuildFilter()
-                .findSkillIn(null)
+                .findTopicIn(null)
                 .build();
 
         TimeFilter invalidTime = new TimeFilter.BuildFilter()

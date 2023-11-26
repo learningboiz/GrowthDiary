@@ -20,7 +20,7 @@ public class FeedbackFilterValidationUnitTests {
     public void validFilterReturnsNoErrors() {
 
         FeedbackFilter feedbackFilter = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(Arrays.asList("Reddit, YouTube"))
+                .findObstacleIn(Arrays.asList("Social media, Streaming services"))
                 .findProductivityBetween(2,4)
                 .build();
 
@@ -33,7 +33,7 @@ public class FeedbackFilterValidationUnitTests {
     public void bothAttributesCannotBeNull() {
 
         FeedbackFilter nullAttributes = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(null)
+                .findObstacleIn(null)
                 .findProductivity(null, null)
                 .build();
 
@@ -47,7 +47,7 @@ public class FeedbackFilterValidationUnitTests {
     public void distractionsListCannotBeEmpty() {
 
         FeedbackFilter emptyDistractions = new FeedbackFilter.BuildFilter()
-                .findDistractionIn(List.of())
+                .findObstacleIn(List.of())
                 .build();
 
         Errors errors = new BeanPropertyBindingResult(emptyDistractions, "emptyDistractions");

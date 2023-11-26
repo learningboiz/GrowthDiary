@@ -8,6 +8,7 @@ import com.growthdiary.sessionlog.tracker.SessionDTO;
 import com.growthdiary.sessionlog.tracker.SessionRepository;
 import com.growthdiary.sessionlog.tracker.SessionService;
 import com.growthdiary.sessionlog.tracker.models.Time;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,19 +42,19 @@ public class SessionIntegrationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Details details;
-    private Time time;
-    private Feedback feedback;
+    private static Details details;
+    private static Time time;
+    private static Feedback feedback;
 
-    @BeforeEach
-    public void createDummyValues() {
+    @BeforeAll
+    public static void createDummyValues() {
         details = new Details("Spring Boot", "Building backend API");
 
         time = new Time(LocalDate.of(2023,10,4),
                         LocalTime.of(9,30),
                         30L);
 
-        feedback = new Feedback(3, "Reddit");
+        feedback = new Feedback(3, "Social media");
     }
 
     @Test
