@@ -1,13 +1,13 @@
 import './App.css'
-import MainRoutes from "./mainroutes.jsx";
 import NavigationBar from "./components/navigationbar.jsx";
+import ApplicationRoutes from "./routes/ApplicationRoutes.jsx";
 
 
 export default function App() {
     return (
         <>
             <NavigationBar />
-            <MainRoutes />
+            <ApplicationRoutes />
         </>
     )
 }
