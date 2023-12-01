@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
 import {FormContext} from "./FormContext.jsx";
-import EndOfSession from "./EndOfSession.jsx";
+import EndSession from "./EndSession.jsx";
 
 export default function SessionFeedback() {
     const { setSessionForm } = useContext(FormContext)
@@ -48,7 +48,7 @@ export default function SessionFeedback() {
                     </form>
                 </>
             }
-            {sectionCompleted && <EndOfSession />}
+            {sectionCompleted && <EndSession />}
         </>
     )
 }

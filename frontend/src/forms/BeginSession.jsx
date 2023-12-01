@@ -3,12 +3,12 @@ import {useState} from "react";
 import {FormContext} from "./FormContext.jsx";
 import SessionDetails from "./SessionDetails.jsx";
 
-export default function StartOfSession() {
+export default function BeginSession() {
 
     const formTemplate = {
         topic:'',
         description:'',
-        startPeriod:'',
+        startPeriod:{},
         duration:'',
         obstacle:'',
         productivity:'',

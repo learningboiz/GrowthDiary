@@ -1,7 +1,6 @@
 import {useContext, useState} from "react";
 import SessionFeedback from "./SessionFeedback.jsx";
 import {FormContext} from "./FormContext.jsx";
-import {splitDateTime} from "../utility/splitDateTime.js";
 
 export default function SessionTime() {
     const { setSessionForm } = useContext(FormContext)
@@ -14,12 +13,10 @@ export default function SessionTime() {
 
         const startPeriod = new Date();
         setStartPeriod(startPeriod)
-        const {startDate, startTime} = splitDateTime(startPeriod.toISOString());
 
         setSessionForm((prevSessionForm) => ({
             ...prevSessionForm,
-            startDate: startDate,
-            startTime: startTime
+            startPeriod: startPeriod,
         }))
 
         setSessionStarted(true)
