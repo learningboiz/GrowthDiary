@@ -1,5 +1,5 @@
 import './App.css'
-import NavigationBar from "./components/navigationbar.jsx";
+import NavigationBar from "./components/NavigationBar.jsx";
 import ApplicationRoutes from "./routes/ApplicationRoutes.jsx";
 
 
