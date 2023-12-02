@@ -1,9 +1,9 @@
 import {useContext, useState} from "react";
-import {FormContext} from "./FormContext.jsx";
-import EndSession from "./EndSession.jsx";
+import {SessionContext} from "./SessionContext.jsx";
+import SessionReviewPage from "./SessionReviewPage.jsx";
 
-export default function SessionFeedback() {
-    const { setSessionForm } = useContext(FormContext)
+export default function FormFeedback() {
+    const { setSessionForm } = useContext(SessionContext)
     const [sectionCompleted, setSectionCompleted] = useState(false);
 
 
@@ -40,6 +40,7 @@ export default function SessionFeedback() {
                                 type="range"
                                 min="1"
                                 max="5"
+                                step="1"
                                 name="productivity"
                                 onChange={saveData}
                             />
@@ -48,7 +49,7 @@ export default function SessionFeedback() {
                     </form>
                 </>
             }
-            {sectionCompleted && <EndSession />}
+            {sectionCompleted && <SessionReviewPage />}
         </>
     )
 }

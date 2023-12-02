@@ -1,15 +1,15 @@
 import {useContext, useState} from "react";
-import SessionFeedback from "./SessionFeedback.jsx";
-import {FormContext} from "./FormContext.jsx";
+import FormFeedback from "./FormFeedback.jsx";
+import {SessionContext} from "./SessionContext.jsx";
 
-export default function SessionTime() {
-    const { setSessionForm } = useContext(FormContext)
+export default function FormTime() {
+    const { setSessionForm } = useContext(SessionContext)
     const [sectionCompleted, setSectionCompleted] = useState(false);
 
     const [sessionStarted, setSessionStarted] = useState(false);
     const [startPeriod, setStartPeriod] = useState(null);
 
-    const trackSessionStart = () => {
+    const trackStartTime = () => {
 
         const startPeriod = new Date();
         setStartPeriod(startPeriod)
@@ -22,7 +22,7 @@ export default function SessionTime() {
         setSessionStarted(true)
     }
 
-    const trackSessionEnd = () => {
+    const trackEndTime = () => {
         const endPeriod = new Date();
         const sessionDuration = Math.round((endPeriod - startPeriod) / 60000);
 
@@ -40,11 +40,11 @@ export default function SessionTime() {
             {!sectionCompleted &&
                 <>
                     <h2>Step 2</h2>
-                    {!sessionStarted && <button onClick={trackSessionStart}>Start</button>}
-                    {sessionStarted && <button onClick={trackSessionEnd}>End</button>}
+                    {!sessionStarted && <button onClick={trackStartTime}>Start</button>}
+                    {sessionStarted && <button onClick={trackEndTime}>End</button>}
                 </>
             }
-            {sectionCompleted && <SessionFeedback />}
+            {sectionCompleted && <FormFeedback />}
         </>
     )
 }

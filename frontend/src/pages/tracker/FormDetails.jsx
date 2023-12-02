@@ -1,9 +1,9 @@
 import {useContext, useState} from "react";
-import SessionTime from "./SessionTime.jsx";
-import {FormContext} from "./FormContext.jsx";
+import FormTime from "./FormTime.jsx";
+import {SessionContext} from "./SessionContext.jsx";
 
-export default function SessionDetails() {
-    const { setSessionForm } = useContext(FormContext)
+export default function FormDetails() {
+    const { setSessionForm } = useContext(SessionContext)
     const [sectionCompleted, setSectionCompleted] = useState(false);
 
 
@@ -46,7 +46,7 @@ export default function SessionDetails() {
                     </form>
                 </>
             }
-            {sectionCompleted && <SessionTime />}
+            {sectionCompleted && <FormTime />}
         </>
     )
 }

@@ -1,6 +1,6 @@
 import {splitDateTime} from "./splitDateTime.js";
 
-export default function convertToAPIFormat(sessionForm) {
+export default function formatFormForAPI(sessionForm) {
 
     const {
         topic,
@@ -12,7 +12,7 @@ export default function convertToAPIFormat(sessionForm) {
     } = sessionForm;
 
     const utcStartPeriod = startPeriod.toISOString();
-    const {startDate, startTime} = splitDateTime(utcStartPeriod);
+    const [startDate, startTime] = splitDateTime(utcStartPeriod);
 
     return {
         details: {
