@@ -1,7 +1,6 @@
 export function splitDateTime(timePeriod) {
     const splitTimePeriod = timePeriod.split('T');
-    return {
-        startDate: splitTimePeriod[0],
-        startTime: splitTimePeriod[1].replace('Z', '')
-    }
+    const startDate = splitTimePeriod[0];
+    const startTime = splitTimePeriod[1].replace('Z', '');
+    return [startDate, startTime];
 }
