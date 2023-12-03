@@ -1,4 +1,4 @@
-import StartNewSession from "./StartNewSession.jsx";
+import StartNewSession from "../buttons/StartNewSession.jsx";
 
 export default function MainSessionPage() {
     return (

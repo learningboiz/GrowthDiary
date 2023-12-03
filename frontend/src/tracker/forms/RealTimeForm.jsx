@@ -1,17 +1,12 @@
 import {useContext, useState} from "react";
-import FormFeedback from "./FormFeedback.jsx";
-import {SessionContext} from "./SessionContext.jsx";
+import {SessionContext} from "../SessionContext.jsx";
 
-export default function FormTime() {
+export default function RealTimeForm({stepUpdater}) {
     const { sessionForm, setSessionForm } = useContext(SessionContext)
-    const [sectionCompleted, setSectionCompleted] = useState(false);
 
     const [sessionStarted, setSessionStarted] = useState(false);
     const [startPeriod, setStartPeriod] = useState(null);
 
-    if (sectionCompleted) {
-        return <FormFeedback />
-    }
 
     const trackStartTime = () => {
 
@@ -37,7 +32,7 @@ export default function FormTime() {
             duration: sessionDuration
         }))
 
-        setSectionCompleted(true)
+        stepUpdater();
     }
 
 

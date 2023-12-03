@@ -1,5 +1,5 @@
 import {useContext, useState} from "react";
-import {SessionContext} from "./SessionContext.jsx";
+import {SessionContext} from "../SessionContext.jsx";
 import sessionAPI from "../../api/sessionAPI.js";
 import formatFormForAPI from "../../utility/formatFormForAPI.js";
 import {splitHourMinute} from "../../utility/splitHourMinute.js";

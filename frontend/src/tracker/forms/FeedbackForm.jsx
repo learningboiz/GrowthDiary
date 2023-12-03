@@ -1,18 +1,11 @@
 import {useContext, useState} from "react";
-import FormTime from "./FormTime.jsx";
-import {SessionContext} from "./SessionContext.jsx";
+import {SessionContext} from "../SessionContext.jsx";
+import SessionReviewPage from "../views/SessionReviewPage.jsx";
 
-export default function FormDetails() {
-    const { setSessionForm, resetFormValues } = useContext(SessionContext)
-    const [sectionCompleted, setSectionCompleted] = useState(false);
-
-    if (sectionCompleted) {
-        return <FormTime />
-    }
+export default function FeedbackForm({stepUpdater}) {
+    const { setSessionForm } = useContext(SessionContext)
 
     const saveData = (e) => {
-        resetFormValues();
-
         setSessionForm((prevSessionForm) => ({
             ...prevSessionForm,
             [e.target.name]: e.target.value
@@ -21,32 +14,34 @@ export default function FormDetails() {
 
     const submitForm = (e) => {
         e.preventDefault();
-        setSectionCompleted(true)
-
+        stepUpdater();
     }
 
     return (
         <>
-            <h2>Step 1</h2>
-            <p>Fill in the details below</p>
+            <h2>Step 3</h2>
+            <p>Provide feedback for the session</p>
             <form onSubmit={submitForm}>
                 <label>
-                    Topic
+                    Key Obstacle
                     <input
                         type="text"
-                        name="topic"
+                        name="obstacle"
                         onChange={saveData}
                     />
                 </label>
                 <label>
-                    Description
+                    Productivity
                     <input
-                        type="text"
-                        name="description"
+                        type="range"
+                        min="1"
+                        max="5"
+                        step="1"
+                        name="productivity"
                         onChange={saveData}
                     />
                 </label>
-                <button type="submit">Next</button>
+                <button type="submit">Complete</button>
             </form>
         </>
     )
