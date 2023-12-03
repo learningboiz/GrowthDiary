@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { splitDateTime } from "../../utility/splitDateTime.js";
+import { splitDateTime } from "../../tracker/utility/splitDateTime.js";
 
 function testDateConversion(timePeriod, expectedDate, expectedTime, actualDate, actualTime) {
     test(`${timePeriod} minutes is split into ${expectedDate} and ${expectedTime}`, () => {

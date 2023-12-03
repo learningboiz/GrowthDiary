@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { splitHourMinute } from "../../utility/splitHourMinute.js";
+import { splitHourMinute } from "../../tracker/utility/splitHourMinute.js";
 
 function testDurationConversion(duration, expectedHours, expectedMinutes, actualHours, actualMinutes) {
     test(`${duration} minutes is split into ${expectedHours} hour(s) and ${expectedMinutes} minute(s)`, () => {
