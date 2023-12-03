@@ -6,6 +6,9 @@ export default function FormFeedback() {
     const { setSessionForm } = useContext(SessionContext)
     const [sectionCompleted, setSectionCompleted] = useState(false);
 
+    if (sectionCompleted) {
+        return <SessionReviewPage />
+    }
 
     const saveData = (e) => {
         setSessionForm((prevSessionForm) => ({
@@ -21,35 +24,30 @@ export default function FormFeedback() {
 
     return (
         <>
-            {!sectionCompleted &&
-                <>
-                    <h2>Step 3</h2>
-                    <p>Provide feedback for the session</p>
-                    <form onSubmit={submitForm}>
-                        <label>
-                            Key Obstacle
-                            <input
-                                type="text"
-                                name="obstacle"
-                                onChange={saveData}
-                            />
-                        </label>
-                        <label>
-                            Productivity
-                            <input
-                                type="range"
-                                min="1"
-                                max="5"
-                                step="1"
-                                name="productivity"
-                                onChange={saveData}
-                            />
-                        </label>
-                        <button type="submit">Complete</button>
-                    </form>
-                </>
-            }
-            {sectionCompleted && <SessionReviewPage />}
+            <h2>Step 3</h2>
+            <p>Provide feedback for the session</p>
+            <form onSubmit={submitForm}>
+                <label>
+                    Key Obstacle
+                    <input
+                        type="text"
+                        name="obstacle"
+                        onChange={saveData}
+                    />
+                </label>
+                <label>
+                    Productivity
+                    <input
+                        type="range"
+                        min="1"
+                        max="5"
+                        step="1"
+                        name="productivity"
+                        onChange={saveData}
+                    />
+                </label>
+                <button type="submit">Complete</button>
+            </form>
         </>
     )
 }

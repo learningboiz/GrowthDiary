@@ -3,16 +3,22 @@ import FormFeedback from "./FormFeedback.jsx";
 import {SessionContext} from "./SessionContext.jsx";
 
 export default function FormTime() {
-    const { setSessionForm } = useContext(SessionContext)
+    const { sessionForm, setSessionForm } = useContext(SessionContext)
     const [sectionCompleted, setSectionCompleted] = useState(false);
 
     const [sessionStarted, setSessionStarted] = useState(false);
     const [startPeriod, setStartPeriod] = useState(null);
 
+    if (sectionCompleted) {
+        return <FormFeedback />
+    }
+
     const trackStartTime = () => {
 
         const startPeriod = new Date();
-        setStartPeriod(startPeriod)
+        setStartPeriod(startPeriod);
+
+        console.log(sessionForm);
 
         setSessionForm((prevSessionForm) => ({
             ...prevSessionForm,
@@ -37,14 +43,9 @@ export default function FormTime() {
 
     return (
         <>
-            {!sectionCompleted &&
-                <>
-                    <h2>Step 2</h2>
-                    {!sessionStarted && <button onClick={trackStartTime}>Start</button>}
-                    {sessionStarted && <button onClick={trackEndTime}>End</button>}
-                </>
-            }
-            {sectionCompleted && <FormFeedback />}
+            <h2>Step 2</h2>
+            {!sessionStarted && <button onClick={trackStartTime}>Start</button>}
+            {sessionStarted && <button onClick={trackEndTime}>End</button>}
         </>
     )
 }
