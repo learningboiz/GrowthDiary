@@ -1,4 +1,4 @@
-import SessionStartButton from "./SessionStartButton.jsx";
+import {Link} from "react-router-dom";
 
 export default function SubmissionSuccess() {
 
@@ -6,7 +6,7 @@ export default function SubmissionSuccess() {
     return (
         <>
             <h3>Your session has been successfully recorded</h3>
-            <SessionStartButton />
+            <Link to="/session">Return to session page</Link>
         </>
     )
 }
