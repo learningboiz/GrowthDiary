@@ -24,7 +24,7 @@ export default function SessionReviewPage() {
             if (apiResponse.ok) {
                 setFormSubmitted(true)
             } else {
-                setErrorMessage("There's an issue with the data provided.")
+                setErrorMessage("There's an issue with the data provided. Please try again later")
             }
         } catch (error) {
             setErrorMessage("There was an issue with the network. Please try again later")

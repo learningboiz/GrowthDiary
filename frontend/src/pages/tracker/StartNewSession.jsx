@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 
-export default function SessionStartButton() {
+export default function StartNewSession() {
 
     const navigate = useNavigate();
 
