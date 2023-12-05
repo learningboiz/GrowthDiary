@@ -3,17 +3,21 @@ import {useContext} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 import styles from "../../styles/tracker/sessionButton.module.css";
 
-export default function StartNewSession() {
+export default function NavigateSessionButton({newSession}) {
 
     const navigate = useNavigate();
     const {resetFormValues} = useContext(SessionContext);
 
-    const startNewSession = (e) => {
+    const buttonText = newSession ? "Start a new session" : "Record a past session";
+    const path = newSession ? "/session/new" : "/session/old";
+
+
+    const startSession = (e) => {
         e.preventDefault();
         resetFormValues();
-        navigate('/session/new', { replace: true});
+        navigate(path, {replace: true})
     }
 
     return <button className={styles.sessionButton}
-        onClick={startNewSession}>Start a new session</button>
+        onClick={startSession}>{buttonText}</button>
 }
