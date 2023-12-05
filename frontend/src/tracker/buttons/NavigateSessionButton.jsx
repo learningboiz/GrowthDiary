@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
 import {SessionContext} from "../SessionContext.jsx";
+import styles from "../../styles/tracker/sessionButton.module.css";
 
 export default function StartNewSession() {
 
@@ -13,5 +14,6 @@ export default function StartNewSession() {
         navigate('/session/new', { replace: true});
     }
 
-    return <button onClick={startNewSession}>Start a new session</button>
+    return <button className={styles.sessionButton}
+        onClick={startNewSession}>Start a new session</button>
 }

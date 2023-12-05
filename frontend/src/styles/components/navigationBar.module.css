@@ -1,0 +1,32 @@
+.navigationBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+.navigationBar ul {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 15px
+}
+
+.navigationBar li {
+    list-style-type: none;
+    padding-left: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.navigationBar a {
+    color: #3498db;
+}
+
+.navigationBar a:link {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navigationBar a:hover {
+    color: #413F54;
+}
