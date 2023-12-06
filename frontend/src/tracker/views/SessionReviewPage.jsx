@@ -5,6 +5,7 @@ import formatFormForAPI from "../utility/formatFormForAPI.js";
 import {splitHourMinute} from "../utility/splitHourMinute.js";
 import SubmissionSuccess from "./SubmissionSuccess.jsx";
 import SubmissionError from "./SubmissionError.jsx";
+import styles from "../../styles/tracker/sessionReview.module.css"
 
 export default function SessionReviewPage() {
     const { sessionForm } = useContext(SessionContext)
@@ -45,38 +46,39 @@ export default function SessionReviewPage() {
     const formattedTime = startPeriod.toLocaleTimeString('en', {hour: 'numeric', minute: 'numeric', hour12:true });
 
     return (
-        <>
+        <div className={styles.sessionReview}>
             {!formSubmitted && !errorMessage &&
                 <>
-                    <h3>Here&apos;s a summary of your latest session</h3>
-                    <div>
-                        <div>
-                            <h4>Worked on</h4>
-                            <p>{topic}</p>
-                            <p>{description}</p>
-                        </div>
-                        <div>
-                            <h4>Started on</h4>
-                            <p>{formattedDate} {formattedTime}</p>
-                        </div>
-                        <div>
-                            <h4>Lasted for</h4>
-                            <p>{hours} hour(s) {minutes} minute(s)</p>
-                        </div>
-                        <div>
-                            <h4>Key challenge</h4>
-                            <p>{obstacle}</p>
-                        </div>
-                        <div>
-                            <h4>Productivity rating</h4>
-                            <p>{productivity}</p>
-                        </div>
-                    </div>
+                    <h2>Your session summary</h2>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>Worked on</th>
+                            <td>{topic} by {description}</td>
+                        </tr>
+                        <tr>
+                            <th>Began on</th>
+                            <td>{formattedDate} {formattedTime}</td>
+                        </tr>
+                        <tr>
+                            <th>Lasted for</th>
+                            <td>{hours} hours {minutes} minutes</td>
+                        </tr>
+                        <tr>
+                            <th>Key obstacle</th>
+                            <td>{obstacle}</td>
+                        </tr>
+                        <tr>
+                            <th>Productivity</th>
+                            <td>{productivity}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <button onClick={submitForm}>Confirm</button>
                 </>
             }
             {formSubmitted && <SubmissionSuccess />}
             {errorMessage && <SubmissionError errorMessage={errorMessage} />}
-        </>
+        </div>
     )
 }
