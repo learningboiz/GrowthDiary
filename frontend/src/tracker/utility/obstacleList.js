@@ -13,4 +13,5 @@ export const obstacleList = [
     "Limited time",
     "Over-reliance on tutorials",
     "Ineffective learning resources",
+    "None"
 ];
