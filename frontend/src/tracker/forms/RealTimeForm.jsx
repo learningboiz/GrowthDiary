@@ -1,5 +1,6 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
+import {calculateSessionDuration} from "../utility/calculateSessionDuration.js";
 
 export default function RealTimeForm({stepUpdater}) {
     const { sessionForm, setSessionForm } = useContext(SessionContext)
@@ -15,20 +16,16 @@ export default function RealTimeForm({stepUpdater}) {
 
         console.log(sessionForm);
 
-        setSessionForm((prevSessionForm) => ({
-            ...prevSessionForm,
-            startPeriod: startPeriod,
-        }))
-
         setSessionStarted(true)
     }
 
     const trackEndTime = () => {
         const endPeriod = new Date();
-        const sessionDuration = Math.round((endPeriod - startPeriod) / 60000);
+        const sessionDuration = calculateSessionDuration(startPeriod, endPeriod);
 
         setSessionForm((sessionForm) => ({
             ...sessionForm,
+            startPeriod: startPeriod,
             duration: sessionDuration
         }))
 

@@ -2,7 +2,8 @@ import {useSessionForm} from "../hooks/useSessionForm.js";
 import styles from "../../styles/tracker/sessionForm.module.css"
 
 export default function TimeForm({stepUpdater}) {
-    const { saveInput, saveFormProgress } = useSessionForm(stepUpdater);
+    const { saveInput, saveTimeInput, saveFormProgress } = useSessionForm(stepUpdater);
+
 
     return (
         <div className={styles.sessionForm}>
@@ -15,7 +16,7 @@ export default function TimeForm({stepUpdater}) {
                         type="datetime-local"
                         name="startPeriod"
                         required={true}
-                        onChange={saveInput}
+                        onChange={saveTimeInput}
                     />
                 </label>
                 <label>
