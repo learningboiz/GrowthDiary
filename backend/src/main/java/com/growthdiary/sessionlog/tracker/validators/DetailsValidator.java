@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Objects;
+
 /**
  * This class is a Spring Validator implementation used to validate instances of the Details object
  * Checks validity of Details object attributes
@@ -32,11 +34,11 @@ public class DetailsValidator implements Validator {
 
         Details details = (Details) target;
 
-        if (details.getTopic() == null) {
+        if (details.getTopic() == null || details.getTopic().isEmpty()) {
             errors.rejectValue("topic", "topic.null", "Topic must not be empty");
         }
 
-        if (details.getDescription() == null) {
+        if (details.getDescription() == null || details.getDescription().isEmpty()) {
             errors.rejectValue("description", "description.null", "Description must not be empty");
         }
     }

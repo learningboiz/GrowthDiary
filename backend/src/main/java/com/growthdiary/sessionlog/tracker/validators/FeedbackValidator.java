@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Objects;
+
 /**
  * This class is a Spring Validator implementation used to validate instances of the Feedback object
  * Checks validity of Feedback object attributes
@@ -31,7 +33,7 @@ public class FeedbackValidator implements Validator {
 
         Feedback feedback = (Feedback) target;
 
-        if (feedback.getObstacle() == null) {
+        if (feedback.getObstacle() == null || feedback.getObstacle().isEmpty()) {
             errors.rejectValue("obstacle", "obstacle.null", "Obstacle must not be empty");
         }
 
