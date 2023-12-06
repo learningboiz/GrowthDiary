@@ -1,4 +1,4 @@
-.sessionButton {
+.navigateSessionButton {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
     color: #413F54;
@@ -8,13 +8,14 @@
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    width: 180px;
+    cursor: pointer;
 
+    width: 180px;
     padding: 5px;
     margin-bottom: 20px;
 }
 
-.sessionButton:hover {
+.navigateSessionButton:hover {
     background: #1C50B0;
     color: #FEFCFB;
     box-shadow: 0 3px 4px #B9CEF3;
