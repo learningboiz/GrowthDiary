@@ -1,12 +1,15 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
-import {calculateSessionDuration} from "../utility/calculateSessionDuration.js";
+import {calculateDuration} from "../utility/calculateDuration.js";
+import styles from "../../styles/tracker/sessionForm.module.css"
 
 export default function RealTimeForm({stepUpdater}) {
-    const { sessionForm, setSessionForm } = useContext(SessionContext)
+    const { setSessionForm } = useContext(SessionContext)
 
     const [sessionStarted, setSessionStarted] = useState(false);
     const [startPeriod, setStartPeriod] = useState(null);
+
+    const subHeadingText = sessionStarted? "Session has begun" : "Click to start the session"
 
 
     const trackStartTime = () => {
@@ -14,17 +17,15 @@ export default function RealTimeForm({stepUpdater}) {
         const startPeriod = new Date();
         setStartPeriod(startPeriod);
 
-        console.log(sessionForm);
-
         setSessionStarted(true)
     }
 
     const trackEndTime = () => {
         const endPeriod = new Date();
-        const sessionDuration = calculateSessionDuration(startPeriod, endPeriod);
+        const sessionDuration = calculateDuration(startPeriod, endPeriod);
 
-        setSessionForm((sessionForm) => ({
-            ...sessionForm,
+        setSessionForm((prevSessionForm) => ({
+            ...prevSessionForm,
             startPeriod: startPeriod,
             duration: sessionDuration
         }))
@@ -34,10 +35,13 @@ export default function RealTimeForm({stepUpdater}) {
 
 
     return (
-        <>
-            <h2>Step 2</h2>
-            {!sessionStarted && <button onClick={trackStartTime}>Start</button>}
-            {sessionStarted && <button onClick={trackEndTime}>End</button>}
-        </>
+        <div className={styles.sessionForm}>
+            <h2>Time</h2>
+            <h3>{subHeadingText}</h3>
+            <form>
+                {!sessionStarted && <button onClick={trackStartTime}>Start</button>}
+                {sessionStarted && <button onClick={trackEndTime}>End</button>}
+            </form>
+        </div>
     )
 }
