@@ -1,34 +1,25 @@
-import {useContext, useState} from "react";
-import {SessionContext} from "../SessionContext.jsx";
-import SessionReviewPage from "../views/SessionReviewPage.jsx";
+import {useSessionForm} from "../hooks/useSessionForm.js";
+import {obstacleList} from "../utility/obstacleList.js";
+import styles from "../../styles/tracker/sessionForm.module.css"
 
 export default function FeedbackForm({stepUpdater}) {
-    const { setSessionForm } = useContext(SessionContext)
-
-    const saveData = (e) => {
-        setSessionForm((prevSessionForm) => ({
-            ...prevSessionForm,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const submitForm = (e) => {
-        e.preventDefault();
-        stepUpdater();
-    }
+    const { saveInput, saveFormProgress } = useSessionForm(stepUpdater);
 
     return (
-        <>
-            <h2>Step 3</h2>
-            <p>Provide feedback for the session</p>
-            <form onSubmit={submitForm}>
+        <div className={styles.sessionForm}>
+            <h2>Feedback</h2>
+            <h3>How did the session go?</h3>
+            <form onSubmit={saveFormProgress}>
                 <label>
                     Key Obstacle
-                    <input
-                        type="text"
-                        name="obstacle"
-                        onChange={saveData}
-                    />
+                    <select name="obstacle"
+                            required={true}
+                            onChange={saveInput}>
+                        {obstacleList.map((obstacle) => (
+                            <option key={obstacle}>{obstacle}</option>
+                            )
+                        )}
+                    </select>
                 </label>
                 <label>
                     Productivity
@@ -38,11 +29,12 @@ export default function FeedbackForm({stepUpdater}) {
                         max="5"
                         step="1"
                         name="productivity"
-                        onChange={saveData}
+                        required={true}
+                        onChange={saveInput}
                     />
                 </label>
                 <button type="submit">Complete</button>
             </form>
-        </>
+        </div>
     )
 }
