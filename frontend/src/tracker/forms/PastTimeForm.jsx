@@ -1,7 +1,7 @@
 import {useSessionForm} from "../hooks/useSessionForm.js";
 import styles from "../../styles/tracker/sessionForm.module.css"
 
-export default function TimeForm({stepUpdater}) {
+export default function PastTimeForm({stepUpdater}) {
     const { saveInput, saveTimeInput, saveFormProgress } = useSessionForm(stepUpdater);
 
 

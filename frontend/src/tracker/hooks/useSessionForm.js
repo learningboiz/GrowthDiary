@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 
 export function useSessionForm(stepUpdater) {
-    const { setSessionForm } = useContext(SessionContext);
+    const { sessionForm, setSessionForm } = useContext(SessionContext);
 
     const saveInput = (e) => {
         setSessionForm((prevSessionForm) => ({
@@ -11,10 +11,17 @@ export function useSessionForm(stepUpdater) {
         }))
     }
 
+    const saveTimeInput = (e) => {
+        setSessionForm((prevSessionForm) => ({
+            ...prevSessionForm,
+            startPeriod: new Date(e.target.value)
+        }))
+    }
+
     const saveFormProgress = (e) => {
         e.preventDefault();
         stepUpdater();
     }
 
-    return {saveInput, saveFormProgress};
+    return {saveInput, saveTimeInput, saveFormProgress};
 }
