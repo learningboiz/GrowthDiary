@@ -1,3 +1,4 @@
+/****************************** Form container ******************************/
 .sessionForm {
     font-family: 'DM Sans', sans-serif;
     font-weight: 200;
@@ -7,10 +8,20 @@
     flex-direction: column;
     align-items: center;
 
-    border: 1px solid #3498db;
-    border-radius: 20px;
-    margin: 0 100px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 20px;
 }
+
+.sessionForm form {
+    margin-top: -15px;
+}
+
+/****************************** Header styles ******************************/
 
 .sessionForm h2 {
     font-family: 'Poppins', sans-serif;
@@ -19,35 +30,108 @@
     margin-bottom: -10px;
 }
 
-.sessionForm p {
-    font-weight: 400;
+.sessionForm h3 {
+    font-weight: 300;
+    margin-bottom: 20px;
 }
 
+/****************************** Labels and typed input ******************************/
 .sessionForm label {
     display: flex;
     flex-direction: column;
-    padding-bottom: 30px;
+    margin-top: 20px;
 }
 
 .sessionForm input {
     font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
     width: 250px;
+    padding-top: 10px;
     border: none;
-    border-bottom: 1px solid #413F54 ;
+    border-bottom: 1px solid #3498db;
+    outline: none;
+    background: none;
+    transition: border-bottom 0.3s ease;
 }
 
+.sessionForm input::placeholder {
+    color: #666;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.sessionForm input:focus {
+    border: none;
+    border-bottom: 1px solid #2980b9;
+}
+
+/****************************** Dropdown input ******************************/
+.sessionForm select {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+
+    width: 250px;
+    padding-top: 10px;
+
+    border: none;
+    border-bottom: 1px solid #3498db;
+    outline: none;
+
+    background: none;
+    transition: border-bottom 0.3s ease;
+}
+
+.sessionForm select:hover {
+    cursor: pointer;
+}
+
+/****************************** Next/Completion Button ******************************/
+.sessionForm input[type="range"] {
+    width: 100%;
+    margin-top: 15px;
+    height: 5px;
+
+    appearance: none;
+    background: #ddd;
+
+    border: none;
+    border-radius: 5px;
+
+    outline: none;
+    padding: 0;
+}
+
+.sessionForm input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px #3498db;
+    cursor: pointer;
+    margin-top: -2px;
+}
+
+/****************************** Next/Completion Button ******************************/
 .sessionForm button {
     font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    color: #413F54;
+    font-weight: 200;
+    color: #fff;
 
-    border: 1px solid #3498db;
+    background: #3498db;
+    border: none;
     border-radius: 4px;
-    background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    width: 180px;
+    width: 80px;
+    padding: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
 
-    padding: 5px;
-    margin-bottom: 20px;
+.sessionForm button:hover {
+    background: #1C50B0;
+    color: #FEFCFB;
+    box-shadow: 0 3px 4px #B9CEF3;
 }
