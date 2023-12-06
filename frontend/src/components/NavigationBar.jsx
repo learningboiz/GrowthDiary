@@ -1,10 +1,11 @@
 import {Link} from "react-router-dom";
-import styles from '../styles/navigationbar.module.css';
+import styles from "../styles/components/navigationBar.module.css";
+
 
 export default function NavigationBar() {
     return (
-        <nav>
-            <ul className={styles.navigationBar}>
+        <nav className={styles.navigationBar}>
+            <ul>
                 <li>
                     <Link to="/">Home</Link>
                 </li>
