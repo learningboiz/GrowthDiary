@@ -1,4 +1,4 @@
-/****************************** Form container ******************************/
+/****************************** Form container and headings ******************************/
 .sessionForm {
     font-family: 'DM Sans', sans-serif;
     font-weight: 200;
@@ -20,8 +20,6 @@
 .sessionForm form {
     margin-top: -15px;
 }
-
-/****************************** Header styles ******************************/
 
 .sessionForm h2 {
     font-family: 'Poppins', sans-serif;
@@ -65,6 +63,28 @@
     border-bottom: 1px solid #2980b9;
 }
 
+.sessionForm input[type="number"] {
+    width: 40px;
+    padding: 8px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    margin-right: 5px ;
+}
+
+.sessionForm input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #2980b9;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sessionForm input[type="datetime-local"]:focus {
+    border: 1px solid #2980b9;
+}
+
 /****************************** Dropdown input ******************************/
 .sessionForm select {
     font-family: 'DM Sans', sans-serif;
@@ -85,7 +105,20 @@
     cursor: pointer;
 }
 
-/****************************** Next/Completion Button ******************************/
+
+/****************************** Time input ******************************/
+.sessionForm span {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.sessionForm span p {
+    margin-right: 5px;
+}
+
+
+/****************************** Range input ******************************/
 .sessionForm input[type="range"] {
     width: 100%;
     margin-top: 15px;
