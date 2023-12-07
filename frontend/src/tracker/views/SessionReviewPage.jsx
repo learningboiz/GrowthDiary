@@ -25,10 +25,10 @@ export default function SessionReviewPage() {
             if (apiResponse.ok) {
                 setFormSubmitted(true)
             } else {
-                setErrorMessage("There's an issue with the data provided. Please try again later")
+                setErrorMessage("There's an issue with the data provided.")
             }
         } catch (error) {
-            setErrorMessage("There was an issue with the network. Please try again later")
+            setErrorMessage("There was an issue with the network.")
         }
     }
 
@@ -46,9 +46,9 @@ export default function SessionReviewPage() {
     const formattedTime = startPeriod.toLocaleTimeString('en', {hour: 'numeric', minute: 'numeric', hour12:true });
 
     return (
-        <div className={styles.sessionReview}>
+        <>
             {!formSubmitted && !errorMessage &&
-                <>
+                <div className={styles.sessionReview}>
                     <h2>Your session summary</h2>
                     <table>
                         <tbody>
@@ -75,10 +75,10 @@ export default function SessionReviewPage() {
                         </tbody>
                     </table>
                     <button onClick={submitForm}>Confirm</button>
-                </>
+                </div>
             }
             {formSubmitted && <SubmissionSuccess />}
             {errorMessage && <SubmissionError errorMessage={errorMessage} />}
-        </div>
+        </>
     )
 }
