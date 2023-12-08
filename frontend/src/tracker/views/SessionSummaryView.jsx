@@ -2,16 +2,17 @@ import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 import sessionAPI from "../../api/sessionAPI.js";
 import formatFormForAPI from "../utility/formatFormForAPI.js";
-import {splitHourMinute} from "../utility/splitHourMinute.js";
-import SubmissionSuccess from "./SubmissionSuccess.jsx";
-import SubmissionError from "./SubmissionError.jsx";
+import AfterSessionView from "./AfterSessionView.jsx";
 import styles from "../../styles/tracker/sessionReview.module.css"
+import {useFormSubmission} from "../hooks/useFormSubmission.js";
 
-export default function SessionReviewPage() {
+export default function SessionSummaryView() {
     const { sessionForm } = useContext(SessionContext)
+    const { submissionMessages, parseFormSummary } = useFormSubmission();
+    const { topic, description, hours, minutes, sessionDate, sessionTime, obstacle, productivity} = parseFormSummary(sessionForm);
+
     const [formSubmitted, setFormSubmitted] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null);
-
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -32,19 +33,6 @@ export default function SessionReviewPage() {
         }
     }
 
-    const {
-        topic,
-        description,
-        startPeriod,
-        duration,
-        obstacle,
-        productivity
-    } = sessionForm;
-
-    const [hours, minutes] = splitHourMinute(duration);
-    const formattedDate = startPeriod.toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'});
-    const formattedTime = startPeriod.toLocaleTimeString('en', {hour: 'numeric', minute: 'numeric', hour12:true });
-
     return (
         <>
             {!formSubmitted && !errorMessage &&
@@ -58,7 +46,7 @@ export default function SessionReviewPage() {
                         </tr>
                         <tr>
                             <th>Began on</th>
-                            <td>{formattedDate} {formattedTime}</td>
+                            <td>{sessionDate} {sessionTime}</td>
                         </tr>
                         <tr>
                             <th>Lasted for</th>
@@ -77,8 +65,8 @@ export default function SessionReviewPage() {
                     <button onClick={submitForm}>Confirm</button>
                 </div>
             }
-            {formSubmitted && <SubmissionSuccess />}
-            {errorMessage && <SubmissionError errorMessage={errorMessage} />}
+            {formSubmitted && <AfterSessionView header={submissionMessages.successHeader} message={submissionMessages.successMessage}/>}
+            {errorMessage && <AfterSessionView header={submissionMessages.errorHeader} message={errorMessage} />}
         </>
     )
 }

@@ -21,12 +21,22 @@ export default function PastTimeForm({stepUpdater}) {
                 </label>
                 <label>
                     Duration
+                    <span>
+                        <input
+                            type="number"
+                            name="duration"
+                            required={true}
+                            onChange={saveInput}
+                        />
+                    <p>hour(s)</p>
                     <input
                         type="number"
                         name="duration"
                         required={true}
                         onChange={saveInput}
                     />
+                    <p>minute(s)</p>
+                    </span>
                 </label>
                 <button type="submit">Next</button>
             </form>

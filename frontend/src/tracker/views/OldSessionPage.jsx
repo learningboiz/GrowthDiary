@@ -1,11 +1,10 @@
-import {useState} from "react";
 import DetailsForm from "../forms/DetailsForm.jsx";
-import RealTimeForm from "../forms/RealTimeForm.jsx";
+import PastTimeForm from "../forms/PastTimeForm.jsx";
 import FeedbackForm from "../forms/FeedbackForm.jsx";
+import {useState} from "react";
 import SessionSummaryView from "./SessionSummaryView.jsx";
 
-export default function NewSessionPage() {
-
+export default function OldSessionPage() {
     const [currentStep, setCurrentStep] = useState(1);
 
     const updateStep = () => {
@@ -14,8 +13,8 @@ export default function NewSessionPage() {
 
     return (
         <>
-            {currentStep === 1 && <DetailsForm stepUpdater={updateStep} newSession={true}/>}
-            {currentStep === 2 && <RealTimeForm stepUpdater={updateStep}/>}
+            {currentStep === 1 && <DetailsForm stepUpdater={updateStep} newSession={false}/>}
+            {currentStep === 2 && <PastTimeForm stepUpdater={updateStep}/>}
             {currentStep === 3 && <FeedbackForm stepUpdater={updateStep}/>}
             {currentStep === 4 && <SessionSummaryView />}
         </>
