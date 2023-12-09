@@ -12,3 +12,26 @@
     font-weight: 200;
     text-align: center;
 }
+
+.sessionPageButton {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: #413F54;
+
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    cursor: pointer;
+
+    width: 180px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.sessionPageButton:hover {
+    background: #1C50B0;
+    color: #FEFCFB;
+    box-shadow: 0 3px 4px #B9CEF3;
+}
