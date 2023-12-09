@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react'
 import { expect, test } from 'vitest'
-import SessionPage from "../pages/sessionpage.jsx";
+import BeforeSessionView from "../tracker/views/BeforeSessionView.jsx";
 import {MemoryRouter} from "react-router-dom";
 
 /*
@@ -10,7 +10,7 @@ import {MemoryRouter} from "react-router-dom";
 test('renders session page elements', () => {
     render(
         <MemoryRouter>
-            <SessionPage />
+            <BeforeSessionView />
         </MemoryRouter>)
 
     const newSessionLink = screen.getByText(/New session/i);
