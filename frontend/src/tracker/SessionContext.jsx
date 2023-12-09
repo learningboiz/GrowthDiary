@@ -20,7 +20,6 @@ export const SessionContextProvider = ({ children }) => {
         obstacle: "",
         productivity: "",
     };
-
     const [sessionForm, setSessionForm] = useState(initialFormValues);
 
     const resetFormValues = () => {
