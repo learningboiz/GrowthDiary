@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
 import {SessionContext} from "../SessionContext.jsx";
-import styles from "../../styles/tracker/navigateSessionButton.module.css";
+import styles from "../../styles/tracker/sessionPage.module.css";
 
 export default function NavigateSessionButton({newSession}) {
 
@@ -18,6 +18,6 @@ export default function NavigateSessionButton({newSession}) {
         navigate(path, {replace: true})
     }
 
-    return <button className={styles.navigateSessionButton}
+    return <button className={styles.sessionPageButton}
         onClick={startSession}>{buttonText}</button>
 }
