@@ -14,7 +14,9 @@ export default function AfterSessionView({header, message}) {
         <div className={styles.sessionPage}>
             <h2>{header}</h2>
             <h3>{message}</h3>
-            <button className={styles.sessionPageButton} onClick={handleReturnButton}>Return to session page</button>
+            <button className={styles.sessionPageButton} onClick={handleReturnButton}>
+                Return to session page
+            </button>
         </div>
     )
 }
