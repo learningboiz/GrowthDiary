@@ -1,16 +1,21 @@
-import {obstacleList} from "../utility/obstacleList.js";
-import styles from "../../styles/tracker/sessionForm.module.css"
-import {useContext} from "react";
-import {SessionContext} from "../SessionContext.jsx";
+import {useContext, useState} from "react";
 import {useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 
+import {SessionContext} from "../SessionContext.jsx";
+
+import {obstacleList} from "../utility/obstacleList.js";
+import {productivityDescriptions} from "../utility/productivityDescription.js";
+import styles from "../../styles/tracker/sessionForm.module.css"
+
 export default function FeedbackForm({stepUpdater}) {
-    const {sessionForm, setSessionForm} = useContext(SessionContext);
+    const {setSessionForm} = useContext(SessionContext);
     const { register,
         handleSubmit,
         formState: {errors},
+        setValue,
     } = useForm();
+    const [rating, setRating] = useState("Moderate");
 
     const onSubmit = (data) => {
         setSessionForm((prevSessionForm) => ({
@@ -19,8 +24,13 @@ export default function FeedbackForm({stepUpdater}) {
             productivity: data.productivity,
         }))
         stepUpdater();
+    }
 
-        console.log(sessionForm)
+    const handleProductivityChange = (e) => {
+        const rating = e.target.value;
+        setValue("productivity", rating);
+        const ratingDescription = productivityDescriptions[rating];
+        setRating(ratingDescription);
     }
 
     return (
@@ -60,10 +70,15 @@ export default function FeedbackForm({stepUpdater}) {
                         step="1"
                         defaultValue="3"
                         {...register("productivity", {
+                            onChange: handleProductivityChange,
                             required: "Please provide a productivity rating",
                         })}
                     />
                 </label>
+                <div className={styles.productivityRating}>
+                    <p>{rating}</p>
+                </div>
+
                 <div className={styles.sessionFormError}>
                     <ErrorMessage
                         errors={errors}

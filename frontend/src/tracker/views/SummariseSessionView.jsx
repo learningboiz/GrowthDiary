@@ -58,7 +58,7 @@ export default function SummariseSessionView() {
                         </tr>
                         <tr>
                             <th>Productivity</th>
-                            <td>{formSummary.productivity}</td>
+                            <td>{formSummary.productivityDescription}</td>
                         </tr>
                         </tbody>
                     </table>

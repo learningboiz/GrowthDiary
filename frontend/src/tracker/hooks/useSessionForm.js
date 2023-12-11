@@ -1,12 +1,11 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {SessionContext} from "../SessionContext.jsx";
+import {productivityDescriptions} from "../utility/productivityDescription.js";
 
 /**
  * Provides methods to handle the saving of user form input and progression through different form components
  */
 export function useSessionForm(stepUpdater) {
-    const {sessionForm, setSessionForm} = useContext(SessionContext);
-
     const parseFormSummary = (sessionForm) => {
 
         const {
@@ -30,6 +29,8 @@ export function useSessionForm(stepUpdater) {
             hour12: true
         });
 
+        const productivityDescription = productivityDescriptions[productivity];
+
         return {
             topic,
             description,
@@ -38,7 +39,7 @@ export function useSessionForm(stepUpdater) {
             sessionDate,
             sessionTime,
             obstacle,
-            productivity
+            productivityDescription
         };
     };
 
