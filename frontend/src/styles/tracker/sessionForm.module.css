@@ -85,6 +85,7 @@
     border: 1px solid #2980b9;
 }
 
+
 /****************************** Dropdown input ******************************/
 .sessionForm select {
     font-family: 'DM Sans', sans-serif;
@@ -145,6 +146,13 @@
     margin-top: -2px;
 }
 
+/****************************** Error message ******************************/
+.sessionFormError p {
+    margin-top: 3px;
+    margin-bottom: -5px;
+    font-size: 10px;
+    color: #DD0426;
+}
 /****************************** Next/Completion Button ******************************/
 .sessionForm button {
     font-family: 'Poppins', sans-serif;
