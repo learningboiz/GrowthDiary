@@ -7,7 +7,7 @@ import {SessionContext} from "../SessionContext.jsx";
 
 
 export default function PastTimeForm({stepUpdater}) {
-    const {sessionForm, setSessionForm} = useContext(SessionContext);
+    const {setSessionForm} = useContext(SessionContext);
     const { register,
         handleSubmit,
         formState: {errors},
@@ -22,8 +22,6 @@ export default function PastTimeForm({stepUpdater}) {
             minutes: data.minutes
         }))
         stepUpdater();
-
-        console.log(sessionForm)
     }
 
 
@@ -72,7 +70,11 @@ export default function PastTimeForm({stepUpdater}) {
                                 required: "Please indicate the minutes spent",
                                 min: {
                                     value: 0,
-                                    message: "Hours should be non-negative"
+                                    message: "Minutes should be non-negative"
+                                },
+                                max: {
+                                    value: 59,
+                                    message: "Minutes should not exceed 59"
                                 },
                                 validate: {
                                     moreThanZero: v => (v + (getValues().hours * 60)) > 0 || "Total duration should be greater than 0"

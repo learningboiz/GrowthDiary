@@ -7,7 +7,7 @@ import {SessionContext} from "../SessionContext.jsx";
 
 
 export default function DetailsForm({stepUpdater, newSession}) {
-    const {sessionForm, setSessionForm} = useContext(SessionContext);
+    const {setSessionForm} = useContext(SessionContext);
     const subheadingText = newSession? "What will you be working on today?" : "What did you work on previously?"
     const { register,
             handleSubmit,
@@ -21,8 +21,6 @@ export default function DetailsForm({stepUpdater, newSession}) {
             description: data.description
         }))
         stepUpdater();
-
-        console.log(sessionForm)
     }
 
     return (
@@ -34,6 +32,7 @@ export default function DetailsForm({stepUpdater, newSession}) {
                     Topic
                     <input
                         type="text"
+                        placeholder="e.g Spring Boot"
                         {...register("topic", {
                             required: "Please provide a topic",
                             minLength : {
@@ -58,6 +57,8 @@ export default function DetailsForm({stepUpdater, newSession}) {
                 <label>
                     Description
                     <input
+                        type="text"
+                        placeholder="e.g Setting up controller methods"
                         {...register("description", {
                             required: "Please provide a description",
                             minLength : {
