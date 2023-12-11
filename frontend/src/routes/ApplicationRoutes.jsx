@@ -5,6 +5,7 @@ import BeforeSessionView from "../tracker/views/BeforeSessionView.jsx";
 import DetailsForm from "../tracker/forms/DetailsForm.jsx";
 import NewSessionPage from "../tracker/views/NewSessionPage.jsx";
 import OldSessionPage from "../tracker/views/OldSessionPage.jsx";
+import HistoryView from "../history/HistoryView.jsx";
 
 export default function ApplicationRoutes() {
     return (
@@ -14,6 +15,7 @@ export default function ApplicationRoutes() {
             <Route path="/session" element={<BeforeSessionView />}></Route>
             <Route path="/session/new" element={<NewSessionPage />}></Route>
             <Route path="/session/old" element={<OldSessionPage />}></Route>
+            <Route path="/history" element={<HistoryView />}></Route>
         </Routes>
     )
 }
