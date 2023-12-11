@@ -1,41 +1,53 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 
 /**
  * Provides methods to handle the saving of user form input and progression through different form components
- * @returns {{saveFormProgress: saveFormProgress, saveTimeInput: saveTimeInput, saveInput: saveInput}}
  */
 export function useSessionForm(stepUpdater) {
-    const { setSessionForm } = useContext(SessionContext);
+    const {sessionForm, setSessionForm} = useContext(SessionContext);
 
-    /**
-     * Registers data from user input field into the respective sessionForm attribute
-     */
-    const saveInput = (e) => {
-        setSessionForm((prevSessionForm) => ({
-            ...prevSessionForm,
-            [e.target.name]: e.target.value
-        }))
+    const parseFormSummary = (sessionForm) => {
+
+        const {
+            topic,
+            description,
+            hours,
+            minutes,
+            startPeriod,
+            obstacle,
+            productivity
+        } = sessionForm;
+
+        const sessionDate = startPeriod.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        });
+        const sessionTime = startPeriod.toLocaleTimeString('en', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        });
+
+        return {
+            topic,
+            description,
+            hours,
+            minutes,
+            sessionDate,
+            sessionTime,
+            obstacle,
+            productivity
+        };
+    };
+
+    const submissionMessages = {
+        successHeader: "Session complete!",
+        successMessage: "Your session has been successfully recorded.",
+        errorHeader: "Oops! Something went wrong!"
     }
 
-    /**
-     * Registers time data by creating a data based on user input
-     * Created a separate method since date creation is required
-     */
-    const saveTimeInput = (e) => {
-        setSessionForm((prevSessionForm) => ({
-            ...prevSessionForm,
-            startPeriod: new Date(e.target.value)
-        }))
-    }
+    return {parseFormSummary, submissionMessages};
 
-    /**
-     * Updates the form stepper to allow the correct order of form component rendering
-     */
-    const saveFormProgress = (e) => {
-        e.preventDefault();
-        stepUpdater();
-    }
-
-    return {saveInput, saveTimeInput, saveFormProgress};
 }
