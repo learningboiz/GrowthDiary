@@ -1,12 +1,12 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 import sessionAPI from "../../api/sessionAPI.js";
-import formatFormForAPI from "../utility/formatFormForAPI.js";
+import getAPIFormat from "../utility/getAPIFormat.js";
 import AfterSessionView from "./AfterSessionView.jsx";
 import styles from "../../styles/tracker/sessionReview.module.css"
 import {useSessionForm} from "../hooks/useSessionForm.js";
 
-export default function SessionSummaryView() {
+export default function SummariseSessionView() {
     const { sessionForm } = useContext(SessionContext);
     const { submissionMessages, parseFormSummary } = useSessionForm();
     const formSummary = parseFormSummary(sessionForm);
@@ -18,7 +18,7 @@ export default function SessionSummaryView() {
         e.preventDefault();
         console.log(sessionForm);
 
-        const formattedData = formatFormForAPI(sessionForm);
+        const formattedData = getAPIFormat(sessionForm);
 
         try {
             const apiResponse = await sessionAPI(formattedData);
