@@ -16,7 +16,8 @@ export const SessionContextProvider = ({ children }) => {
         topic: "",
         description: "",
         startPeriod: {},
-        duration: "",
+        hours: "",
+        minutes: "",
         obstacle: "",
         productivity: "",
     };

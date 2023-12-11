@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
-import {calculateDuration} from "../utility/calculateDuration.js";
+import {getDurationInHoursMinutes} from "../utility/getDurationInHoursMinutes.js";
 import styles from "../../styles/tracker/sessionForm.module.css"
 
 export default function RealTimeForm({stepUpdater}) {
@@ -22,12 +22,13 @@ export default function RealTimeForm({stepUpdater}) {
 
     const trackEndTime = () => {
         const endPeriod = new Date();
-        const sessionDuration = calculateDuration(startPeriod, endPeriod);
+        const [hours, minutes] = getDurationInHoursMinutes(startPeriod, endPeriod);
 
         setSessionForm((prevSessionForm) => ({
             ...prevSessionForm,
             startPeriod: startPeriod,
-            duration: sessionDuration
+            hours: hours,
+            minutes: minutes
         }))
 
         stepUpdater();

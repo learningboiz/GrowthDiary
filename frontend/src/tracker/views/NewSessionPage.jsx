@@ -2,7 +2,7 @@ import {useState} from "react";
 import DetailsForm from "../forms/DetailsForm.jsx";
 import RealTimeForm from "../forms/RealTimeForm.jsx";
 import FeedbackForm from "../forms/FeedbackForm.jsx";
-import SessionSummaryView from "./SessionSummaryView.jsx";
+import SummariseSessionView from "./SummariseSessionView.jsx";
 
 export default function NewSessionPage() {
 
@@ -17,7 +17,7 @@ export default function NewSessionPage() {
             {currentStep === 1 && <DetailsForm stepUpdater={updateStep} newSession={true}/>}
             {currentStep === 2 && <RealTimeForm stepUpdater={updateStep}/>}
             {currentStep === 3 && <FeedbackForm stepUpdater={updateStep}/>}
-            {currentStep === 4 && <SessionSummaryView />}
+            {currentStep === 4 && <SummariseSessionView />}
         </>
     )
 }

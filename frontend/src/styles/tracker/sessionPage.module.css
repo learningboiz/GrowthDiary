@@ -13,6 +13,13 @@
     text-align: center;
 }
 
+.sessionPage h3 {
+    margin-top: -10px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-weight: 300;
+}
+
 .sessionPageButton {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;

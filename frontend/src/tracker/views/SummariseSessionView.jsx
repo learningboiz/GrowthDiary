@@ -1,15 +1,15 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 import sessionAPI from "../../api/sessionAPI.js";
-import formatFormForAPI from "../utility/formatFormForAPI.js";
+import getAPIFormat from "../utility/getAPIFormat.js";
 import AfterSessionView from "./AfterSessionView.jsx";
 import styles from "../../styles/tracker/sessionReview.module.css"
-import {useFormSubmission} from "../hooks/useFormSubmission.js";
+import {useSessionForm} from "../hooks/useSessionForm.js";
 
-export default function SessionSummaryView() {
-    const { sessionForm } = useContext(SessionContext)
-    const { submissionMessages, parseFormSummary } = useFormSubmission();
-    const { topic, description, hours, minutes, sessionDate, sessionTime, obstacle, productivity} = parseFormSummary(sessionForm);
+export default function SummariseSessionView() {
+    const { sessionForm } = useContext(SessionContext);
+    const { submissionMessages, parseFormSummary } = useSessionForm();
+    const formSummary = parseFormSummary(sessionForm);
 
     const [formSubmitted, setFormSubmitted] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null);
@@ -18,7 +18,7 @@ export default function SessionSummaryView() {
         e.preventDefault();
         console.log(sessionForm);
 
-        const formattedData = formatFormForAPI(sessionForm);
+        const formattedData = getAPIFormat(sessionForm);
 
         try {
             const apiResponse = await sessionAPI(formattedData);
@@ -42,23 +42,23 @@ export default function SessionSummaryView() {
                         <tbody>
                         <tr>
                             <th>Worked on</th>
-                            <td>{topic} by {description}</td>
+                            <td>{formSummary.topic} by {formSummary.description}</td>
                         </tr>
                         <tr>
                             <th>Began on</th>
-                            <td>{sessionDate} {sessionTime}</td>
+                            <td>{formSummary.sessionDate} {formSummary.sessionTime}</td>
                         </tr>
                         <tr>
                             <th>Lasted for</th>
-                            <td>{hours} hours {minutes} minutes</td>
+                            <td>{formSummary.hours} hours {formSummary.minutes} minutes</td>
                         </tr>
                         <tr>
                             <th>Key obstacle</th>
-                            <td>{obstacle}</td>
+                            <td>{formSummary.obstacle}</td>
                         </tr>
                         <tr>
                             <th>Productivity</th>
-                            <td>{productivity}</td>
+                            <td>{formSummary.productivity}</td>
                         </tr>
                         </tbody>
                     </table>

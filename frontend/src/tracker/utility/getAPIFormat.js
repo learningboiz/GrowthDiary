@@ -1,18 +1,21 @@
-import {splitDateTime} from "./splitDateTime.js";
+import {getDateAndTime} from "./getDateAndTime.js";
+import {getDurationInMinutes} from "./getDurationInMinutes.js";
 
-export default function formatFormForAPI(sessionForm) {
+export default function getAPIFormat(sessionForm) {
 
     const {
         topic,
         description,
         startPeriod,
-        duration,
+        hours,
+        minutes,
         obstacle,
         productivity
     } = sessionForm;
 
     const utcStartPeriod = startPeriod.toISOString();
-    const [startDate, startTime] = splitDateTime(utcStartPeriod);
+    const [startDate, startTime] = getDateAndTime(utcStartPeriod);
+    const duration = getDurationInMinutes(hours, minutes);
 
     return {
         details: {
