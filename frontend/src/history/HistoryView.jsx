@@ -1,55 +1,28 @@
 import historyAPI from "../api/historyAPI.js";
-import {useState} from "react";
-import HistoryRow from "./HistoryRow.jsx";
+import {useEffect, useState} from "react";
+import HistoryTable from "./HistoryTable.jsx";
 
 export default function HistoryView() {
 
     const [sessionArray, setSessionArray] = useState();
 
-    const handleOnClick = async (e) => {
-        e.preventDefault();
-        try {
-            const apiResponse = await historyAPI();
-            const jsonResponse = await apiResponse.json();
-            const contentArray = jsonResponse.content;
+    useEffect(() => {
 
-            console.log(contentArray);
+        const fetchSessionData = async () => {
+            const data = await historyAPI();
+            const json = await data.json();
 
-            console.log(contentArray[0].details);
-
-            setSessionArray(contentArray);
-        } catch (error) {
-            console.log(error);
+            setSessionArray(json.content)
+            console.log(json);
         }
-    }
-
-
+        fetchSessionData()
+            .catch(console.error);
+    }, []);
 
     return (
         <>
             <h2>Here is your session history</h2>
-            <button onClick={handleOnClick}>Get history data</button>
-            {sessionArray &&
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Topic</th>
-                        <th>Description</th>
-                        <th>Start Date</th>
-                        <th>Start Time</th>
-                        <th>Duration</th>
-                        <th>Obstacle</th>
-                        <th>Productivity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {sessionArray.map((session, sessionID) => (
-                            <HistoryRow key={sessionID} session={session} />
-                        ))}
-                    </tbody>
-                </table>
-            }
-
+            <HistoryTable sessionArray={sessionArray} />
         </>
     )
 }

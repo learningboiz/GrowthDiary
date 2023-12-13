@@ -1,4 +1,4 @@
-export default function HistoryRow({session}) {
+export default function HistoryTableRow({session}) {
 
     const details = session.details;
     const time = session.time;
