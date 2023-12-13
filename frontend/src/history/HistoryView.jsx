@@ -15,6 +15,8 @@ export default function HistoryView() {
 
             console.log(contentArray);
 
+            console.log(contentArray[0].details);
+
             setSessionArray(contentArray);
         } catch (error) {
             console.log(error);

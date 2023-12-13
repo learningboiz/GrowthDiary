@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class SortRequestValidator implements Validator {
 
-    private final List<String> validProperties = Arrays.asList("details.skill", "time.duration", "time.startDate", "feedback.productivity");
+    private final List<String> validProperties = Arrays.asList("details.topic", "time.duration", "time.startDate", "feedback.productivity");
     private final List<SortDirection> validDirections = Arrays.asList(SortDirection.ASC, SortDirection.DESC);
 
     @Override
