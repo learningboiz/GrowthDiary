@@ -26,7 +26,12 @@ public class HistoryController {
         return new ResponseEntity<>(sessionHistoryService.getDefaultSessions(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/session/history/filter")
+    /*
+     * https://stackoverflow.com/questions/5020704/how-to-design-restful-search-filtering
+     * Referred to the above thread to justify use of post instead of get
+     * In short, post can be used to create a search - which is more appropriate especially when using complex request body
+     */
+    @PostMapping("/session/history/search")
     public ResponseEntity<Page<Session>> getRequestedSessionHistory(@RequestBody SessionHistoryDTO sessionHistoryDTO) {
         return new ResponseEntity<>(sessionHistoryService.getRequestedSessions(sessionHistoryDTO), HttpStatus.ACCEPTED);
     }
