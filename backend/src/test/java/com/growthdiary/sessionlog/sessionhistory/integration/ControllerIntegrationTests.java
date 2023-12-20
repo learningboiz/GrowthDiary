@@ -13,7 +13,6 @@ import com.growthdiary.sessionlog.history.historyfilter.FeedbackFilter;
 import com.growthdiary.sessionlog.history.historyfilter.TimeFilter;
 import com.growthdiary.sessionlog.history.historysort.SortDirection;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -83,7 +82,7 @@ public class ControllerIntegrationTests {
     @Test
     public void testRequestedSessionHistory() throws Exception {
 
-        mockMvc.perform(get("/session/history/filter")
+        mockMvc.perform(post("/session/history/search")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(sessionHistoryDTO)))
                 .andExpect(status().isAccepted());
@@ -93,7 +92,7 @@ public class ControllerIntegrationTests {
     public void testRequestWithNoFilters() throws Exception {
         SessionHistoryDTO noFilterDTO = new SessionHistoryDTO(null, pageViewRequest, sortRequest);
 
-        mockMvc.perform(get("/session/history/filter")
+        mockMvc.perform(post("/session/history/search")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(noFilterDTO)))
                 .andExpect(status().isAccepted());
@@ -103,7 +102,7 @@ public class ControllerIntegrationTests {
     public void testRequestWithMissingPageViewOrSort() throws Exception {
         SessionHistoryDTO noViewSortDTO = new SessionHistoryDTO(filterRequest, null, null);
 
-        mockMvc.perform(get("/session/history/filter")
+        mockMvc.perform(post("/session/history/search")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(noViewSortDTO)))
                 .andExpect(status().isBadRequest());
@@ -127,7 +126,7 @@ public class ControllerIntegrationTests {
         FilterRequest invalidFilters = new FilterRequest(invalidDetails, invalidTime, invalidProductivity);
         SessionHistoryDTO invalidFiltersDTO = new SessionHistoryDTO(invalidFilters, null, null);
 
-        mockMvc.perform(get("/session/history/filter")
+        mockMvc.perform(post("/session/history/search")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidFiltersDTO)))
                 .andExpect(status().isBadRequest());
