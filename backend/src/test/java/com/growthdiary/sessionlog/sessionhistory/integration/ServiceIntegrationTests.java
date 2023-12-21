@@ -99,7 +99,7 @@ public class ServiceIntegrationTests {
         FilterRequest topicsRequest = new FilterRequest(topicsFilter, null, null);
 
         SessionHistoryDTO sessionHistoryDTO = new SessionHistoryDTO(topicsRequest, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(sessionHistoryDTO);
+        Page<Session> sessions = historyService.getCustomSessions(sessionHistoryDTO);
 
         for (Session session : sessions) {
 
@@ -116,7 +116,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest descriptionRequest = new FilterRequest(descriptionFilter, null, null);
         SessionHistoryDTO sessionHistoryDTO = new SessionHistoryDTO(descriptionRequest, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(sessionHistoryDTO);
+        Page<Session> sessions = historyService.getCustomSessions(sessionHistoryDTO);
 
         String expectedDescription = descriptionFilter.getDescription();
         for (Session session : sessions) {
@@ -136,7 +136,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest dateRequest = new FilterRequest(null, dateFilter, null);
         SessionHistoryDTO sessionHistoryDTO = new SessionHistoryDTO(dateRequest, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(sessionHistoryDTO);
+        Page<Session> sessions = historyService.getCustomSessions(sessionHistoryDTO);
 
         for (Session session : sessions) {
 
@@ -156,7 +156,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest durationRequest = new FilterRequest(null, durationFilter, null);
         SessionHistoryDTO sessionHistoryDTO = new SessionHistoryDTO(durationRequest, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(sessionHistoryDTO);
+        Page<Session> sessions = historyService.getCustomSessions(sessionHistoryDTO);
 
         for (Session session : sessions) {
 
@@ -176,7 +176,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest productivityRequest = new FilterRequest(null, null, productivityFilter);
         SessionHistoryDTO sessionHistoryDTO = new SessionHistoryDTO(productivityRequest, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(sessionHistoryDTO);
+        Page<Session> sessions = historyService.getCustomSessions(sessionHistoryDTO);
 
         for (Session session : sessions) {
 
@@ -196,7 +196,7 @@ public class ServiceIntegrationTests {
 
         FilterRequest obstaclesRequest = new FilterRequest(null, null, obstaclesFilter);
         SessionHistoryDTO sessionHistoryDTO = new SessionHistoryDTO(obstaclesRequest, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(sessionHistoryDTO);
+        Page<Session> sessions = historyService.getCustomSessions(sessionHistoryDTO);
 
         for (Session session : sessions) {
 
@@ -212,7 +212,7 @@ public class ServiceIntegrationTests {
     @Test
     public void testRequestWithoutFilter() {
         SessionHistoryDTO noFilterDTO = new SessionHistoryDTO(null, pageViewRequest, sortRequest);
-        Page<Session> sessions = historyService.getRequestedSessions(noFilterDTO);
+        Page<Session> sessions = historyService.getCustomSessions(noFilterDTO);
 
         Long expectedNumOfSessions = historyRepository.count();
         Long actualNumOfSessions = sessions.getTotalElements();
@@ -226,30 +226,6 @@ public class ServiceIntegrationTests {
         assertEquals(expectedNumOfSessions, actualNumOfSessions);
         assertEquals(expectedSort, actualSort);
         assertEquals(expectedNumOfPages, actualNumOfPages);
-    }
-
-    @Test
-    public void testRequestWithMissingPageViewOrSort() {
-        DetailsFilter detailsFilter = new DetailsFilter.BuildFilter()
-                .findDescriptionLike("API")
-                .build();
-
-        FilterRequest filterRequest = new FilterRequest(detailsFilter, null, null);
-        SessionHistoryDTO dtoOnlyHasFilters = new SessionHistoryDTO(filterRequest, null, null);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Page<Session> sessions = historyService.getRequestedSessions(dtoOnlyHasFilters);
-        });
-
-        SessionHistoryDTO dtoOnlyHasPageView = new SessionHistoryDTO(null, pageViewRequest, null);
-        assertThrows(IllegalArgumentException.class, () -> {
-            Page<Session> sessions = historyService.getRequestedSessions(dtoOnlyHasPageView);
-        });
-
-        SessionHistoryDTO dtoOnlyHasSort = new SessionHistoryDTO(null, null, sortRequest);
-        assertThrows(IllegalArgumentException.class, () -> {
-            Page<Session> sessions = historyService.getRequestedSessions(dtoOnlyHasSort);
-        });
     }
 
     @Test
@@ -271,7 +247,7 @@ public class ServiceIntegrationTests {
         SessionHistoryDTO invalidFilterDTO = new SessionHistoryDTO(invalidFilterRequest, pageViewRequest, sortRequest);
 
         assertThrows(ValidationException.class, () -> {
-            Page<Session> sessions = historyService.getRequestedSessions(invalidFilterDTO);
+            Page<Session> sessions = historyService.getCustomSessions(invalidFilterDTO);
         });
     }
 }

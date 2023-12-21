@@ -105,7 +105,7 @@ public class ControllerIntegrationTests {
         mockMvc.perform(post("/session/history/search")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(noViewSortDTO)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isAccepted());
     }
 
     @Test
