@@ -2,20 +2,20 @@ package com.growthdiary.sessionlog.history.requests;
 
 public class PageViewRequest {
 
-    private final int pageNum;
+    private final Integer pageIndex;
 
-    private final int pageSize;
+    private final Integer pageSize;
 
-    public PageViewRequest(int pageNum, int pageSize) {
-        this.pageNum = pageNum;
+    public PageViewRequest(Integer pageIndex, Integer pageSize) {
+        this.pageIndex = pageIndex;
         this.pageSize = pageSize;
     }
 
-    public int getPageNum() {
-        return this.pageNum;
+    public Integer getPageIndex() {
+        return this.pageIndex;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return this.pageSize;
     }
 
