@@ -17,34 +17,42 @@ import java.util.List;
  * @see SortRequest
  */
 @Component
-public class SortRequestValidator implements Validator {
+public class SortRequestValidator {
 
     private final List<String> validProperties = Arrays.asList("details.topic", "time.duration", "time.startDate", "feedback.productivity");
     private final List<SortDirection> validDirections = Arrays.asList(SortDirection.ASC, SortDirection.DESC);
 
-    @Override
-    public boolean supports(@NotNull Class clazz) {
-        return SortRequest.class.equals(clazz);
+    public void validate(SortRequest sortRequest, Errors errors) {
+        if (sortRequest != null) {
+            validateProperty(sortRequest.getProperty(), errors);
+            validateDirection(sortRequest.getSortDirection(), errors);
+        }
     }
 
-    /*
-     * Validates the SortRequestDTO
-     *
-     * Split validation into two separate functions for clarity
-     *
-     * Validation flow as follows:
-     * 1. Validate that a property has been specified and is within the validProperties list
-     * 2. Validate that the direction has been specified and is within the validDirections list
-     *
-     */
-    @Override
-    public void validate(@NotNull Object target, @NotNull Errors errors) {
-
-        SortRequest sortRequest = (SortRequest) target;
-
-        validateProperty(sortRequest.getProperty(), errors);
-        validateDirection(sortRequest.getSortDirection(), errors);
-    }
+//    @Override
+//    public boolean supports(Class clazz) {
+//        return SortRequest.class.equals(clazz);
+//    }
+//
+//    /*
+//     * Validates the SortRequestDTO
+//     *
+//     * Split validation into two separate functions for clarity
+//     *
+//     * Validation flow as follows:
+//     * 1. Validate that a property has been specified and is within the validProperties list
+//     * 2. Validate that the direction has been specified and is within the validDirections list
+//     *
+//     */
+//    @Override
+//    public void validate(Object target, @NotNull Errors errors) {
+//
+//        SortRequest sortRequest = (SortRequest) target;
+//        if (sortRequest != null) {
+//            validateProperty(sortRequest.getProperty(), errors);
+//            validateDirection(sortRequest.getSortDirection(), errors);
+//        }
+//    }
 
     /* ----------------------------- Private helper methods ---------------------------------------------------- */
 
