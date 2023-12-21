@@ -33,7 +33,7 @@ public class HistoryController {
      */
     @PostMapping("/session/history/search")
     public ResponseEntity<Page<Session>> getRequestedSessionHistory(@RequestBody SessionHistoryDTO sessionHistoryDTO) {
-        return new ResponseEntity<>(sessionHistoryService.getRequestedSessions(sessionHistoryDTO), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(sessionHistoryService.getCustomSessions(sessionHistoryDTO), HttpStatus.ACCEPTED);
     }
 
     @ExceptionHandler(ValidationException.class)
