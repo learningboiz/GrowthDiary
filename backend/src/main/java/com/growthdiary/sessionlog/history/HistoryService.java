@@ -33,6 +33,11 @@ public class HistoryService {
     private final SortRequestValidator sortRequestValidator;
     private final FilterRequestValidator filterRequestValidator;
 
+    private final int DEFAULT_PAGE_NUM = 0;
+    private final int DEFAULT_PAGE_SIZE = 10;
+
+    private final Sort DEFAULT_SORT = SortBuilder.buildSort("time.startDate", SortDirection.DESC);
+
     @Autowired
     public HistoryService(HistoryRepository historyRepository,
                           SortRequestValidator sortRequestValidator,
@@ -43,31 +48,16 @@ public class HistoryService {
     }
 
     public Page<Session> getDefaultSessions(){
-
-        int defaultPageNum = 0;
-        int defaultPageSize = 10;
-        Sort defaultSort = SortBuilder.buildSort("time.startDate", SortDirection.DESC);
-
-        Pageable pageable = PageRequest.of(defaultPageNum, defaultPageSize, defaultSort);
-        return historyRepository.findAll(pageable);
+        return historyRepository.findAll(createDefaultPageable());
     }
 
-    /**
-     * Retrieves a page of sessions based on the specified filter, page view, and sorting preferences.
-     * Validates the input parameters and performs the retrieval according to the provided criteria.
-     *
-     * @param sessionHistoryDTO The data transfer object containing filter, page view, and sorting preferences.
-     * @return A page of session records filtered and sorted as per the specified preferences.
-     * @throws ValidationException If the filter input contain validation errors.
-     * @throws IllegalArgumentException If the required page view or sorting preferences are missing.
-     */
-    public Page<Session> getRequestedSessions(SessionHistoryDTO sessionHistoryDTO) {
+
+
+    public Page<Session> getCustomSessions(SessionHistoryDTO sessionHistoryDTO) {
 
         FilterRequest filterRequest = sessionHistoryDTO.getFilterRequest();
         PageViewRequest pageViewRequest = sessionHistoryDTO.getPageViewRequest();
         SortRequest sortRequest = sessionHistoryDTO.getSortRequest();
-
-        validateRequiredArguments(pageViewRequest,sortRequest);
 
         Errors errors = new BeanPropertyBindingResult(sessionHistoryDTO, "sessionHistoryDTO");
         validateSortRequest(sortRequest, errors);
@@ -78,11 +68,7 @@ public class HistoryService {
 
         } else {
 
-            int pageNum = pageViewRequest.getPageNum();
-            int pageSize = pageViewRequest.getPageSize();
-            Sort sort = SortBuilder.buildSort(sortRequest.getProperty(), sortRequest.getSortDirection());
-
-            Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
+            Pageable pageable = createCustomPageable(sessionHistoryDTO);
 
             if (filterRequest != null) {
                 Specification<Session> sessionsFilter = SpecificationsMapper.getAllSpecifications(filterRequest);
@@ -95,10 +81,41 @@ public class HistoryService {
     }
 
     /* ---------- Private helper methods: Validation and Error message creation  ------------------------------------ */
-    private void validateRequiredArguments(PageViewRequest pageViewRequest, SortRequest sortRequest) {
-        if (pageViewRequest == null || sortRequest == null) {
-            throw new IllegalArgumentException("Both history view and sort preferences must be provided");
+
+    private Pageable createDefaultPageable() {
+        return PageRequest.of(DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE, DEFAULT_SORT);
+    }
+
+    private Pageable createCustomPageable(SessionHistoryDTO sessionHistoryDTO) {
+
+        // all values initialised to default in case custom values are null
+        // provides flexibility for users to submit filter-only requests without changing page-view/sort
+        int customPageNum = DEFAULT_PAGE_NUM;
+        int customPageSize = DEFAULT_PAGE_SIZE;
+        Sort customSort = DEFAULT_SORT;
+
+        PageViewRequest pageViewRequest = sessionHistoryDTO.getPageViewRequest();
+        SortRequest sortRequest = sessionHistoryDTO.getSortRequest();
+
+        if (pageViewRequest != null) {
+
+            Integer providedPageIndex = pageViewRequest.getPageIndex();
+            Integer providedPageSize = pageViewRequest.getPageSize();
+
+            if (providedPageIndex != null) {
+                customPageNum = providedPageIndex;
+            }
+
+            if (providedPageSize != null) {
+                customPageSize = providedPageSize;
+            }
         }
+
+        if (sortRequest != null) {
+            customSort = SortBuilder.buildSort(sortRequest.getProperty(), sortRequest.getSortDirection());
+        }
+
+        return PageRequest.of(customPageNum, customPageSize, customSort);
     }
 
     private void validateSortRequest(SortRequest sortRequest, Errors errors) {
