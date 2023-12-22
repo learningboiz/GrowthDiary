@@ -1,5 +1,5 @@
 const HISTORY_ENDPOINT = 'http://localhost:8080/session/history';
-export default async function sessionAPI() {
+export default async function defaultHistoryAPI() {
     try {
         return await fetch(HISTORY_ENDPOINT, {
             method: 'GET',
