@@ -1,0 +1,67 @@
+/***************** GENERAL VIEW *****************************/
+.historyView {
+    display: flex;
+    flex-direction: column;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 200;
+    color: #413F54;
+}
+
+.historyView h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    text-align: center;
+}
+
+/***************** TABLE *****************************/
+.historyTable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+.historyTable th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.historyTable th {
+    background-color: #97CAED;
+    color: #fff;
+}
+
+.historyTable tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/***************** TOGGLES *****************************/
+
+.toggles {
+    display: flex;
+    justify-content: right;
+}
+
+.toggles select {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+
+    width: 120px;
+    padding: 2px 0 2px 5px;
+    margin-left: 10px;
+    margin-bottom: -10px;
+
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    outline: none;
+}
+
+.toggles select:hover {
+    border: 1px solid #2980b9;
+}
+
+.toggles select:focus {
+    border: 1px solid #2980b9;
+    box-shadow: 0 0 2px #2980b9;
+}

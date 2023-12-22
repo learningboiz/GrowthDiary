@@ -7,8 +7,8 @@ export default function HistoryTable({sessionArray}) {
             <tr>
                 <th>Topic</th>
                 <th>Description</th>
-                <th>Start Date</th>
-                <th>Start Time</th>
+                <th>Date</th>
+                <th>Time</th>
                 <th>Duration</th>
                 <th>Obstacle</th>
                 <th>Productivity</th>
