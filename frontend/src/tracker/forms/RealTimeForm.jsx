@@ -1,7 +1,6 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 import {getDurationInHoursMinutes} from "../utility/getDurationInHoursMinutes.js";
-import styles from "../../styles/tracker/sessionForm.module.css"
 
 export default function RealTimeForm({stepUpdater}) {
     const { setSessionForm } = useContext(SessionContext)
@@ -36,7 +35,7 @@ export default function RealTimeForm({stepUpdater}) {
 
 
     return (
-        <div className={styles.sessionForm}>
+        <div>
             <h2>Time</h2>
             <h3>{subHeadingText}</h3>
             <form>

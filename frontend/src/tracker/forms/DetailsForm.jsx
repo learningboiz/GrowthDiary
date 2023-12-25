@@ -2,7 +2,6 @@ import {useContext} from "react";
 import {useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 
-import styles from "../../styles/tracker/sessionForm.module.css"
 import {SessionContext} from "../SessionContext.jsx";
 
 
@@ -24,63 +23,78 @@ export default function DetailsForm({stepUpdater, newSession}) {
     }
 
     return (
-        <div className={styles.sessionForm}>
-            <h2>Details</h2>
-            <h3>{subheadingText}</h3>
+        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <h2 className="text-2xl font-bold mb-4 text-indigo-600">Details</h2>
+            <h3 className="text-base -mt-2 mb-6 text-gray-600 border-gray-300 border-b pb-3">{subheadingText}</h3>
+
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>
-                    Topic
+                <div className="mb-4">
+                    <label className="block text-sm font-medium mb-2 text-indigo-500">
+                        Topic
+                    </label>
                     <input
                         type="text"
+                        id="topic"
                         placeholder="e.g Spring Boot"
+                        className="py-3 px-5 block w-full border border-gray-500 rounded-lg text-sm text-gray-500 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50"
                         {...register("topic", {
                             required: "Please provide a topic",
-                            minLength : {
+                            minLength: {
                                 value: 2,
-                                message: "Topic must be longer than 2 characters"
+                                message: "Topic must be longer than 2 characters",
                             },
-                            maxLength : {
+                            maxLength: {
                                 value: 50,
-                                message: "Topic must be shorter than 50 characters"
-                            }
+                                message: "Topic must be shorter than 50 characters",
+                            },
                         })}
                     />
-                    <div className={styles.sessionFormError}>
+
+                    <div>
                         <ErrorMessage
                             errors={errors}
                             name="topic"
-                            render={({ message }) => <p>{message}</p>}
+                            render={({ message }) => <p className="text-sm text-red-500 mt-2">{message}</p>}
                         />
                     </div>
+                </div>
 
-                </label>
-                <label>
-                    Description
+                <div className="mb-4">
+                    <label className="block text-sm font-medium mb-2 text-indigo-500">
+                        Description
+                    </label>
                     <input
                         type="text"
+                        id="description"
                         placeholder="e.g Setting up controller methods"
+                        className="py-3 px-5 block w-full border border-gray-500 rounded-lg text-sm text-gray-500 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50"
                         {...register("description", {
                             required: "Please provide a description",
-                            minLength : {
+                            minLength: {
                                 value: 2,
-                                message: "Topic must be longer than 10 characters"
+                                message: "Description must be longer than 10 characters",
                             },
-                            maxLength : {
+                            maxLength: {
                                 value: 150,
-                                message: "Topic must be shorter than 150 characters"
-                            }
+                                message: "Description must be shorter than 150 characters",
+                            },
                         })}
                     />
-                    <div className={styles.sessionFormError}>
+                    <div>
                         <ErrorMessage
                             errors={errors}
                             name="description"
-                            render={({ message }) => <p>{message}</p>}
+                            render={({ message }) => <p className="text-sm text-red-500 mt-2">{message}</p>}
                         />
                     </div>
-                </label>
-                <button type="submit">Next</button>
+                </div>
+
+
+
+                <button type="submit" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-indigo-500 text-white hover:bg-indigo-600">
+                    Next
+                </button>
             </form>
         </div>
-    )
+    );
 }
