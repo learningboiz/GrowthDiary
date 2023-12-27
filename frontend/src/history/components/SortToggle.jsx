@@ -1,4 +1,13 @@
+import SingleSelect from "../../components/inputfields/SingleSelect.jsx";
 export default function SortToggle({setHistoryDTO}) {
+
+    const sortList = [
+        {value: "details.topic,ASC", text: "Topic"},
+        {value: "time.startDate,ASC", text: "Earliest date"},
+        {value: "time.startDate,DESC", text: "Latest date"},
+        {value: "time.duration,DESC", text: "Longest duration"},
+        {value: "feedback.productivity,DESC", text: "Highest productivity"}
+    ]
 
     const handleSortToggle = (e) => {
         e.preventDefault();
@@ -18,11 +27,11 @@ export default function SortToggle({setHistoryDTO}) {
     }
 
     return (
-        <select onChange={handleSortToggle}>
-            <option value={"details.topic,ASC"}>Topic</option>
-            <option value={"time.duration,ASC"}>Duration</option>
-            <option value={"time.startDate,ASC"}>Date</option>
-            <option value={"feedback.productivity,ASC"}>Productivity</option>
-        </select>
+        <div className="flex-row items-center font-medium gap-x-2">
+            <p className="text-sm text-gray-600">
+                Sort by
+            </p>
+            <SingleSelect handleOnChange={handleSortToggle} optionList={sortList} />
+        </div>
     )
 }

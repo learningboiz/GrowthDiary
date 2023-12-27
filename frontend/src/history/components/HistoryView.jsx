@@ -5,7 +5,7 @@ import customHistoryAPI from "../../api/customHistoryAPI.js";
 import PageViewToggle from "./PageViewToggle.jsx";
 import SortToggle from "./SortToggle.jsx";
 import FilterPopup from "../filtercomponents/FilterModal.jsx";
-import HistoryTableFooter from "../utility/HistoryTableFooter.jsx";
+import ButtonGroup from "../../components/buttons/ButtonGroup.jsx"
 import PaginationToggle from "./PaginationToggle.jsx";
 
 export default function HistoryView() {
@@ -47,7 +47,7 @@ export default function HistoryView() {
 
     return (
         <div>
-            <h2>Review your session history</h2>
+            <h2 className="text-2xl font-bold mb-4 text-indigo-600">Review your session history</h2>
 
             {/* Toggles */}
             <div className="flex-row">
@@ -74,6 +74,8 @@ export default function HistoryView() {
                 <PageViewToggle setHistoryDTO={setHistoryDTO}/>
                 <PaginationToggle />
             </div>
+
+
 
 
         </div>
