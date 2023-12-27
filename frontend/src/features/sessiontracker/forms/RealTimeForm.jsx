@@ -1,6 +1,7 @@
 import {useContext, useState} from "react";
 import {SessionContext} from "../SessionContext.jsx";
 import {getDurationInHoursMinutes} from "../utility/getDurationInHoursMinutes.js";
+import OutlineButton from "../../../components/buttons/OutlineButton.jsx";
 
 export default function RealTimeForm({stepUpdater}) {
     const { setSessionForm } = useContext(SessionContext)
@@ -39,8 +40,8 @@ export default function RealTimeForm({stepUpdater}) {
             <h2>Time</h2>
             <h3>{subHeadingText}</h3>
             <form>
-                {!sessionStarted && <button onClick={trackStartTime}>Start</button>}
-                {sessionStarted && <button onClick={trackEndTime}>End</button>}
+                {!sessionStarted && <OutlineButton handleOnClick={trackStartTime} buttonText={"Start"}></OutlineButton>}
+                {sessionStarted && <OutlineButton handleOnClick={trackEndTime} buttonText={"End"}></OutlineButton>}
             </form>
         </div>
     )

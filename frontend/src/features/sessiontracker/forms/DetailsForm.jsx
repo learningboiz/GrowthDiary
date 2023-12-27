@@ -3,10 +3,11 @@ import {useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 
 import {SessionContext} from "../SessionContext.jsx";
+import SolidButton from "../../../components/buttons/SolidButton.jsx";
 
 
 export default function DetailsForm({stepUpdater, newSession}) {
-    const {setSessionForm} = useContext(SessionContext);
+    const {sessionForm, setSessionForm} = useContext(SessionContext);
     const subheadingText = newSession? "What will you be working on today?" : "What did you work on previously?"
     const { register,
             handleSubmit,
@@ -20,6 +21,7 @@ export default function DetailsForm({stepUpdater, newSession}) {
             description: data.description
         }))
         stepUpdater();
+        console.log(sessionForm);
     }
 
     return (
@@ -89,11 +91,7 @@ export default function DetailsForm({stepUpdater, newSession}) {
                     </div>
                 </div>
 
-
-
-                <button type="submit" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-indigo-500 text-white hover:bg-indigo-600">
-                    Next
-                </button>
+                <SolidButton buttonText={"Next"} />
             </form>
         </div>
     );

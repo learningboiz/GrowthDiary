@@ -1,4 +1,4 @@
-import SingleSelect from "../../components/inputfields/SingleSelect.jsx";
+import SingleSelect from "../../../components/inputfields/SingleSelect.jsx";
 export default function SortToggle({setHistoryDTO}) {
 
     const sortList = [

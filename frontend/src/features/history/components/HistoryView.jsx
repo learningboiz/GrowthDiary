@@ -1,18 +1,16 @@
 import {useEffect, useState} from "react";
 import HistoryTable from "./HistoryTable.jsx";
-import defaultHistoryAPI from "../../api/defaultHistoryAPI.js";
-import customHistoryAPI from "../../api/customHistoryAPI.js";
+import defaultHistoryAPI from "../defaultHistoryAPI.js";
+import customHistoryAPI from "../customHistoryAPI.js";
 import PageViewToggle from "./PageViewToggle.jsx";
 import SortToggle from "./SortToggle.jsx";
-import FilterPopup from "../filtercomponents/FilterModal.jsx";
-import ButtonGroup from "../../components/buttons/ButtonGroup.jsx"
+import FilterModal from "../filtercomponents/FilterModal.jsx";
 import PaginationToggle from "./PaginationToggle.jsx";
 
 export default function HistoryView() {
 
     const [sessionArray, setSessionArray] = useState();
     const [historyDTO, setHistoryDTO] = useState({});
-    const [filterModalOpen, setFilterModalOpen] = useState(false);
 
     useEffect(() => {
 
@@ -41,10 +39,6 @@ export default function HistoryView() {
             .catch(console.error);
     }, [historyDTO]);
 
-    const toggleFilterModal = () => {
-        setFilterModalOpen(true);
-    }
-
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4 text-indigo-600">Review your session history</h2>
@@ -52,10 +46,6 @@ export default function HistoryView() {
             {/* Toggles */}
             <div className="flex-row">
                 <SortToggle setHistoryDTO={setHistoryDTO} />
-                <button onClick={toggleFilterModal}>Filter</button>
-                <div>
-                    {filterModalOpen && <FilterPopup />}
-                </div>
             </div>
 
             {/* Main header */}
@@ -72,11 +62,11 @@ export default function HistoryView() {
 
             <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                 <PageViewToggle setHistoryDTO={setHistoryDTO}/>
-                <PaginationToggle />
             </div>
 
-
-
+            <div>
+                <FilterModal setHistoryDTO={setHistoryDTO}/>
+            </div>
 
         </div>
     )

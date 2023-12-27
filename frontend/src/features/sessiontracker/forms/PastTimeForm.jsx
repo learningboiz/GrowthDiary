@@ -3,10 +3,11 @@ import {useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 
 import {SessionContext} from "../SessionContext.jsx";
+import SolidButton from "../../../components/buttons/SolidButton.jsx";
 
 
 export default function PastTimeForm({stepUpdater}) {
-    const {setSessionForm} = useContext(SessionContext);
+    const {sessionForm, setSessionForm} = useContext(SessionContext);
     const { register,
         handleSubmit,
         formState: {errors},
@@ -21,6 +22,7 @@ export default function PastTimeForm({stepUpdater}) {
             minutes: data.minutes
         }))
         stepUpdater();
+        console.log(sessionForm);
     }
 
 
@@ -109,9 +111,8 @@ export default function PastTimeForm({stepUpdater}) {
                             />
                         </div>
                 </div>
-                <button type="submit"
-                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-indigo-500 text-white hover:bg-indigo-600">
-                    Next</button>
+
+                <SolidButton buttonText={"Next"} />
             </form>
         </div>
     )

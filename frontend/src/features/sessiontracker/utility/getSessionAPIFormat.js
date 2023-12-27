@@ -1,7 +1,7 @@
 import {getDateAndTime} from "./getDateAndTime.js";
 import {getDurationInMinutes} from "./getDurationInMinutes.js";
 
-export default function getAPIFormat(sessionForm) {
+export default function getSessionAPIFormat(sessionForm) {
 
     const {
         topic,

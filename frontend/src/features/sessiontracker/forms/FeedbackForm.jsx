@@ -6,9 +6,10 @@ import {SessionContext} from "../SessionContext.jsx";
 
 import {obstacleList} from "../utility/obstacleList.js";
 import {productivityDescriptions} from "../utility/productivityDescription.js";
+import SolidButton from "../../../components/buttons/SolidButton.jsx";
 
 export default function FeedbackForm({stepUpdater}) {
-    const {setSessionForm} = useContext(SessionContext);
+    const {sessionForm, setSessionForm} = useContext(SessionContext);
     const { register,
         handleSubmit,
         formState: {errors},
@@ -23,6 +24,7 @@ export default function FeedbackForm({stepUpdater}) {
             productivity: data.productivity,
         }))
         stepUpdater();
+        console.log(sessionForm);
     }
 
     const handleProductivityChange = (e) => {
@@ -111,9 +113,8 @@ export default function FeedbackForm({stepUpdater}) {
                             <p className="text-sm text-red-600 mt-2">{message}</p>}
                     />
                 </div>
-                <button type="submit"
-                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-indigo-500 text-white hover:bg-indigo-600">
-                    Next</button>
+
+                <SolidButton buttonText={"Next"} />
             </form>
         </div>
     )
