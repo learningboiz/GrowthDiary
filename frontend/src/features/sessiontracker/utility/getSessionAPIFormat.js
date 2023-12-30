@@ -1,4 +1,4 @@
-import {getDateAndTime} from "./getDateAndTime.js";
+import {splitPeriodIntoDateTime} from "../../../utility/splitPeriodIntoDateTime.js";
 import {getDurationInMinutes} from "./getDurationInMinutes.js";
 
 export default function getSessionAPIFormat(sessionForm) {
@@ -14,7 +14,7 @@ export default function getSessionAPIFormat(sessionForm) {
     } = sessionForm;
 
     const utcStartPeriod = startPeriod.toISOString();
-    const [startDate, startTime] = getDateAndTime(utcStartPeriod);
+    const [startDate, startTime] = splitPeriodIntoDateTime(utcStartPeriod);
     const duration = getDurationInMinutes(hours, minutes);
 
     return {

@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@testing-library/react'
 import { expect, test } from 'vitest'
-import BeforeSessionView from "../tracker/views/BeforeSessionView.jsx";
+import BeforeSessionView from "../features/sessiontracker/views/BeforeSessionView.jsx";
 import {MemoryRouter} from "react-router-dom";
 
 /*

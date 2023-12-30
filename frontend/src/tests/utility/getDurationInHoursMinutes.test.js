@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import {getDurationInHoursMinutes} from "../../tracker/utility/getDurationInHoursMinutes.js";
+import {getDurationInHoursMinutes} from "../../features/sessiontracker/utility/getDurationInHoursMinutes.js";
 
 const testCases = [
     {

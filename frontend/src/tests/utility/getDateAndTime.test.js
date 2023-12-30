@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import {getDateAndTime} from "../../tracker/utility/getDateAndTime.js";
+import {splitPeriodIntoDateTime} from "../../utility/splitPeriodIntoDateTime.js";
 
 const testCases = [
     {
@@ -26,7 +26,7 @@ function testEachCase(testCases) {
     testCases.forEach((testCase) => {
         index += 1;
         const { startDate, expectedDate, expectedTime } = testCase;
-        const actualDateTime = getDateAndTime(startDate);
+        const actualDateTime = splitPeriodIntoDateTime(startDate);
         const expectedDateTime = [expectedDate, expectedTime];
 
         testDateConversion(actualDateTime, expectedDateTime, index)

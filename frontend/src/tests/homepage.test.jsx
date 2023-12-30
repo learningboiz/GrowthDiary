@@ -1,4 +1,4 @@
-import HomePage from "../pages/homepage.jsx";
+import HomePage from "../features/home/homepage.jsx";
 import { render, screen } from '@testing-library/react'
 import { expect, test } from 'vitest'
 
