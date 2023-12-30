@@ -1,11 +1,10 @@
 import {Route, Routes} from 'react-router-dom'
-import HomePage from "../pages/homepage.jsx";
-import AboutPage from "../pages/aboutpage.jsx";
-import BeforeSessionView from "../tracker/views/BeforeSessionView.jsx";
-import DetailsForm from "../tracker/forms/DetailsForm.jsx";
-import NewSessionPage from "../tracker/views/NewSessionPage.jsx";
-import OldSessionPage from "../tracker/views/OldSessionPage.jsx";
-import HistoryView from "../history/HistoryView.jsx";
+import HomePage from "../features/home/homepage.jsx";
+import AboutPage from "../features/home/aboutpage.jsx";
+import BeforeSessionView from "../features/sessiontracker/views/BeforeSessionView.jsx";
+import NewSessionPage from "../features/sessiontracker/views/NewSessionPage.jsx";
+import OldSessionPage from "../features/sessiontracker/views/OldSessionPage.jsx";
+import HistoryView from "../features/sessionhistory/HistoryView.jsx";
 
 export default function ApplicationRoutes() {
     return (
