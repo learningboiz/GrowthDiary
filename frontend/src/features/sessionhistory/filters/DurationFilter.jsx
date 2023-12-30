@@ -1,12 +1,10 @@
-import VerticalRadioGroup from "../../../components/inputfields/VerticalRadioGroup.jsx";
-import {duration} from "@mui/material";
-export default function DurationFilter({setFilterRequest}) {
+import RadioInput from "../../../components/inputfields/RadioInput.jsx";
+export default function DurationFilter({setFilterRequest, durationInput, setDurationInput}) {
 
-    const handleSaveDurationFilter = (e) => {
+    const handleOnChange = (e) => {
 
-        {/* Apparently value only takes in a string
-            Unable to assign value an object
-            Hence using this approach */}
+        const selectedOption = e.target.value;
+        setDurationInput(selectedOption);
 
         let durationFilter;
 
@@ -41,16 +39,17 @@ export default function DurationFilter({setFilterRequest}) {
 
 
     const durationFilterOptions = [
-        {value: "underOneHour", name: "durationFilter", text: "Under 1 hour"},
-        {value: "oneToTwoHours", name: "durationFilter", text: "Between 1 to 2 hours"},
-        {value: "overTwoHours", name: "durationFilter", text: "More than 2 hours"}
+        {value: "underOneHour", name: "durationFilter", label: "Under 1 hour"},
+        {value: "oneToTwoHours", name: "durationFilter", label: "Between 1 to 2 hours"},
+        {value: "overTwoHours", name: "durationFilter", label: "More than 2 hours"}
     ]
 
     return (
             <>
                 <h2 className="text-sm mb-3 font-medium text-indigo-500 border-gray-300 border-b pb-1">Duration</h2>
-                <VerticalRadioGroup
-                    handleOnClick={handleSaveDurationFilter}
+                <RadioInput
+                    inputState={durationInput}
+                    handleOnChange={handleOnChange}
                     optionsArray={durationFilterOptions}/>
             </>
         )

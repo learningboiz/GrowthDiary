@@ -28,10 +28,11 @@ export default function SortToggle({setHistoryDTO}) {
 
     return (
         <div className="flex-row items-center font-medium gap-x-2">
-            <p className="text-sm text-gray-600">
-                Sort by
-            </p>
-            <SingleSelect handleOnChange={handleSortToggle} optionList={sortList} />
+            <SingleSelect
+                handleOnChange={handleSortToggle}
+                optionList={sortList}
+                placeholderText={"Sort by"}
+            />
         </div>
     )
 }

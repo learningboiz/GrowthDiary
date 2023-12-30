@@ -3,7 +3,7 @@ import HistoryTableRow from "./HistoryTableRow.jsx";
 export default function HistoryTable({sessionArray}) {
     return (
         <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-indigo-400">
+            <thead className="bg-indigo-600">
             <tr>
 
                 <th scope="col" className="px-6 py-3 text-start text-xs font-medium uppercase">

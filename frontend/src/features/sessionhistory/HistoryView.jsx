@@ -1,16 +1,18 @@
 import {useEffect, useState} from "react";
-import HistoryTable from "./HistoryTable.jsx";
-import defaultHistoryAPI from "../defaultHistoryAPI.js";
-import customHistoryAPI from "../customHistoryAPI.js";
-import PageViewToggle from "./PageViewToggle.jsx";
-import SortToggle from "./SortToggle.jsx";
-import FilterModal from "../filtercomponents/FilterModal.jsx";
-import PaginationToggle from "./PaginationToggle.jsx";
+import HistoryTable from "./components/HistoryTable.jsx";
+import defaultHistoryAPI from "./api/defaultHistoryAPI.js";
+import customHistoryAPI from "./api/customHistoryAPI.js";
+import PageSizeToggle from "./components/PageSizeToggle.jsx";
+import SortToggle from "./components/SortToggle.jsx";
+import FilterToggle from "./components/FilterToggle.jsx";
+import PaginationToggle from "./components/PaginationToggle.jsx";
 
 export default function HistoryView() {
 
     const [sessionArray, setSessionArray] = useState();
     const [historyDTO, setHistoryDTO] = useState({});
+
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
 
@@ -19,6 +21,7 @@ export default function HistoryView() {
             const json = await data.json();
 
             setSessionArray(json.content)
+            setTotalPages(json.totalPages);
             console.log(json);
         }
         fetchDefaultHistory()
@@ -31,9 +34,10 @@ export default function HistoryView() {
             const data = await customHistoryAPI(historyDTO);
             const json = await data.json();
 
-            console.log(json);
             console.log(historyDTO);
+            console.log(json)
             setSessionArray(json.content)
+            setTotalPages(json.totalPages);
         }
         fetchCustomHistory()
             .catch(console.error);
@@ -41,11 +45,18 @@ export default function HistoryView() {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-4 text-indigo-600">Review your session history</h2>
+            <h2
+                className="text-lg font-bold mb-4 text-indigo-600 pl-2 text-center
+                sm:text-2xl sm:text-left
+                xl:text-3xl"
+            >Review your session history</h2>
 
             {/* Toggles */}
-            <div className="flex-row">
+            <div
+                className="flex flex-col gap-4 pl-2 pb-4 items-center justify-center
+                sm:flex-row sm:items-start sm:justify-start">
                 <SortToggle setHistoryDTO={setHistoryDTO} />
+                <FilterToggle setHistoryDTO={setHistoryDTO} />
             </div>
 
             {/* Main header */}
@@ -60,14 +71,11 @@ export default function HistoryView() {
 
             {/* Footer */}
 
-            <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
-                <PageViewToggle setHistoryDTO={setHistoryDTO}/>
+            <div className="px-4 py-4 gap-3 flex flex-col items-center justify-center
+            sm:flex sm:flex-row sm:justify-between sm:items-center border-t border-gray-200">
+                <PageSizeToggle setHistoryDTO={setHistoryDTO}/>
+                <PaginationToggle totalPages={totalPages} setHistoryDTO={setHistoryDTO} />
             </div>
-
-            <div>
-                <FilterModal setHistoryDTO={setHistoryDTO}/>
-            </div>
-
         </div>
     )
 }

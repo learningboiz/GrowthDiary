@@ -1,11 +1,10 @@
-import VerticalRadioGroup from "../../../components/inputfields/VerticalRadioGroup.jsx";
-export default function ProductivityFilter({setFilterRequest}) {
+import RadioInput from "../../../components/inputfields/RadioInput.jsx";
+export default function ProductivityFilter({setFilterRequest, productivityInput, setProductivityInput}) {
 
-    const handleSaveProductivityFilter = (e) => {
+    const handleOnChange = (e) => {
 
-        {/* Apparently value only takes in a string
-            Unable to assign value an object
-            Hence using this approach */}
+        const selectedOption = e.target.value;
+        setProductivityInput(selectedOption);
 
         let productivityFilter;
 
@@ -39,16 +38,17 @@ export default function ProductivityFilter({setFilterRequest}) {
 
 
     const productivityFilterOptions = [
-        {value: "moderateRange", name: "productivityFilter", text: "Moderate"},
-        {value: "highRange", name: "productivityFilter", text: "High - Very High"},
-        {value: "lowRange", name: "productivityFilter", text: "Low - Very Low"}
+        {value: "moderateRange", name: "productivityFilter", label: "Moderate"},
+        {value: "highRange", name: "productivityFilter", label: "High - Very High"},
+        {value: "lowRange", name: "productivityFilter", label: "Low - Very Low"}
     ]
 
     return (
         <>
             <h2 className="text-sm mb-3 font-medium text-indigo-500 border-gray-300 border-b pb-1">Productivity</h2>
-            <VerticalRadioGroup
-                handleOnClick={handleSaveProductivityFilter}
+            <RadioInput
+                inputState={productivityInput}
+                handleOnChange={handleOnChange}
                 optionsArray={productivityFilterOptions}/>
         </>
     )

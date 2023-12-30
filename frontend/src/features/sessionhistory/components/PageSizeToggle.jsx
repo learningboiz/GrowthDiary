@@ -1,15 +1,14 @@
-export default function PageViewToggle({setHistoryDTO}) {
+export default function PageSizeToggle({setHistoryDTO}) {
     
     const handlePageSizeToggle = (e) => {
         e.preventDefault();
 
-        const pageViewRequest = {
-            pageIndex: null,
-            pageSize: e.target.value
-        }
         setHistoryDTO((prev) => ({
             ...prev,
-            pageViewRequest: pageViewRequest
+            pageViewRequest: {
+                ...prev.pageViewRequest,
+                pageSize: e.target.value
+            }
         }));
     }
 
