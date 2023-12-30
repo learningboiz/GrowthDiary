@@ -1,11 +1,10 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {useForm} from "react-hook-form";
 import {ErrorMessage} from "@hookform/error-message";
 
 import {SessionContext} from "../SessionContext.jsx";
 
 import {obstacleList} from "../utility/obstacleList.js";
-import {productivityDescriptions} from "../utility/productivityDescription.js";
 import SolidButton from "../../../components/buttons/SolidButton.jsx";
 
 export default function FeedbackForm({stepUpdater}) {
@@ -13,9 +12,8 @@ export default function FeedbackForm({stepUpdater}) {
     const { register,
         handleSubmit,
         formState: {errors},
-        setValue,
     } = useForm();
-    const [rating, setRating] = useState("Moderate");
+
 
     const onSubmit = (data) => {
         setSessionForm((prevSessionForm) => ({
@@ -25,13 +23,6 @@ export default function FeedbackForm({stepUpdater}) {
         }))
         stepUpdater();
         console.log(sessionForm);
-    }
-
-    const handleProductivityChange = (e) => {
-        const rating = e.target.value;
-        setValue("productivity", rating);
-        const ratingDescription = productivityDescriptions[rating];
-        setRating(ratingDescription);
     }
 
     return (
@@ -54,8 +45,8 @@ export default function FeedbackForm({stepUpdater}) {
                         <option value="" disabled>
                             Please pick an option below
                         </option>
-                        {obstacleList.map((obstacle) => (
-                                <option key={obstacle}>{obstacle}</option>
+                        {obstacleList.map((obstacle, obstacleId) => (
+                                <option key={obstacleId}>{obstacle}</option>
                             )
                         )}
                     </select>
@@ -81,7 +72,6 @@ export default function FeedbackForm({stepUpdater}) {
                             step="1"
                             defaultValue="3"
                             {...register("productivity", {
-                                onChange: handleProductivityChange,
                                 required: "Please provide a productivity rating",
                             })}
                             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer
