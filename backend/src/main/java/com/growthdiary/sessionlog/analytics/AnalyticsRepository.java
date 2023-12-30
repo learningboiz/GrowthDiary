@@ -21,13 +21,14 @@ public interface AnalyticsRepository extends CrudRepository<Session, Long> {
             "ORDER BY SUM(duration) DESC " +
             "LIMIT 1) AS topSkill, " +
             "SUM(duration) AS totalDuration, " +
-            "SUM(productivity) / 5 / :numDays AS avgProductivity " +
+            "SUM(productivity) / :maxProd / :dateRange AS avgProductivity " +
             "FROM Session " +
             "WHERE start_date >= :minRange " +
             "AND start_date <= :maxRange ", nativeQuery = true)
     WeeklySummary getSummary(@Param("minRange") LocalDate minRange,
                              @Param("maxRange") LocalDate maxRange,
-                             @Param("numDays") Long numDays);
+                             @Param("dateRange") Long dateRange,
+                             @Param("maxProd") Integer maxProd);
 
 
     @Query(value = "SELECT " +

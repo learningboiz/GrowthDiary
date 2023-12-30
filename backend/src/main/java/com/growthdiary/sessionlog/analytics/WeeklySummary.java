@@ -5,7 +5,10 @@ package com.growthdiary.sessionlog.analytics;
  */
 public interface WeeklySummary {
 
-    String getTopTopic();
+    // TODO find a more maintainable way to name these methods + the queries
+    // a change in domain names require changes to these which can be overlooked leading to bugs
+
+    String getTopSkill();
     Long getTotalDuration();
     Double getAvgProductivity();
 }

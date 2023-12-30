@@ -43,6 +43,6 @@ public class AnalyticsController {
     protected ResponseEntity<String> handleArgumentMismatchErrors(MethodArgumentTypeMismatchException exception) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body("Accepted attributes are duration, time and distraction");
+                .body("Accepted attributes are duration, time and obstacle");
     }
 }

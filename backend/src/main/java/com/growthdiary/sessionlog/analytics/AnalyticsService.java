@@ -20,12 +20,14 @@ public class AnalyticsService {
 
     public WeeklySummary createWeeklySummary(LocalDate currentDate) {
 
+        Long daysAgo = 7L;
+        Integer maxProductivity = 5;
+
         if (currentDate == null) {
             throw new IllegalArgumentException("Date cannot be null");
         } else {
-            LocalDate dateOnMonday = findDateOnMonday(currentDate);
-            Long rangeOfDays = ChronoUnit.DAYS.between(dateOnMonday, currentDate) + 1;
-            return analyticsRepository.getSummary(dateOnMonday, currentDate, rangeOfDays);
+            LocalDate minRange = getDateDaysAgo(currentDate, daysAgo);
+            return analyticsRepository.getSummary(minRange, currentDate, daysAgo, maxProductivity);
         }
     }
 
@@ -38,10 +40,8 @@ public class AnalyticsService {
         };
     }
 
-    private LocalDate findDateOnMonday(LocalDate currentDate) {
+    private LocalDate getDateDaysAgo(LocalDate currentDate, Long daysAgo) {
 
-        DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
-        int daysSinceMonday = dayOfWeek.getValue() - 1;
-        return currentDate.minusDays(daysSinceMonday);
+        return currentDate.minusDays(daysAgo);
     }
 }
