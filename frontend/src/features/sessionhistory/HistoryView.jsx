@@ -9,6 +9,8 @@ import PaginationToggle from "./components/PaginationToggle.jsx";
 
 export default function HistoryView() {
 
+    const [historyDataAvailable, setHistoryDataAvailable] = useState(false);
+
     const [sessionArray, setSessionArray] = useState();
     const [historyDTO, setHistoryDTO] = useState({});
 
@@ -20,8 +22,11 @@ export default function HistoryView() {
             const data = await defaultHistoryAPI();
             const json = await data.json();
 
-            setSessionArray(json.content)
-            setTotalPages(json.totalPages);
+            if (json.content.length !== 0) {
+                setHistoryDataAvailable(true);
+                setSessionArray(json.content)
+                setTotalPages(json.totalPages);
+            }
             console.log(json);
         }
         fetchDefaultHistory()
@@ -47,35 +52,41 @@ export default function HistoryView() {
         <div>
             <h2
                 className="text-lg font-bold mb-4 text-indigo-600 pl-2 text-center
-                sm:text-2xl sm:text-left
-                xl:text-3xl"
+                sm:text-2xl sm:text-left"
             >Review your session history</h2>
 
-            {/* Toggles */}
-            <div
-                className="flex flex-col gap-4 pl-2 pb-4 items-center justify-center
+            {historyDataAvailable &&
+                <>
+                    {/* Toggles */}
+                    <div
+                        className="flex flex-col gap-4 pl-2 pb-4 items-center justify-center
                 sm:flex-row sm:items-start sm:justify-start">
-                <SortToggle setHistoryDTO={setHistoryDTO} />
-                <FilterToggle setHistoryDTO={setHistoryDTO} />
-            </div>
-
-            {/* Main header */}
-
-            <div className="-m-1.5 overflow-x-auto">
-                <div className="p-1.5 min-w-full inline-block align-middle">
-                    <div className="overflow-hidden">
-                        <HistoryTable sessionArray={sessionArray} />
+                        <SortToggle setHistoryDTO={setHistoryDTO} />
+                        <FilterToggle setHistoryDTO={setHistoryDTO} />
                     </div>
-                </div>
-            </div>
 
-            {/* Footer */}
+                    {/* Main header */}
 
-            <div className="px-4 py-4 gap-3 flex flex-col items-center justify-center
+                    <div className="-m-1.5 overflow-x-auto">
+                        <div className="p-1.5 min-w-full inline-block align-middle">
+                            <div className="overflow-hidden">
+                                <HistoryTable sessionArray={sessionArray} />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+
+                    <div className="px-4 py-4 gap-3 flex flex-col items-center justify-center
             sm:flex sm:flex-row sm:justify-between sm:items-center border-t border-gray-200">
-                <PageSizeToggle setHistoryDTO={setHistoryDTO}/>
-                <PaginationToggle totalPages={totalPages} setHistoryDTO={setHistoryDTO} />
-            </div>
+                        <PageSizeToggle setHistoryDTO={setHistoryDTO}/>
+                        <PaginationToggle totalPages={totalPages} setHistoryDTO={setHistoryDTO} />
+                    </div>
+                </>
+            }
+            {!historyDataAvailable &&
+                <p className="text-sm font-light mb-4 text-indigo-600 pl-2 text-center
+                sm:text-base sm:text-left">There is currently no session data available</p>}
         </div>
     )
 }
