@@ -6,20 +6,24 @@ export default function NavigationBar() {
         <nav className="flex justify-end p-4">
             <ul className="flex space-x-4">
                 <li>
-                    <Link className="text-indigo-500 hover:text-neutral-400 transition duration-300"
+                    <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
                           to="/">Home</Link>
                 </li>
                 <li>
-                    <Link className="text-indigo-500 hover:text-neutral-400 transition duration-300"
+                    <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
                         to="about">About</Link>
                 </li>
                 <li>
-                    <Link className="text-indigo-500 hover:text-neutral-400 transition duration-300"
+                    <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
                           to="session">Session</Link>
                 </li>
                 <li>
-                    <Link className="text-indigo-500 hover:text-neutral-400 transition duration-300"
+                    <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
                           to="history">History</Link>
+                </li>
+                <li>
+                    <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
+                          to="analytics">Analytics</Link>
                 </li>
             </ul>
         </nav>
