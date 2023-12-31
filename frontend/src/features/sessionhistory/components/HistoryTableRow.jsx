@@ -1,6 +1,6 @@
 import {getFormattedDateTime} from "../utility/getFormattedDateTime.js";
 import {getLocalDateTime} from "../utility/getLocalDateTime.js";
-import {getHoursAndMinutes} from "../utility/getHoursAndMinutes.js";
+import {splitDurationIntoHoursMinutes} from "../../../utility/splitDurationIntoHoursMinutes.js";
 import {getDescriptiveProductivity} from "../utility/getDescriptiveProductivity.js";
 
 export default function HistoryTableRow({session}) {
@@ -12,7 +12,7 @@ export default function HistoryTableRow({session}) {
     // format time
     const localDateTime = getLocalDateTime(time.startDate, time.startTime);
     const { sessionDate, sessionTime } = getFormattedDateTime(localDateTime);
-    const { hours, minutes } = getHoursAndMinutes(time.duration);
+    const { hours, minutes } = splitDurationIntoHoursMinutes(time.duration);
     const productivity = getDescriptiveProductivity(feedback.productivity);
 
     return (

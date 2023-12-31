@@ -14,6 +14,8 @@ export default function DateFilter({setFilterRequest, dateInput, setDateInput}) 
         const dateToday = new Date();
         const dateDaysAgo = getDateDaysAgo(dateToday, daysAgo);
 
+        // TODO might want to handle the ISO string within the util method
+
         const dateRangeStart = splitPeriodIntoDateTime(dateDaysAgo.toISOString())[0];
         const dateRangeEnd = splitPeriodIntoDateTime(dateToday.toISOString())[0];
 
