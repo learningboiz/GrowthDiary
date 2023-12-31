@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static com.growthdiary.sessionlog.analytics.ProductivityAttributes.*;
+import static com.growthdiary.sessionlog.analytics.ProductivityCategory.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,7 +87,7 @@ public class AnalyticsIntegrationTests {
     public void testDurationCorrelation() throws Exception {
 
         mockMvc.perform(get("/session/analytics/productivity")
-                .param("attribute", duration.toString()))
+                .param("category", duration.toString()))
                 .andExpect(status().isAccepted());
     }
 
@@ -95,7 +95,7 @@ public class AnalyticsIntegrationTests {
     public void testTimeCorrelation() throws Exception {
 
         mockMvc.perform(get("/session/analytics/productivity")
-                        .param("attribute", time.toString()))
+                        .param("category", time.toString()))
                 .andExpect(status().isAccepted());
     }
 
@@ -104,14 +104,14 @@ public class AnalyticsIntegrationTests {
     public void testDistractionCorrelation() throws Exception {
 
         mockMvc.perform(get("/session/analytics/productivity")
-                        .param("attribute", obstacle.toString()))
+                        .param("category", obstacle.toString()))
                 .andExpect(status().isAccepted());
     }
 
     @Test
     public void testUnsupportedAttribute() throws Exception {
         mockMvc.perform(get("/session/analytics/productivity")
-                .param("attribute", "unsupported"))
+                .param("category", "unsupported"))
                 .andExpect(status().isBadRequest());
     }
 }
