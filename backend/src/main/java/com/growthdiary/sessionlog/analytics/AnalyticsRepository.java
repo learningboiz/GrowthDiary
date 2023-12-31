@@ -37,10 +37,10 @@ public interface AnalyticsRepository extends CrudRepository<Session, Long> {
             "WHEN duration >= 30 AND duration <= 60 THEN 'Between 30 and 60 minutes' " +
             "WHEN duration > 60 AND duration <= 120 THEN 'Between 1 and 2 hours' " +
             "ELSE 'Over 2 hours' " +
-            "END AS attributeCategory, " +
+            "END AS category, " +
             "AVG(productivity) AS averageProductivity " +
             "FROM Session " +
-            "GROUP BY attributeCategory " +
+            "GROUP BY category " +
             "ORDER BY averageProductivity DESC ", nativeQuery = true)
     List<ProductivityChart> getDurationCorrelation();
 
@@ -50,18 +50,18 @@ public interface AnalyticsRepository extends CrudRepository<Session, Long> {
             "WHEN start_time > '12:00' AND start_time <= '18:00' THEN 'Between 12PM and 6PM' " +
             "WHEN start_time > '18:00' AND start_time <= '00:00' THEN 'Between 6PM and Midnight' " +
             "ELSE 'Between Midnight and 6AM' " +
-            "END AS attributeCategory, " +
+            "END AS category, " +
             "AVG(productivity) AS averageProductivity " +
             "FROM Session " +
-            "GROUP BY attributeCategory " +
+            "GROUP BY category " +
             "ORDER BY averageProductivity DESC ", nativeQuery = true)
     List<ProductivityChart> getTimeCorrelation();
 
     @Query(value = "SELECT " +
-            "obstacle AS attributeCategory, " +
+            "obstacle AS category, " +
             "AVG(productivity) AS averageProductivity " +
             "FROM Session " +
-            "GROUP BY attributeCategory " +
+            "GROUP BY category " +
             "ORDER BY averageProductivity DESC ", nativeQuery = true)
     List<ProductivityChart> getObstacleCorrelation();
 }

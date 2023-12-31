@@ -3,9 +3,7 @@ package com.growthdiary.sessionlog.analytics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -31,12 +29,12 @@ public class AnalyticsService {
         }
     }
 
-    public List<ProductivityChart> createProductivityChart(ProductivityAttributes attribute) {
-        return switch (attribute) {
+    public List<ProductivityChart> createProductivityChart(ProductivityCategory category) {
+        return switch (category) {
             case duration -> analyticsRepository.getDurationCorrelation();
             case time -> analyticsRepository.getTimeCorrelation();
             case obstacle -> analyticsRepository.getObstacleCorrelation();
-            default -> throw new IllegalArgumentException("Attribute not supported: Only duration, time and distraction are supported");
+            default -> throw new IllegalArgumentException("Only duration, time and distraction are supported");
         };
     }
 

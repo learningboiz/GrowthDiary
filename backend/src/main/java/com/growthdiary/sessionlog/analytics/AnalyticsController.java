@@ -3,15 +3,13 @@ package com.growthdiary.sessionlog.analytics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class AnalyticsController {
 
@@ -28,8 +26,8 @@ public class AnalyticsController {
     }
 
     @GetMapping("/session/analytics/productivity")
-    public ResponseEntity<List<ProductivityChart>> getProductivityChart(@RequestParam ProductivityAttributes attribute) {
-        return new ResponseEntity<>(analyticsService.createProductivityChart(attribute), HttpStatus.ACCEPTED);
+    public ResponseEntity<List<ProductivityChart>> getProductivityChart(@RequestParam ProductivityCategory category) {
+        return new ResponseEntity<>(analyticsService.createProductivityChart(category), HttpStatus.ACCEPTED);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

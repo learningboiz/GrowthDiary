@@ -5,6 +5,6 @@ package com.growthdiary.sessionlog.analytics;
  */
 public interface ProductivityChart {
 
-    String getAttributeCategory();
+    String getCategory();
     Double getAverageProductivity();
 }
