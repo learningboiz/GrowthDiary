@@ -19,7 +19,7 @@ public interface AnalyticsRepository extends CrudRepository<Session, Long> {
             "AND start_date <= :maxRange " +
             "GROUP BY topic " +
             "ORDER BY SUM(duration) DESC " +
-            "LIMIT 1) AS topSkill, " +
+            "LIMIT 1) AS topTopic, " +
             "SUM(duration) AS totalDuration, " +
             "SUM(productivity) / :maxProd / :dateRange AS avgProductivity " +
             "FROM Session " +

@@ -8,7 +8,7 @@ public interface WeeklySummary {
     // TODO find a more maintainable way to name these methods + the queries
     // a change in domain names require changes to these which can be overlooked leading to bugs
 
-    String getTopSkill();
+    String getTopTopic();
     Long getTotalDuration();
     Double getAvgProductivity();
 }
