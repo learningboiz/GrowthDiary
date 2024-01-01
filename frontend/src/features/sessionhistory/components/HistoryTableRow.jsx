@@ -12,7 +12,7 @@ export default function HistoryTableRow({session}) {
     // format time
     const localDateTime = getLocalDateTime(time.startDate, time.startTime);
     const { sessionDate, sessionTime } = getFormattedDateTime(localDateTime);
-    const { hours, minutes } = splitDurationIntoHoursMinutes(time.duration);
+    const [ hours, minutes ] = splitDurationIntoHoursMinutes(time.duration);
     const productivity = getDescriptiveProductivity(feedback.productivity);
 
     return (
