@@ -1,4 +1,4 @@
-import {splitDurationIntoHoursMinutes} from "../../utility/splitDurationIntoHoursMinutes.js";
+import {splitDurationIntoHoursMinutes} from "../../../utility/splitDurationIntoHoursMinutes.js";
 
 export default function WeeklySummaryTable({weeklySummary}) {
 
