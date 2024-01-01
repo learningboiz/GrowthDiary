@@ -24,8 +24,9 @@ export default function BeforeSessionView() {
 
     return (
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-            <h2 className="text-2xl font-bold mb-4 text-indigo-600">Track your learning session</h2>
-            <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold mb-4 text-indigo-600 pl-2 text-center
+                sm:text-2xl sm:text-left">Track your learning session</h2>
+            <div className="flex flex-col gap-4 w-full">
                 <OutlineButton handleOnClick={startNewSession} buttonText={"Start new"} />
                 <OutlineButton handleOnClick={startOldSession} buttonText={"Record previous"} />
             </div>
