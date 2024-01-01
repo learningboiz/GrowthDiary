@@ -78,16 +78,25 @@ export default function AnalyticsView() {
             <h2 className="text-lg font-bold mb-4 text-indigo-600 pl-2 text-center
                 sm:text-2xl sm:text-left"
             >Analyse your session stats</h2>
+
             {summaryDataAvailable &&
-                <WeeklySummaryTable weeklySummary={weeklySummary}/>}
+                <div>
+                    <p className="text-sm font-light mb-4 text-indigo-600 pl-2 text-center
+                sm:text-base sm:text-left">Stats for the past 7 days</p>
+                    <WeeklySummaryTable weeklySummary={weeklySummary}/>
+                </div>}
+
             {chartDataAvailable &&
-                <div className="flex flex-col items-center">
+                <div className="pt-8 flex flex-col items-center sm:items-start">
+                    <p className="text-sm font-light mb-4 text-indigo-600 pl-2 text-center
+                sm:text-base sm:text-left">Productivity Chart</p>
                     <ProductivityChart chartValues={chartData} category={chartCategory}/>
                     <SingleSelect handleOnChange={handleChartCategory}
                                   optionList={chartCategories}
                                   placeholderText={"Pick a category"} />
                 </div>
             }
+
             {(!summaryDataAvailable || !chartDataAvailable) &&
                 <p className="text-sm font-light mb-4 text-indigo-600 pl-2 text-center
                 sm:text-base sm:text-left">There is currently no session data available</p>}
