@@ -1,5 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import OutlineButton from "../../components/buttons/OutlineButton.jsx";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../../firebase.js';
+import {useEffect} from "react";
+import LogOut from "../authentication/LogOut.jsx"
 
 export default function HomePage() {
 
@@ -28,6 +32,7 @@ export default function HomePage() {
                 <OutlineButton handleOnClick={handleHistoryNav} buttonText={"Check session history"} />
                 <OutlineButton handleOnClick={handleAnalyticsNav} buttonText={"View analytics"} />
             </div>
+            <LogOut />
         </div>
     )
 }
