@@ -36,9 +36,9 @@ export default function RealTimeForm({stepUpdater}) {
 
 
     return (
-        <div>
-            <h2>Time</h2>
-            <h3>{subHeadingText}</h3>
+        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <h2 className="text-2xl font-bold mb-4 text-indigo-600">Time</h2>
+            <h3 className="text-base -mt-2 mb-6 text-gray-600 border-gray-300 border-b pb-3">{subHeadingText}</h3>
             <form>
                 {!sessionStarted && <OutlineButton handleOnClick={trackStartTime} buttonText={"Start"}></OutlineButton>}
                 {sessionStarted && <OutlineButton handleOnClick={trackEndTime} buttonText={"End"}></OutlineButton>}

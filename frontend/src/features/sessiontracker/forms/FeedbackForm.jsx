@@ -88,11 +88,11 @@ export default function FeedbackForm({stepUpdater}) {
                         />
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">Very Low</span>
-                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">Low</span>
-                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">Moderate</span>
-                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">High</span>
-                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">Very High</span>
+                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">[1] Very Low</span>
+                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">[2] Low</span>
+                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">[3] Moderate</span>
+                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">[4] High</span>
+                    <span className="text-sm font-light -mt-2 mb-6 text-indigo-500">[5] Very High</span>
                 </div>
 
                 <div>
