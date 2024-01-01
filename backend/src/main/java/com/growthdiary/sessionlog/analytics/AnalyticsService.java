@@ -16,17 +16,9 @@ public class AnalyticsService {
         this.analyticsRepository = analyticsRepository;
     }
 
-    public WeeklySummary createWeeklySummary(LocalDate currentDate) {
+    public SessionStats createWeeklySummary() {
 
-        Long daysAgo = 7L;
-        Integer maxProductivity = 5;
-
-        if (currentDate == null) {
-            throw new IllegalArgumentException("Date cannot be null");
-        } else {
-            LocalDate minRange = getDateDaysAgo(currentDate, daysAgo);
-            return analyticsRepository.getSummary(minRange, currentDate, daysAgo, maxProductivity);
-        }
+        return analyticsRepository.getSummary();
     }
 
     public List<ProductivityChart> createProductivityChart(ProductivityCategory category) {
@@ -36,10 +28,5 @@ public class AnalyticsService {
             case obstacle -> analyticsRepository.getObstacleCorrelation();
             default -> throw new IllegalArgumentException("Only duration, time and distraction are supported");
         };
-    }
-
-    private LocalDate getDateDaysAgo(LocalDate currentDate, Long daysAgo) {
-
-        return currentDate.minusDays(daysAgo);
     }
 }

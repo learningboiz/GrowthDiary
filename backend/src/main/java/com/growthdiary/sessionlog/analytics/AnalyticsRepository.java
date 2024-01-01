@@ -13,22 +13,13 @@ import java.util.List;
 public interface AnalyticsRepository extends CrudRepository<Session, Long> {
 
     @Query(value = "SELECT " +
-            "(SELECT topic " +
-            "FROM Session " +
-            "WHERE start_date >= :minRange " +
-            "AND start_date <= :maxRange " +
-            "GROUP BY topic " +
-            "ORDER BY SUM(duration) DESC " +
-            "LIMIT 1) AS topTopic, " +
+            "(SELECT topic FROM Session GROUP BY topic ORDER BY COUNT(topic) DESC LIMIT 1) AS topTopic, " +
+            "(SELECT obstacle FROM Session GROUP BY obstacle ORDER BY COUNT(obstacle) DESC LIMIT 1) AS topObstacle, " +
             "SUM(duration) AS totalDuration, " +
-            "SUM(productivity) / :maxProd / :dateRange AS avgProductivity " +
-            "FROM Session " +
-            "WHERE start_date >= :minRange " +
-            "AND start_date <= :maxRange ", nativeQuery = true)
-    WeeklySummary getSummary(@Param("minRange") LocalDate minRange,
-                             @Param("maxRange") LocalDate maxRange,
-                             @Param("dateRange") Long dateRange,
-                             @Param("maxProd") Integer maxProd);
+            "AVG(duration) AS avgDuration, " +
+            "AVG(productivity) AS avgProductivity " +
+            "FROM Session", nativeQuery = true)
+    SessionStats getSummary();
 
 
     @Query(value = "SELECT " +

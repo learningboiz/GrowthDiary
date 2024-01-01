@@ -21,8 +21,8 @@ public class AnalyticsController {
     }
 
     @GetMapping("/session/analytics")
-    public ResponseEntity<WeeklySummary> getWeeklySummary(@RequestParam LocalDate currentDate) {
-        return new ResponseEntity<>(analyticsService.createWeeklySummary(currentDate), HttpStatus.ACCEPTED);
+    public ResponseEntity<SessionStats> getWeeklySummary() {
+        return new ResponseEntity<>(analyticsService.createWeeklySummary(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/session/analytics/productivity")

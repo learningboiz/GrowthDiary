@@ -65,21 +65,9 @@ public class AnalyticsIntegrationTests {
     }
 
     @Test
-    public void testNullInput() {
+    public void testGetSessionStats() throws Exception {
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            WeeklySummary weeklySummary = analyticsService.createWeeklySummary(null);
-        });
-
-    }
-
-    @Test
-    public void testCreateWeeklySummary() throws Exception {
-
-        LocalDate currentDate = LocalDate.of(2023,10,10);
-
-        mockMvc.perform(get("/session/analytics")
-                        .param("currentDate", currentDate.toString()))
+        mockMvc.perform(get("/session/analytics"))
                 .andExpect(status().isAccepted());
     }
 
