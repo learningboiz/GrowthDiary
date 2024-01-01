@@ -11,10 +11,6 @@ export default function NavigationBar() {
                 </li>
                 <li>
                     <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
-                        to="about">About</Link>
-                </li>
-                <li>
-                    <Link className="text-indigo-500 hover:text-indigo-700 hover:font-medium transition duration-300"
                           to="session">Session</Link>
                 </li>
                 <li>
