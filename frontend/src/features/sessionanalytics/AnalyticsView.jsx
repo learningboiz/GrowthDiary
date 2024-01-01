@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import weeklySummaryAPI from "./api/weeklySummaryAPI.js";
+import sessionStatsAPI from "./api/sessionStatsAPI.js";
 import {splitPeriodIntoDateTime} from "../../utility/splitPeriodIntoDateTime.js";
 import WeeklySummaryTable from "./components/WeeklySummaryTable.jsx";
 import ProductivityChart from "./components/ProductivityChart.jsx"
@@ -19,11 +19,8 @@ export default function AnalyticsView() {
 
     useEffect(() => {
 
-        const usersCurrentPeriod = new Date().toISOString();
-        const usersCurrentDate = splitPeriodIntoDateTime(usersCurrentPeriod)[0];
-
         const fetchWeeklySummary = async () => {
-            const data = await weeklySummaryAPI(usersCurrentDate);
+            const data = await sessionStatsAPI();
             const json = await data.json();
 
             if (isValidSummaryData(json)) {
@@ -61,7 +58,11 @@ export default function AnalyticsView() {
     }, [chartCategory])
 
     const isValidSummaryData = (json) => {
-        return json.topTopic != null && json.totalDuration != null && json.avgProductivity != null
+        return json.topTopic != null
+            && json.topObstacle != null
+            && json.totalDuration != null
+            && json.avgDuration != null
+            && json.avgProductivity != null
     }
 
     const isValidChartData = (json) => {
@@ -75,25 +76,30 @@ export default function AnalyticsView() {
 
     return (
         <>
-            <h2 className="text-lg font-bold mb-4 text-indigo-600 pl-2 text-center
+            <h2 className="text-lg font-bold mb-4 text-indigo-600 pl-4 text-center
                 sm:text-2xl sm:text-left"
             >Analyse your session stats</h2>
 
             {summaryDataAvailable &&
                 <div>
-                    <p className="text-sm font-light mb-4 text-indigo-600 pl-2 text-center
-                sm:text-base sm:text-left">Stats for the past 7 days</p>
+                    <p className="text-sm font-light mb-4 text-indigo-600 pl-4 text-center
+                sm:text-base sm:text-left">Total Session Stats</p>
                     <WeeklySummaryTable weeklySummary={weeklySummary}/>
                 </div>}
 
             {chartDataAvailable &&
                 <div className="pt-8 flex flex-col items-center sm:items-start">
-                    <p className="text-sm font-light mb-4 text-indigo-600 pl-2 text-center
+                    <div className="flex flex-col items-center">
+                        <p className="text-sm font-light mb-4 text-indigo-600 pl-4 text-center
                 sm:text-base sm:text-left">Productivity Chart</p>
+                        <div className="-m-2 pl-6">
+                            <SingleSelect handleOnChange={handleChartCategory}
+                                          optionList={chartCategories}
+                                          placeholderText={"Pick a category"} />
+                        </div>
+                    </div>
                     <ProductivityChart chartValues={chartData} category={chartCategory}/>
-                    <SingleSelect handleOnChange={handleChartCategory}
-                                  optionList={chartCategories}
-                                  placeholderText={"Pick a category"} />
+
                 </div>
             }
 

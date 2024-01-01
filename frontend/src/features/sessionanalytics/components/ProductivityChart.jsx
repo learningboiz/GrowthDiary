@@ -13,7 +13,7 @@ export default function ProductivityChart({chartValues, category}) {
                 yAxisLabel = "Obstacles";
                 break;
             case 'duration':
-                yAxisLabel = "Duration brackets";
+                yAxisLabel = "Duration periods";
                 break;
             case 'time':
                 yAxisLabel = "Time periods";
