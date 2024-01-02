@@ -31,6 +31,19 @@ A quick demo of the apps core functionality
 
 https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/338c5092-fac8-482a-8a49-e0fd539b3c2c
 
+## Contributing
+
+Whether you're new to coding or a seasoned developer, we're thrilled to have you considering contributions to GrowthDiary. This project is a great place for beginners to learn and for experienced devs to make a real impact.
+
+* 💻 **Code Refactoring:** Dive into the codebase, suggest improvements, and enhance readability.
+* 🚀 **Feature Enhancement:** Share your ideas or pick an existing feature to improve.
+* 🧪 **Testing:** Help us build a robust project by adding tests and ensuring reliability.
+* 📚 **Documentation:** Contribute to making our documentation clearer and more helpful.
+
+Remember, every contribution matters. Let's grow and learn together! 🌱
+
+Happy coding!
+
 
 
 
