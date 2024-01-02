@@ -1,42 +1,37 @@
 # Growth Diary App
 
 ## Overview
-A practical tool for self-taught developers. It keeps you on track by logging your learning sessions, analyzing productivity, and highlighting areas for improvement. It's not about flashy promises but genuine support for a more effective and mindful learning journey.
+Growth Diary is a simple tool for effective self-paced learning, offering session tracking, filterable views and productivity analysis fora reflective development journey.
 
 ## Problem statement
-As a self-taught developer without a traditional CS/SWE degree, having an enforced curriculum could have helped me
-stay focused and efficient. Without such constraints, I would often sink countless hours towards 
-a topic without stepping back to reflect on I was making the best use of my time. 
-
-While investing time into this field is a given, I believe that it is possible to study smarter and not just harder.
+Self-taught developers, particularly those without a traditional CS/SWE degree, might often find themselves overthinking, jumping between tutorials or spending too much time on a single topic. Time is valuable and it becomes important to maximise learning time. 
 
 ## The solution
 
-The Growth Diary App was thus created to provide a means to keep track of my learning progress. This reflective process
-would help me identify areas to improve on in order to enhance my learning efficiency.
-To achieve these, the app provides the following features:
+The Growth Diary App was developed to empower self-taught developers a reflective tool to keep track and analyse their learning sessions. The tools offers insights that will allow developers to reflect on studying habits — and ultimately learn to study smarter and not just harder.
 
 ## Key Features
 1. `Session Tracker`: 
-* Provides means to track a learning session in real-time, or record a previous session.
-* Tracks the topic being learnt, when it started, how long it went for, how productive it was and obstacles faced
+* Track learning sessions in real-time or record past ones
+* Capture topic, start time, duration, productivity, and obstacles faced
 
 2. `Session History`:
-* Presents a view of all learning sessions
-* Allows for sorting by topic, dates, duration and productivity
-* Filters across various session aspects
-* Pagination for better readability
+* View all learning sessions easily.
+* Sort by topic, dates, duration, and productivity.
+* Apply filters for focused insights.
+* Enjoy hassle-free pagination.
 
 3. `Session Analytics`:
-* Provides a quick breakdown on most worked on topic, most faced obstacle, total time spend learning, average duration per session
-and average productivity per session
-* Displays a simple chart to track correlations between productivity and session obstacles, duration or time periods
+* Get quick insights on top topics, common obstacles, total learning time, and averages
+* Visualize correlations with a simple chart
 
 ## Demo
 
 A quick demo of the apps core functionality
 
 https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/338c5092-fac8-482a-8a49-e0fd539b3c2c
+
+
 
 
 
