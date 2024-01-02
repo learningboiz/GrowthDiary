@@ -32,3 +32,9 @@ To achieve these, the app provides the following features:
 * Provides a quick breakdown on most worked on topic, most faced obstacle, total time spend learning, average duration per session
 and average productivity per session
 * Displays a simple chart to track correlations between productivity and session obstacles, duration or time periods
+
+## Demo
+
+
+https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/b47058fa-00ba-4ee0-9cdd-a799caaabc47
+
