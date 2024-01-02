@@ -1,16 +1,34 @@
-# Growth Diary project
+# Growth Diary App
 
-## About
-Web application that lets you track your learning session and review them.
+## Overview
+A practical tool for self-taught developers. It keeps you on track by logging your learning sessions, analyzing productivity, and highlighting areas for improvement. It's not about flashy promises but genuine support for a more effective and mindful learning journey.
+
+## Problem statement
+As a self-taught developer without a traditional CS/SWE degree, I realised that having an enforced curriculum and deadlines
+does help keep me focused and efficient. Without such constraints, I found that I would often sink countless hours towards 
+a topic without stepping back to reflect on I was making the best use of my time. 
+
+While investing time into this field is a given, I believe that it is possible to study smarter and not just harder.
+
+## The solution
+
+The Growth Diary App was thus created to provide a means to keep track of my learning progress. Specifically, I wanted to 
+be mindful of how long my learning sessions went, how productive they were and what obstacles I faced. This reflective process
+would help me identify areas to improve on in order to enhance my learning efficiency.
+To achieve these, the app provides the following features:
 
 ## Key Features
-1. Session Tracker
-2. Session History
-3. Session Analytics
+1. `Session Tracker`: 
+* Provides means to track a learning session in real-time, or record a previous session.
+* Tracks the topic being learnt, when it started, how long it went for, how productive it was and obstacles faced
 
-## Tech stack
-- Architecture: Spring MVC
-- Backend: Java, Spring Boot, Spring Data JPA
-- Testing: JUnit, Mockito
-- Frontend: ??
-- Deployment: ??
+2. `Session History`:
+* Presents a view of all learning sessions
+* Allows for sorting by topic, dates, duration and productivity
+* Filters across various session aspects
+* Pagination for better readability
+
+3. `Session Analytics`:
+* Provides a quick breakdown on most worked on topic, most faced obstacle, total time spend learning, average duration per session
+and average productivity per session
+* Displays a simple chart to track correlations between productivity and session obstacles, duration or time periods
