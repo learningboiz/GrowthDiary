@@ -1,3 +1,5 @@
+
+https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/4d11202f-4f89-4be8-9378-ae254e80f79f
 # Growth Diary App
 
 ## Overview
@@ -34,15 +36,9 @@ and average productivity per session
 
 ## Demo
 
-https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/4f504f4e-6a80-4bb1-82e2-7a30f3cf0189
+A quick demo of the apps core functionality
+
+https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/338c5092-fac8-482a-8a49-e0fd539b3c2c
 
 
-https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/b47058fa-00ba-4ee0-9cdd-a799caaabc47
 
-
-https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/cac1aa10-b471-41b5-b593-c4c4bf68dba2
-
-
-https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/ac90ab5f-ba65-488d-9042-fcfdb5d10243
-
-<img width="1920" alt="non-valid-route-handling" src="https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/761bee43-e325-4dc2-b6ad-cefb11e2b872">
