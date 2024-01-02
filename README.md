@@ -1,5 +1,3 @@
-
-https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/4d11202f-4f89-4be8-9378-ae254e80f79f
 # Growth Diary App
 
 ## Overview
