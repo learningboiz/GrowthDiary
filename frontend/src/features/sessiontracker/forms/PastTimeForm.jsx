@@ -22,7 +22,6 @@ export default function PastTimeForm({stepUpdater}) {
             minutes: data.minutes
         }))
         stepUpdater();
-        console.log(sessionForm);
     }
 
 

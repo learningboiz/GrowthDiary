@@ -22,7 +22,6 @@ export default function FeedbackForm({stepUpdater}) {
             productivity: data.productivity,
         }))
         stepUpdater();
-        console.log(sessionForm);
     }
 
     return (

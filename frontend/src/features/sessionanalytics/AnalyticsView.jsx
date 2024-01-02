@@ -27,9 +27,6 @@ export default function AnalyticsView() {
                 setWeeklySummary(json);
                 setSummaryDataAvailable(true);
             }
-
-            console.log(json);
-
         }
 
         fetchWeeklySummary()
@@ -41,10 +38,6 @@ export default function AnalyticsView() {
         const fetchProductivityChart = async () => {
             const data = await productivityChartAPI(chartCategory);
             const json = await data.json();
-
-            console.log(json);
-            console.log(json.length);
-            console.log(chartCategory);
 
             if (isValidChartData(json)) {
 

@@ -27,7 +27,6 @@ export default function HistoryView() {
                 setSessionArray(json.content)
                 setTotalPages(json.totalPages);
             }
-            console.log(json);
         }
         fetchDefaultHistory()
             .catch(console.error);
@@ -39,8 +38,6 @@ export default function HistoryView() {
             const data = await customHistoryAPI(historyDTO);
             const json = await data.json();
 
-            console.log(historyDTO);
-            console.log(json)
             setSessionArray(json.content)
             setTotalPages(json.totalPages);
         }

@@ -22,8 +22,6 @@ export default function SortToggle({setHistoryDTO}) {
             ...prev,
             sortRequest: sortRequest
         }));
-        console.log("property is" + sortValues[0])
-        console.log("direction is" + sortValues[1])
     }
 
     return (

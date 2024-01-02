@@ -21,7 +21,6 @@ export default function DetailsForm({stepUpdater, newSession}) {
             description: data.description
         }))
         stepUpdater();
-        console.log(sessionForm);
     }
 
     return (
