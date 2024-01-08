@@ -32,7 +32,7 @@ The Growth Diary App was developed to empower self-taught developers with a refl
 
 ## Demo
 
-![Growth Diary Demo](https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/338c5092-fac8-482a-8a49-e0fd539b3c2c)
+[Growth Diary Demo](https://github.com/ElijahQuiazon/GrowthDiary/assets/110521896/338c5092-fac8-482a-8a49-e0fd539b3c2c)
 
 ## Contributing
 
